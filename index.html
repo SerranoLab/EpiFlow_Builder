@@ -8,15 +8,15 @@
      * 1) ROOT VARIABLES & BASIC RESET
     ****************************************/
     :root {
-      /* --- Serrano Lab Colors --- */
+      /* Serrano Lab Brand Colors */
       --blue-dark: #1F74AF;  /* PMS 2383 */
       --blue-light: #45C5E2; /* PMS 2198 */
       --orange-dark: #E05928; /* PMS 7579 */
-      --orange-light: #F78E28;/* PMS 1495 */
+      --orange-light: #F78E28; /* PMS 1495 */
 
       /* We'll use the dark blue as "primary", orange as "accent" */
       --primary: var(--blue-dark);
-      --primary-dark: #164C73; /* slightly darker than #1F74AF for hover states */
+      --primary-dark: #164C73; 
       --accent: var(--orange-light);
 
       /* Supporting colors */
@@ -59,7 +59,6 @@
       gap: 1rem;
     }
     .lab-logo-wrapper {
-      /* White circular background to make the logo stand out */
       background-color: #fff;
       border-radius: 50%;
       padding: 0.5rem;
@@ -123,7 +122,7 @@
       width: 250px;
     }
 
-    /* Module button row (similar to "Harmony Type") */
+    /* Module button row */
     .module-buttons {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -224,7 +223,35 @@
     }
 
     /****************************************
-     * 5) SELECTED PANEL + WARNINGS
+     * 5) LASER BADGE STYLING
+    ****************************************/
+    .laser-badge {
+      display: inline-block;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 5px;
+      border-radius: 3px;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+    .laser-uv {
+      background-color: #302b8d; /* UV */
+    }
+    .laser-violet {
+      background-color: #783296; /* Violet */
+    }
+    .laser-blue {
+      background-color: #2d61a6; /* Blue */
+    }
+    .laser-green {
+      background-color: #65bb18; /* Green */
+    }
+    .laser-red {
+      background-color: #b20b0d; /* Red */
+    }
+
+    /****************************************
+     * 6) SELECTED PANEL + WARNINGS
     ****************************************/
     .selected-panel {
       margin-top: 2rem;
@@ -294,7 +321,7 @@
     }
 
     /****************************************
-     * 6) TOAST/ALERT FOR "COPIED!"
+     * 7) TOAST/ALERT FOR "COPIED!"
     ****************************************/
     .toast {
       position: fixed;
@@ -316,7 +343,7 @@
   </style>
 </head>
 <body>
-  <!-- TOP BANNER with new "badge" behind the logo -->
+  <!-- TOP BANNER with "badge" behind the logo -->
   <div class="top-banner">
     <div class="lab-logo-wrapper">
       <img 
@@ -342,9 +369,7 @@
         </label>
       </div>
       <!-- Module buttons row -->
-      <div class="module-buttons" id="moduleButtons">
-        <!-- Populated by JS -->
-      </div>
+      <div class="module-buttons" id="moduleButtons"></div>
     </div>
 
     <!-- ANTIBODY GRID -->
@@ -359,7 +384,6 @@
       <div class="selected-list" id="selectedList"></div>
       <div class="bottom-buttons">
         <button id="copyButton">Copy to Clipboard</button>
-        <!-- CHANGED: Save as CSV instead of JSON -->
         <button id="saveButton">Save as CSV</button>
       </div>
     </div>
@@ -370,690 +394,687 @@
 
   <script>
     /***********************************************
-     * 1) FULL Antibody Data (all 56 entries).
-     *    "locked: true" => always selected & not removable.
+     * 1) FULL Antibody Data (56 entries, no truncation!)
      ***********************************************/
     const antibodies = [
       {
-        id: 1,
-        marker: "DNA content",
-        antibody: "FxCycle™ Violet Ready Flow™ Reagent",
-        catNo: "R37166",
-        clone: "NA",
-        conjugation: "Violet",
-        laser: "355-UV7",
-        role: "Cell cycle Profile",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 1,
+        "marker": "DNA content",
+        "antibody": "FxCycle™ Violet Ready Flow™ Reagent",
+        "catNo": "R37166",
+        "clone": "NA",
+        "conjugation": "Violet",
+        "laser": "355-UV7",
+        "role": "Cell cycle Profile",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 2,
-        marker: "H3K27me3",
-        antibody: "Tri-Methyl-Histone H3 (C36B11) Rabbit mAb (Biotinylated)",
-        catNo: "4395",
-        clone: "C36B11",
-        conjugation: "Biotinilated/RealBlue 744",
-        laser: "488-B12",
-        role: "Repressive mark",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 2,
+        "marker": "H3K27me3",
+        "antibody": "Tri-Methyl-Histone H3 (C36B11) Rabbit mAb (Biotinylated)",
+        "catNo": "4395",
+        "clone": "C36B11",
+        "conjugation": "Biotinilated/RealBlue 744",
+        "laser": "488-B12",
+        "role": "Repressive mark",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 3,
-        marker: "H3K27me3",
-        antibody: "Tri-Methyl-Histone H3 (C36B11) (Pacific Blue™)",
-        catNo: "89120",
-        clone: "C36B11",
-        conjugation: "Pacific Blue",
-        laser: "405-V3",
-        role: "Repressive mark",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 3,
+        "marker": "H3K27me3",
+        "antibody": "Tri-Methyl-Histone H3 (C36B11) (Pacific Blue™)",
+        "catNo": "89120",
+        "clone": "C36B11",
+        "conjugation": "Pacific Blue",
+        "laser": "405-V3",
+        "role": "Repressive mark",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 4,
-        marker: "Active Caspase3",
-        antibody: "BD Horizon™ BV650 Rabbit Anti-Active Caspase-3",
-        catNo: "570179",
-        clone: "C92-605.rMAb",
-        conjugation: "BV650",
-        laser: "405-V11",
-        role: "Apoptotic cells",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 4,
+        "marker": "Active Caspase3",
+        "antibody": "BD Horizon™ BV650 Rabbit Anti-Active Caspase-3",
+        "catNo": "570179",
+        "clone": "C92-605.rMAb",
+        "conjugation": "BV650",
+        "laser": "405-V11",
+        "role": "Apoptotic cells",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 5,
-        marker: "phH3",
-        antibody: "Phospho-Histone H3 (Ser10) (D2C8) XP® (Alexa Fluor® 532)",
-        catNo: "52725",
-        clone: "D2C8",
-        conjugation: "Alexa 532",
-        laser: "488-B3",
-        role: "Mitotic cells",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 5,
+        "marker": "phH3",
+        "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP® (Alexa Fluor® 532)",
+        "catNo": "52725",
+        "clone": "D2C8",
+        "conjugation": "Alexa 532",
+        "laser": "488-B3",
+        "role": "Mitotic cells",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 6,
-        marker: "H3K4me1",
-        antibody: "Mono-Methyl-Histone H3 (D1A9) XP® (PE)",
-        catNo: "55800S",
-        clone: "D1A9",
-        conjugation: "PE",
-        laser: "561-YG1",
-        role: "Activation | Enhancer",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 6,
+        "marker": "H3K4me1",
+        "antibody": "Mono-Methyl-Histone H3 (D1A9) XP® (PE)",
+        "catNo": "55800S",
+        "clone": "D1A9",
+        "conjugation": "PE",
+        "laser": "561-YG1",
+        "role": "Activation | Enhancer",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 7,
-        marker: "H3K27ac",
-        antibody: "Acetyl-Histone H3 (D5E4) XP® (PE-Cy7)",
-        catNo: "30342",
-        clone: "D5E4",
-        conjugation: "PE-Cy7",
-        laser: "561-YG9",
-        role: "Activation | Enhancer, Promoters",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 7,
+        "marker": "H3K27ac",
+        "antibody": "Acetyl-Histone H3 (D5E4) XP® (PE-Cy7)",
+        "catNo": "30342",
+        "clone": "D5E4",
+        "conjugation": "PE-Cy7",
+        "laser": "561-YG9",
+        "role": "Activation | Enhancer, Promoters",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 8,
-        marker: "H3K9ac",
-        antibody: "Acetyl-Histone H3 (C5B11) (Pacific Blue™)",
-        catNo: "11857S",
-        clone: "C5B11",
-        conjugation: "Pacific Blue",
-        laser: "405-V3",
-        role: "",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 8,
+        "marker": "H3K9ac",
+        "antibody": "Acetyl-Histone H3 (C5B11) (Pacific Blue™)",
+        "catNo": "11857S",
+        "clone": "C5B11",
+        "conjugation": "Pacific Blue",
+        "laser": "405-V3",
+        "role": "",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 9,
-        marker: "H3K14ac",
-        antibody: "Acetyl-Histone H3 (D4B9) (Alexa Fluor® 488)",
-        catNo: "26828",
-        clone: "D4B9",
-        conjugation: "Alexa Fluor 488",
-        laser: "488-B2",
-        role: "",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 9,
+        "marker": "H3K14ac",
+        "antibody": "Acetyl-Histone H3 (D4B9) (Alexa Fluor® 488)",
+        "catNo": "26828",
+        "clone": "D4B9",
+        "conjugation": "Alexa Fluor 488",
+        "laser": "488-B2",
+        "role": "",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 10,
-        marker: "H3K23ac",
-        antibody: "Alexa Fluor® 594 Anti-Histone H3 (acetyl K23)",
-        catNo: "ab318754",
-        clone: "EPR17712",
-        conjugation: "Alexa Fluor 594",
-        laser: "561-YG3",
-        role: "",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 10,
+        "marker": "H3K23ac",
+        "antibody": "Alexa Fluor® 594 Anti-Histone H3 (acetyl K23)",
+        "catNo": "ab318754",
+        "clone": "EPR17712",
+        "conjugation": "Alexa Fluor 594",
+        "laser": "561-YG3",
+        "role": "",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 11,
-        marker: "H3K4me3",
-        antibody: "Tri-Methyl-Histone H3 (C42D8) (Alexa Fluor® 647)",
-        catNo: "12064",
-        clone: "C42D8",
-        conjugation: "Alexa 647",
-        laser: "640-R2",
-        role: "Activation |Promoters, bivalent domains",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 11,
+        "marker": "H3K4me3",
+        "antibody": "Tri-Methyl-Histone H3 (C42D8) (Alexa Fluor® 647)",
+        "catNo": "12064",
+        "clone": "C42D8",
+        "conjugation": "Alexa 647",
+        "laser": "640-R2",
+        "role": "Activation |Promoters, bivalent domains",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 12,
-        marker: "H3",
-        antibody: "Histone H3 (D1H2) XP® (Alexa Fluor® 700)",
-        catNo: "54826",
-        clone: "D1H2",
-        conjugation: "Alexa 700",
-        laser: "640-R4",
-        role: "Normalization H3 marks",
-        module: "Core EpiFlow",
-        locked: true
+        "id": 12,
+        "marker": "H3",
+        "antibody": "Histone H3 (D1H2) XP® (Alexa Fluor® 700)",
+        "catNo": "54826",
+        "clone": "D1H2",
+        "conjugation": "Alexa 700",
+        "laser": "640-R4",
+        "role": "Normalization H3 marks",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 13,
-        marker: "Dead",
-        antibody: "Zombie NIR",
-        catNo: "423106",
-        clone: "NA",
-        conjugation: "Zombie Red",
-        laser: "640-R6",
-        role: "Live/Dead",
-        module: "Core EpiFlow",
-        locked: true
-      },
-
-      /* Non-Core module antibodies below (IDs 14..56) */
-      {
-        id: 14,
-        marker: "NG2",
-        antibody: "BD OptiBuild™ BUV496 Mouse Anti-Human NG2",
-        catNo: "756711",
-        clone: "Clone 7.1 (RUO)",
-        conjugation: "BUV496",
-        laser: "355-UV7",
-        role: "Pericyte marker",
-        module: "Pericyte",
-        locked: false
+        "id": 13,
+        "marker": "Dead",
+        "antibody": "Zombie NIR",
+        "catNo": "423106",
+        "clone": "NA",
+        "conjugation": "Zombie Red",
+        "laser": "640-R6",
+        "role": "Live/Dead",
+        "module": "Core EpiFlow",
+        "locked": true
       },
       {
-        id: 15,
-        marker: "PDGFRa",
-        antibody: "BD OptiBuild™ BUV805 Mouse Anti-Human CD140a",
-        catNo: "748620",
-        clone: "αR1",
-        conjugation: "BUV805",
-        laser: "355-UV16",
-        role: "Early Mesoderm | OPC",
-        module: "Mesoderm | Pericyte | Cerebral",
-        locked: false
+        "id": 14,
+        "marker": "NG2",
+        "antibody": "BD OptiBuild™ BUV496 Mouse Anti-Human NG2",
+        "catNo": "756711",
+        "clone": "Clone 7.1 (RUO)",
+        "conjugation": "BUV496",
+        "laser": "355-UV7",
+        "role": "Pericyte marker",
+        "module": "Pericyte",
+        "locked": false
       },
       {
-        id: 16,
-        marker: "CD13",
-        antibody: "BD OptiBuild™ BV786 Mouse Anti-Human CD13",
-        catNo: "740967",
-        clone: "WM15",
-        conjugation: "BV786",
-        laser: "405-V1",
-        role: "Pericytes",
-        module: "Pericyte",
-        locked: false
+        "id": 15,
+        "marker": "PDGFRa",
+        "antibody": "BD OptiBuild™ BUV805 Mouse Anti-Human CD140a",
+        "catNo": "748620",
+        "clone": "αR1",
+        "conjugation": "BUV805",
+        "laser": "355-UV16",
+        "role": "Early Mesoderm | OPC",
+        "module": "Mesoderm | Pericyte | Cerebral",
+        "locked": false
       },
       {
-        id: 17,
-        marker: "RGS5",
-        antibody: "RGS5 Antibody (OTI1C1) [mFluor Violet 610 SE]",
-        catNo: "NBP2-73887MFV610",
-        clone: "OTI1C1",
-        conjugation: "mFluor610",
-        laser: "405-V10",
-        role: "Pericyte",
-        module: "Pericyte",
-        locked: false
+        "id": 16,
+        "marker": "CD13",
+        "antibody": "BD OptiBuild™ BV786 Mouse Anti-Human CD13",
+        "catNo": "740967",
+        "clone": "WM15",
+        "conjugation": "BV786",
+        "laser": "405-V1",
+        "role": "Pericytes",
+        "module": "Pericyte",
+        "locked": false
       },
       {
-        id: 18,
-        marker: "﻿COUP‑TFII / NR2F2",
-        antibody: "Polyclonal Rabbit anti‑Human COUP‑TFII / NR2F2 (Biotin)",
-        catNo: "LS-C438623-100",
-        clone: "Polyclonal",
-        conjugation: "Biotin | Strep RB744",
-        laser: "488-B12",
-        role: "Venous Marker | Glucose Regulation | Congenital heart disease",
-        module: "Endothelial | Angiogenesis | Vasculogenesis | Mesoderm | Phenotype",
-        locked: false
+        "id": 17,
+        "marker": "RGS5",
+        "antibody": "RGS5 Antibody (OTI1C1) [mFluor Violet 610 SE]",
+        "catNo": "NBP2-73887MFV610",
+        "clone": "OTI1C1",
+        "conjugation": "mFluor610",
+        "laser": "405-V10",
+        "role": "Pericyte",
+        "module": "Pericyte",
+        "locked": false
       },
       {
-        id: 19,
-        marker: "HK1",
-        antibody: "BD Horizon™ BUV661 Rabbit Anti-Human HK1",
-        catNo: "570557",
-        clone: "EPR10134(B)",
-        conjugation: "BUV661",
-        laser: "355-UV11",
-        role: "Glucose Metabolism",
-        module: "Phenotype",
-        locked: false
+        "id": 18,
+        "marker": "﻿COUP‑TFII / NR2F2",
+        "antibody": "Polyclonal Rabbit anti‑Human COUP‑TFII / NR2F2 (Biotin)",
+        "catNo": "LS-C438623-100",
+        "clone": "Polyclonal",
+        "conjugation": "Biotin | Strep RB744",
+        "laser": "488-B12",
+        "role": "Venous Marker | Glucose Regulation | Congenital heart disease",
+        "module": "Endothelial | Angiogenesis | Vasculogenesis | Mesoderm | Phenotype",
+        "locked": false
       },
       {
-        id: 20,
-        marker: "CyclinD",
-        antibody: "Cyclin D1 Antibody (SPM587) [DyLight 594]",
-        catNo: "NBP2-34816DL594",
-        clone: "SPM587",
-        conjugation: "DyLight 594",
-        laser: "561-YG3",
-        role: "G1-S Cell cycle transition",
-        module: "Phenotype",
-        locked: false
+        "id": 19,
+        "marker": "HK1",
+        "antibody": "BD Horizon™ BUV661 Rabbit Anti-Human HK1",
+        "catNo": "570557",
+        "clone": "EPR10134(B)",
+        "conjugation": "BUV661",
+        "laser": "355-UV11",
+        "role": "Glucose Metabolism",
+        "module": "Phenotype",
+        "locked": false
       },
       {
-        id: 21,
-        marker: "CD36",
-        antibody: "BD OptiBuild™ BUV496 Mouse Anti-Human CD36",
-        catNo: "756799",
-        clone: "FA6-152 (RUO)",
-        conjugation: "BUV496",
-        laser: "355-UV7",
-        role: "Lipid Metabolism | Mitocondria Rich Cardiomyocytes | Neurovascular Unit",
-        module: "Phenotype",
-        locked: false
+        "id": 20,
+        "marker": "CyclinD",
+        "antibody": "Cyclin D1 Antibody (SPM587) [DyLight 594]",
+        "catNo": "NBP2-34816DL594",
+        "clone": "SPM587",
+        "conjugation": "DyLight 594",
+        "laser": "561-YG3",
+        "role": "G1-S Cell cycle transition",
+        "module": "Phenotype",
+        "locked": false
       },
       {
-        id: 22,
-        marker: "ALCAM | CD166",
-        antibody: "CD166 Antibody, anti-human, REAfinity",
-        catNo: "130-132-832",
-        clone: "REA442",
-        conjugation: "PE-Vio615",
-        laser: "561-YG3",
-        role: "Vasculogenesis | Hematopoyesis | Epithelial Mesenchyme Transition",
-        module: "Phenotype",
-        locked: false
+        "id": 21,
+        "marker": "CD36",
+        "antibody": "BD OptiBuild™ BUV496 Mouse Anti-Human CD36",
+        "catNo": "756799",
+        "clone": "FA6-152 (RUO)",
+        "conjugation": "BUV496",
+        "laser": "355-UV7",
+        "role": "Lipid Metabolism | Mitocondria Rich Cardiomyocytes | Neurovascular Unit",
+        "module": "Phenotype",
+        "locked": false
       },
       {
-        id: 23,
-        marker: "DLL4",
-        antibody: "DLL4 Antibody, anti-human, REAfinity™",
-        catNo: "130-118-383",
-        clone: "REA1065",
-        conjugation: "BUV563",
-        laser: "355-UV9",
-        role: "Tip Cell | Pericyte subtype",
-        module: "NOTCH",
-        locked: false
+        "id": 22,
+        "marker": "ALCAM | CD166",
+        "antibody": "CD166 Antibody, anti-human, REAfinity",
+        "catNo": "130-132-832",
+        "clone": "REA442",
+        "conjugation": "PE-Vio615",
+        "laser": "561-YG3",
+        "role": "Vasculogenesis | Hematopoyesis | Epithelial Mesenchyme Transition",
+        "module": "Phenotype",
+        "locked": false
       },
       {
-        id: 24,
-        marker: "NOTCH3",
-        antibody: "BD OptiBuild™ BV711 Mouse Anti-Human Notch3",
-        catNo: "745463",
-        clone: "MHN3-21 (RUO)",
-        conjugation: "BV711",
-        laser: "405-V13",
-        role: "Pericyte marker",
-        module: "NOTCH",
-        locked: false
+        "id": 23,
+        "marker": "DLL4",
+        "antibody": "DLL4 Antibody, anti-human, REAfinity™",
+        "catNo": "130-118-383",
+        "clone": "REA1065",
+        "conjugation": "BUV563",
+        "laser": "355-UV9",
+        "role": "Tip Cell | Pericyte subtype",
+        "module": "NOTCH",
+        "locked": false
       },
       {
-        id: 25,
-        marker: "NOTCH1",
-        antibody: "Notch1 Antibody, anti-human, REAfinity™",
-        catNo: "130-128-652",
-        clone: "REA849",
-        conjugation: "Vio® Bright V423",
-        laser: "405-V1",
-        role: "Stalk Cell Marker | Neuronal Progenitor Marker",
-        module: "NOTCH",
-        locked: false
+        "id": 24,
+        "marker": "NOTCH3",
+        "antibody": "BD OptiBuild™ BV711 Mouse Anti-Human Notch3",
+        "catNo": "745463",
+        "clone": "MHN3-21 (RUO)",
+        "conjugation": "BV711",
+        "laser": "405-V13",
+        "role": "Pericyte marker",
+        "module": "NOTCH",
+        "locked": false
       },
       {
-        id: 26,
-        marker: "ERBB4 | HER4",
-        antibody: "BD OptiBuild™ BV711 Rat Anti-Human HER4 (ErbB4)",
-        catNo: "756650",
-        clone: "P6-1 (RUO)",
-        conjugation: "BV711",
-        laser: "405-V13",
-        role: "Notch Target | Cardiomyocyte proliferation | BBB Integrity | Angiogenesis",
-        module: "NOTCH",
-        locked: false
+        "id": 25,
+        "marker": "NOTCH1",
+        "antibody": "Notch1 Antibody, anti-human, REAfinity™",
+        "catNo": "130-128-652",
+        "clone": "REA849",
+        "conjugation": "Vio® Bright V423",
+        "laser": "405-V1",
+        "role": "Stalk Cell Marker | Neuronal Progenitor Marker",
+        "module": "NOTCH",
+        "locked": false
       },
       {
-        id: 27,
-        marker: "JAG1",
-        antibody: "BD OptiBuild™ BV786 Mouse Anti-Human Jagged1 (CD339)",
-        catNo: "744705",
-        clone: "MHJ1-152 (RUO)",
-        conjugation: "BV786",
-        laser: "405-V15",
-        role: "Notch ligand |Stalk Cell |  Anterior Second Heart Field",
-        module: "NOTCH",
-        locked: false
+        "id": 26,
+        "marker": "ERBB4 | HER4",
+        "antibody": "BD OptiBuild™ BV711 Rat Anti-Human HER4 (ErbB4)",
+        "catNo": "756650",
+        "clone": "P6-1 (RUO)",
+        "conjugation": "BV711",
+        "laser": "405-V13",
+        "role": "Notch Target | Cardiomyocyte proliferation | BBB Integrity | Angiogenesis",
+        "module": "NOTCH",
+        "locked": false
       },
       {
-        id: 28,
-        marker: "SOX10",
-        antibody: "SOX10 Antibody (2447A) [PerCP], Novus Biologicals",
-        catNo: "FAB28642C",
-        clone: "2447A",
-        conjugation: "PerCP",
-        laser: "488-B8",
-        role: "Neural Crest | OPC",
-        module: "Neural Crest | Cerebral",
-        locked: false
+        "id": 27,
+        "marker": "JAG1",
+        "antibody": "BD OptiBuild™ BV786 Mouse Anti-Human Jagged1 (CD339)",
+        "catNo": "744705",
+        "clone": "MHJ1-152 (RUO)",
+        "conjugation": "BV786",
+        "laser": "405-V15",
+        "role": "Notch ligand |Stalk Cell |  Anterior Second Heart Field",
+        "module": "NOTCH",
+        "locked": false
       },
       {
-        id: 29,
-        marker: "EOMES/TBR2",
-        antibody: "BD Horizon™ BUV395 Mouse Anti-EOMES",
-        catNo: "567171",
-        clone: "X4-83 (RUO)",
-        conjugation: "BUV395",
-        laser: "355-UV2",
-        role: "Early Cardiac Mesoderm | Intermediate Progenitors",
-        module: "Mesoderm | Cerebral | Cardiac",
-        locked: false
+        "id": 28,
+        "marker": "SOX10",
+        "antibody": "SOX10 Antibody (2447A) [PerCP], Novus Biologicals",
+        "catNo": "FAB28642C",
+        "clone": "2447A",
+        "conjugation": "PerCP",
+        "laser": "488-B8",
+        "role": "Neural Crest | OPC",
+        "module": "Neural Crest | Cerebral",
+        "locked": false
       },
       {
-        id: 30,
-        marker: "VIM",
-        antibody: "Vimentin Antibody (VM452) [mFluor Violet 610 SE]",
-        catNo: "NBP2-33060MFV610",
-        clone: "VM452",
-        conjugation: "mFluor Violet 610 SE",
-        laser: "405-V10",
-        role: "Negative selection | Mesenchymal cells",
-        module: "Cardiac",
-        locked: false
+        "id": 29,
+        "marker": "EOMES/TBR2",
+        "antibody": "BD Horizon™ BUV395 Mouse Anti-EOMES",
+        "catNo": "567171",
+        "clone": "X4-83 (RUO)",
+        "conjugation": "BUV395",
+        "laser": "355-UV2",
+        "role": "Early Cardiac Mesoderm | Intermediate Progenitors",
+        "module": "Mesoderm | Cerebral | Cardiac",
+        "locked": false
       },
       {
-        id: 31,
-        marker: "TNNT2",
-        antibody: "Cardiac Troponin T Antibody, Vio® B515, REAfinity™",
-        catNo: "130-129-225",
-        clone: "REA400",
-        conjugation: "Vio B515",
-        laser: "488-B1",
-        role: "Cardiac Contracttion",
-        module: "Cardiac",
-        locked: false
+        "id": 30,
+        "marker": "VIM",
+        "antibody": "Vimentin Antibody (VM452) [mFluor Violet 610 SE]",
+        "catNo": "NBP2-33060MFV610",
+        "clone": "VM452",
+        "conjugation": "mFluor Violet 610 SE",
+        "laser": "405-V10",
+        "role": "Negative selection | Mesenchymal cells",
+        "module": "Cardiac",
+        "locked": false
       },
       {
-        id: 32,
-        marker: "CD309 | VEGFR-2 | KDR",
-        antibody: "CD309 (VEGFR-2), APC-Vio® 770, REAfinity™",
-        catNo: "130-117-914",
-        clone: "REA1046",
-        conjugation: "APC-Vio770",
-        laser: "640-R7",
-        role: "Cardiac Mesoderm | Hemangioblasts | Endothelial Cells",
-        module: "Endothelial | Cardiac | Angiogenesis | Vasculogenesis",
-        locked: false
+        "id": 31,
+        "marker": "TNNT2",
+        "antibody": "Cardiac Troponin T Antibody, Vio® B515, REAfinity™",
+        "catNo": "130-129-225",
+        "clone": "REA400",
+        "conjugation": "Vio B515",
+        "laser": "488-B1",
+        "role": "Cardiac Contracttion",
+        "module": "Cardiac",
+        "locked": false
       },
       {
-        id: 33,
-        marker: "CD31 | PECAM",
-        antibody: "CD31 Antibody, anti-human, REAfinity",
-        catNo: "130-110-812",
-        clone: "REA730",
-        conjugation: "VioBlue",
-        laser: "405-V3",
-        role: "Pan Endothelial",
-        module: "Endothelial | Angiogenesis",
-        locked: false
+        "id": 32,
+        "marker": "CD309 | VEGFR-2 | KDR",
+        "antibody": "CD309 (VEGFR-2), APC-Vio® 770, REAfinity™",
+        "catNo": "130-117-914",
+        "clone": "REA1046",
+        "conjugation": "APC-Vio770",
+        "laser": "640-R7",
+        "role": "Cardiac Mesoderm | Hemangioblasts | Endothelial Cells",
+        "module": "Endothelial | Cardiac | Angiogenesis | Vasculogenesis",
+        "locked": false
       },
       {
-        id: 34,
-        marker: "CD133",
-        antibody: "CD133/1 Antibody, Vio® Bright V600, REAfinity™",
-        catNo: "130-132-471",
-        clone: "REA753",
-        conjugation: "Vio Bright V600",
-        laser: "405-V10",
-        role: "Endothelial colony forming cells (ECFC)",
-        module: "Endothelial | Angiogenesis",
-        locked: false
+        "id": 33,
+        "marker": "CD31 | PECAM",
+        "antibody": "CD31 Antibody, anti-human, REAfinity",
+        "catNo": "130-110-812",
+        "clone": "REA730",
+        "conjugation": "VioBlue",
+        "laser": "405-V3",
+        "role": "Pan Endothelial",
+        "module": "Endothelial | Angiogenesis",
+        "locked": false
       },
       {
-        id: 35,
-        marker: "Ephrin β4",
-        antibody: "EPHB4 Antibody, anti-human, REAfinity",
-        catNo: "130-115-598",
-        clone: "REA923",
-        conjugation: "PE-Vio770",
-        laser: "561-YG9",
-        role: "Venous endothelial cells",
-        module: "Endothelial | Angiogenesis",
-        locked: false
+        "id": 34,
+        "marker": "CD133",
+        "antibody": "CD133/1 Antibody, Vio® Bright V600, REAfinity™",
+        "catNo": "130-132-471",
+        "clone": "REA753",
+        "conjugation": "Vio Bright V600",
+        "laser": "405-V10",
+        "role": "Endothelial colony forming cells (ECFC)",
+        "module": "Endothelial | Angiogenesis",
+        "locked": false
       },
       {
-        id: 36,
-        marker: "CXCR4",
-        antibody: "BD OptiBuild™ BUV737 Mouse Anti-Human CD184",
-        catNo: "741862",
-        clone: "12G5",
-        conjugation: "BUV737",
-        laser: "355-UV14",
-        role: "Arterial endothelial cells",
-        module: "Endothelial | Angiogenesis",
-        locked: false
+        "id": 35,
+        "marker": "Ephrin β4",
+        "antibody": "EPHB4 Antibody, anti-human, REAfinity",
+        "catNo": "130-115-598",
+        "clone": "REA923",
+        "conjugation": "PE-Vio770",
+        "laser": "561-YG9",
+        "role": "Venous endothelial cells",
+        "module": "Endothelial | Angiogenesis",
+        "locked": false
       },
       {
-        id: 37,
-        marker: "CD34",
-        antibody: "CD34 Antibody, anti-human, REAfinity",
-        catNo: "130-124-457",
-        clone: "REA1164",
-        conjugation: "APC-Vio770",
-        laser: "640-R7",
-        role: "Tip Cell | endothelial progenitor cells",
-        module: "Endothelial | Angiogenesis",
-        locked: false
+        "id": 36,
+        "marker": "CXCR4",
+        "antibody": "BD OptiBuild™ BUV737 Mouse Anti-Human CD184",
+        "catNo": "741862",
+        "clone": "12G5",
+        "conjugation": "BUV737",
+        "laser": "355-UV14",
+        "role": "Arterial endothelial cells",
+        "module": "Endothelial | Angiogenesis",
+        "locked": false
       },
       {
-        id: 38,
-        marker: "PAX3",
-        antibody: "PAX-3 Antibody, Vio® B515, REAfinity™",
-        catNo: "130-131-114",
-        clone: "REA719",
-        conjugation: "Vio® B515",
-        laser: "488-B1",
-        role: "Neural Crest /segmental mesoderm",
-        module: "Neural Crest",
-        locked: false
+        "id": 37,
+        "marker": "CD34",
+        "antibody": "CD34 Antibody, anti-human, REAfinity",
+        "catNo": "130-124-457",
+        "clone": "REA1164",
+        "conjugation": "APC-Vio770",
+        "laser": "640-R7",
+        "role": "Tip Cell | endothelial progenitor cells",
+        "module": "Endothelial | Angiogenesis",
+        "locked": false
       },
       {
-        id: 39,
-        marker: "PAX6",
-        antibody: "Pax6 Antibody (PAX6/1166) [mFluor Violet 500 SE]",
-        catNo: "NBP2-47915MFV500",
-        clone: "PAX6/1166",
-        conjugation: "mFluor Violet 500 SE",
-        laser: "405-V7",
-        role: "Neuronal Progenitor Marker",
-        module: "Neuronal Progenitor | Cerebral",
-        locked: false
+        "id": 38,
+        "marker": "PAX3",
+        "antibody": "PAX-3 Antibody, Vio® B515, REAfinity™",
+        "catNo": "130-131-114",
+        "clone": "REA719",
+        "conjugation": "Vio® B515",
+        "laser": "488-B1",
+        "role": "Neural Crest /segmental mesoderm",
+        "module": "Neural Crest",
+        "locked": false
       },
       {
-        id: 40,
-        marker: "RBFOX3/NeuN",
-        antibody: "RBFOX3/NeuN (1B7) [mFluor Violet 610 SE]",
-        catNo: "NBP1-92693MFV610",
-        clone: "1B7",
-        conjugation: "mFluor Violet 610 SE",
-        laser: "405-V10",
-        role: "Post-mitotic Neurons",
-        module: "Cerebral",
-        locked: false
+        "id": 39,
+        "marker": "PAX6",
+        "antibody": "Pax6 Antibody (PAX6/1166) [mFluor Violet 500 SE]",
+        "catNo": "NBP2-47915MFV500",
+        "clone": "PAX6/1166",
+        "conjugation": "mFluor Violet 500 SE",
+        "laser": "405-V7",
+        "role": "Neuronal Progenitor Marker",
+        "module": "Neuronal Progenitor | Cerebral",
+        "locked": false
       },
       {
-        id: 41,
-        marker: "TBR1",
-        antibody: "CoraLite®594-conjugated TBR1 Monoclonal antibody",
-        catNo: "CL594-66564",
-        clone: "5C3A5",
-        conjugation: "CoraLite594",
-        laser: "561-YG3",
-        role: "Early Post-mitotic Neurons",
-        module: "Cerebral",
-        locked: false
+        "id": 40,
+        "marker": "RBFOX3/NeuN",
+        "antibody": "RBFOX3/NeuN (1B7) [mFluor Violet 610 SE]",
+        "catNo": "NBP1-92693MFV610",
+        "clone": "1B7",
+        "conjugation": "mFluor Violet 610 SE",
+        "laser": "405-V10",
+        "role": "Post-mitotic Neurons",
+        "module": "Cerebral",
+        "locked": false
       },
       {
-        id: 42,
-        marker: "OLIG2",
-        antibody: "CoraLite® Plus 488-conjugated OLIG2 Polyclonal antibody",
-        catNo: "CL488-13999",
-        clone: "Polyclonal",
-        conjugation: "ColaLite488",
-        laser: "488-B2",
-        role: "Oligodendrocytes",
-        module: "Cerebral",
-        locked: false
+        "id": 41,
+        "marker": "TBR1",
+        "antibody": "CoraLite®594-conjugated TBR1 Monoclonal antibody",
+        "catNo": "CL594-66564",
+        "clone": "5C3A5",
+        "conjugation": "CoraLite594",
+        "laser": "561-YG3",
+        "role": "Early Post-mitotic Neurons",
+        "module": "Cerebral",
+        "locked": false
       },
       {
-        id: 43,
-        marker: "Nestin",
-        antibody: "Brilliant Violet 421™ anti-Nestin Antibody",
-        catNo: "656808",
-        clone: "10C2",
-        conjugation: "BV421",
-        laser: "405-V10",
-        role: "Neuronal Progenitor Marker | Pericytes",
-        module: "Cerebral | Pericyte | Angiogenesis",
-        locked: false
+        "id": 42,
+        "marker": "OLIG2",
+        "antibody": "CoraLite® Plus 488-conjugated OLIG2 Polyclonal antibody",
+        "catNo": "CL488-13999",
+        "clone": "Polyclonal",
+        "conjugation": "ColaLite488",
+        "laser": "488-B2",
+        "role": "Oligodendrocytes",
+        "module": "Cerebral",
+        "locked": false
       },
       {
-        id: 44,
-        marker: "NFATC1",
-        antibody: "Alexa Fluor® 488 anti-NFATc1 Antibody",
-        catNo: "649603",
-        clone: "7A6",
-        conjugation: "Alexa 488",
-        laser: "488-B2",
-        role: "Endocardial & Endothelial Cells | T helper type 2 cells",
-        module: "Cardiac",
-        locked: false
+        "id": 43,
+        "marker": "Nestin",
+        "antibody": "Brilliant Violet 421™ anti-Nestin Antibody",
+        "catNo": "656808",
+        "clone": "10C2",
+        "conjugation": "BV421",
+        "laser": "405-V10",
+        "role": "Neuronal Progenitor Marker | Pericytes",
+        "module": "Cerebral | Pericyte | Angiogenesis",
+        "locked": false
       },
       {
-        id: 45,
-        marker: "CD45",
-        antibody: "BD Horizon™ BUV395 Mouse Anti-Human CD45",
-        catNo: "563791",
-        clone: "HI30",
-        conjugation: "BUV395",
-        laser: "355-UV2",
-        role: "Pan-hematopoietic marker",
-        module: "PBMC",
-        locked: false
+        "id": 44,
+        "marker": "NFATC1",
+        "antibody": "Alexa Fluor® 488 anti-NFATc1 Antibody",
+        "catNo": "649603",
+        "clone": "7A6",
+        "conjugation": "Alexa 488",
+        "laser": "488-B2",
+        "role": "Endocardial & Endothelial Cells | T helper type 2 cells",
+        "module": "Cardiac",
+        "locked": false
       },
       {
-        id: 46,
-        marker: "CD66c",
-        antibody: "BD OptiBuild™ RB613 Mouse Anti-Human CD66",
-        catNo: "758330",
-        clone: "B1.1/CD66",
-        conjugation: "RB613",
-        laser: "488-B6",
-        role: "Granulocyte lineage",
-        module: "PBMC",
-        locked: false
+        "id": 45,
+        "marker": "CD45",
+        "antibody": "BD Horizon™ BUV395 Mouse Anti-Human CD45",
+        "catNo": "563791",
+        "clone": "HI30",
+        "conjugation": "BUV395",
+        "laser": "355-UV2",
+        "role": "Pan-hematopoietic marker",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 47,
-        marker: "CD14",
-        antibody: "BD Horizon™ BUV805 Mouse Anti-Human CD14",
-        catNo: "612902",
-        clone: "M5E2",
-        conjugation: "BUV805",
-        laser: "355-UV16",
-        role: "B Cells",
-        module: "PBMC",
-        locked: false
+        "id": 46,
+        "marker": "CD66c",
+        "antibody": "BD OptiBuild™ RB613 Mouse Anti-Human CD66",
+        "catNo": "758330",
+        "clone": "B1.1/CD66",
+        "conjugation": "RB613",
+        "laser": "488-B6",
+        "role": "Granulocyte lineage",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 48,
-        marker: "CD235a",
-        antibody: "BD OptiBuild™ BV480 Mouse Anti-Human CD235a/b",
-        catNo: "746358",
-        clone: "104",
-        conjugation: "BV480",
-        laser: "405-V5",
-        role: "Erythroid cells",
-        module: "PBMC",
-        locked: false
+        "id": 47,
+        "marker": "CD14",
+        "antibody": "BD Horizon™ BUV805 Mouse Anti-Human CD14",
+        "catNo": "612902",
+        "clone": "M5E2",
+        "conjugation": "BUV805",
+        "laser": "355-UV16",
+        "role": "B Cells",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 49,
-        marker: "CD56",
-        antibody: "BD Horizon™ BV786 Mouse Anti-Human CD56",
-        catNo: "564058",
-        clone: "NCAM16.2",
-        conjugation: "BV786",
-        laser: "405-V15",
-        role: "Natural killers",
-        module: "PBMC",
-        locked: false
+        "id": 48,
+        "marker": "CD235a",
+        "antibody": "BD OptiBuild™ BV480 Mouse Anti-Human CD235a/b",
+        "catNo": "746358",
+        "clone": "104",
+        "conjugation": "BV480",
+        "laser": "405-V5",
+        "role": "Erythroid cells",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 50,
-        marker: "CD3",
-        antibody: "BD Horizon™ BUV563 Mouse Anti-Human CD3",
-        catNo: "569785",
-        clone: "SK7",
-        conjugation: "BUV563",
-        laser: "355-UV9",
-        role: "T cells",
-        module: "PBMC",
-        locked: false
+        "id": 49,
+        "marker": "CD56",
+        "antibody": "BD Horizon™ BV786 Mouse Anti-Human CD56",
+        "catNo": "564058",
+        "clone": "NCAM16.2",
+        "conjugation": "BV786",
+        "laser": "405-V15",
+        "role": "Natural killers",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 51,
-        marker: "CD41",
-        antibody: "BD OptiBuild™ RY703 Mouse Anti-Human CD41a",
-        catNo: "772063",
-        clone: "HIP8",
-        conjugation: "RY703",
-        laser: "561-YG6",
-        role: "Megakaryocytes/platelets",
-        module: "PBMC",
-        locked: false
+        "id": 50,
+        "marker": "CD3",
+        "antibody": "BD Horizon™ BUV563 Mouse Anti-Human CD3",
+        "catNo": "569785",
+        "clone": "SK7",
+        "conjugation": "BUV563",
+        "laser": "355-UV9",
+        "role": "T cells",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 52,
-        marker: "CD19",
-        antibody: "BD Horizon™ BUV737 Mouse Anti-Human CD19",
-        catNo: "612757",
-        clone: "SJ25C1",
-        conjugation: "BUV737",
-        laser: "355-UV14",
-        role: "B Cells",
-        module: "PBMC",
-        locked: false
+        "id": 51,
+        "marker": "CD41",
+        "antibody": "BD OptiBuild™ RY703 Mouse Anti-Human CD41a",
+        "catNo": "772063",
+        "clone": "HIP8",
+        "conjugation": "RY703",
+        "laser": "561-YG6",
+        "role": "Megakaryocytes/platelets",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 53,
-        marker: "CD10",
-        antibody: "BD OptiBuild™ RB670 Mouse Anti-Human CD10",
-        catNo: "771028",
-        clone: "MEM-78",
-        conjugation: "RB670",
-        laser: "488-B8",
-        role: "Lymphocyte precursors",
-        module: "PBMC",
-        locked: false
+        "id": 52,
+        "marker": "CD19",
+        "antibody": "BD Horizon™ BUV737 Mouse Anti-Human CD19",
+        "catNo": "612757",
+        "clone": "SJ25C1",
+        "conjugation": "BUV737",
+        "laser": "355-UV14",
+        "role": "B Cells",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 54,
-        marker: "CD33",
-        antibody: "BD OptiBuild™ BV605 Mouse Anti-Human CD33",
-        catNo: "740400",
-        clone: "WM53",
-        conjugation: "BV605",
-        laser: "405-V10",
-        role: "Myeloid cells",
-        module: "PBMC",
-        locked: false
+        "id": 53,
+        "marker": "CD10",
+        "antibody": "BD OptiBuild™ RB670 Mouse Anti-Human CD10",
+        "catNo": "771028",
+        "clone": "MEM-78",
+        "conjugation": "RB670",
+        "laser": "488-B8",
+        "role": "Lymphocyte precursors",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 55,
-        marker: "CD45RA",
-        antibody: "BD Horizon™ BV711 Mouse Anti-Human CD45RA",
-        catNo: "563733",
-        clone: "HI100",
-        conjugation: "BV711",
-        laser: "405-V13",
-        role: "Naïve lymphocytes",
-        module: "PBMC",
-        locked: false
+        "id": 54,
+        "marker": "CD33",
+        "antibody": "BD OptiBuild™ BV605 Mouse Anti-Human CD33",
+        "catNo": "740400",
+        "clone": "WM53",
+        "conjugation": "BV605",
+        "laser": "405-V10",
+        "role": "Myeloid cells",
+        "module": "PBMC",
+        "locked": false
       },
       {
-        id: 56,
-        marker: "CD69",
-        antibody: "BD OptiBuild™ BUV615 Mouse Anti-Human CD69",
-        catNo: "751501",
-        clone: "FN50",
-        conjugation: "BUV615",
-        laser: "355-UV10",
-        role: "HSC/MPPs or lymphocyte activation",
-        module: "PBMC",
-        locked: false
+        "id": 55,
+        "marker": "CD45RA",
+        "antibody": "BD Horizon™ BV711 Mouse Anti-Human CD45RA",
+        "catNo": "563733",
+        "clone": "HI100",
+        "conjugation": "BV711",
+        "laser": "405-V13",
+        "role": "Naïve lymphocytes",
+        "module": "PBMC",
+        "locked": false
+      },
+      {
+        "id": 56,
+        "marker": "CD69",
+        "antibody": "BD OptiBuild™ BUV615 Mouse Anti-Human CD69",
+        "catNo": "751501",
+        "clone": "FN50",
+        "conjugation": "BUV615",
+        "laser": "355-UV10",
+        "role": "HSC/MPPs or lymphocyte activation",
+        "module": "PBMC",
+        "locked": false
       }
     ];
 
     /***********************************************
      * 2) STATE
      ***********************************************/
-    let selectedIds = new Set(); // IDs of selected antibodies
+    let selectedIds = new Set(); 
     let activeModule = "All";
     let searchQuery = "";
 
@@ -1068,14 +1089,12 @@
     });
 
     function setupEventListeners() {
-      // Search bar
       document.getElementById("searchInput")
               .addEventListener("input", (e) => {
                 searchQuery = e.target.value.toLowerCase();
                 renderGrid();
               });
 
-      // Copy & Save as CSV
       document.getElementById("copyButton").addEventListener("click", copyPanel);
       document.getElementById("saveButton").addEventListener("click", saveAsCSV);
     }
@@ -1087,6 +1106,7 @@
       const mods = antibodies.map(a => a.module);
       let moduleSet = new Set();
       mods.forEach(m => {
+        // In case there are multiple modules in one string
         const splitted = m.split("|").map(x => x.trim());
         splitted.forEach(sub => moduleSet.add(sub));
       });
@@ -1101,6 +1121,7 @@
         if (m === "All") btn.classList.add("active");
         btn.addEventListener("click", () => {
           activeModule = m;
+          // remove "active" from siblings
           [...container.querySelectorAll("button")].forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           renderGrid();
@@ -1123,11 +1144,18 @@
             return false;
           }
         }
-        const haystack = (ab.marker + ab.antibody + ab.catNo + ab.role + ab.conjugation + ab.module).toLowerCase();
+        const haystack = (
+          ab.marker +
+          ab.antibody +
+          ab.catNo +
+          ab.role +
+          ab.conjugation +
+          ab.module
+        ).toLowerCase();
         return haystack.includes(searchQuery);
       });
 
-      // Create card
+      // Build a card for each
       filtered.forEach(ab => {
         const card = document.createElement("div");
         card.classList.add("ab-card");
@@ -1135,25 +1163,24 @@
           card.classList.add("selected");
         }
 
-        // Button
         const btn = document.createElement("button");
         btn.className = "select-btn";
         btn.textContent = selectedIds.has(ab.id) ? "Remove" : "Add";
-        // If locked & selected => can't remove
         if (ab.locked && selectedIds.has(ab.id)) {
           btn.disabled = true;
         }
         btn.addEventListener("click", () => toggleSelect(ab.id));
         card.appendChild(btn);
 
-        // Content
         const content = document.createElement("div");
         content.className = "ab-card-content";
 
+        // Marker
         const markerEl = document.createElement("div");
         markerEl.className = "ab-marker";
         markerEl.textContent = ab.marker;
 
+        // Module label
         const modSpan = document.createElement("span");
         modSpan.className = "ab-module";
         modSpan.textContent = ab.module;
@@ -1164,13 +1191,21 @@
           modSpan.appendChild(c);
         }
 
+        // Laser badge
+        const laserInfo = getLaserInfo(ab.laser);
+
+        // Details
         const details = document.createElement("div");
         details.className = "ab-details";
         details.innerHTML = `
           <div><strong>Antibody:</strong> ${ab.antibody}</div>
           <div><strong>Clone:</strong> ${ab.clone}</div>
           <div><strong>Conjugation:</strong> ${ab.conjugation}</div>
-          <div><strong>Laser:</strong> ${ab.laser}</div>
+          <div><strong>Laser:</strong> 
+            <span class="laser-badge ${laserInfo.cssClass}">
+              ${laserInfo.label}
+            </span>
+          </div>
           <div><strong>Catalog:</strong> ${ab.catNo}</div>
           <div><em>${ab.role}</em></div>
         `;
@@ -1185,6 +1220,33 @@
     }
 
     /***********************************************
+     * Laser Helper => returns label + css class
+     ***********************************************/
+    function getLaserInfo(laserStr) {
+      let label = laserStr;
+      let cssClass = "";
+
+      if (laserStr.includes("355")) {
+        label = "UV";
+        cssClass = "laser-uv";
+      } else if (laserStr.includes("405")) {
+        label = "Violet";
+        cssClass = "laser-violet";
+      } else if (laserStr.includes("488")) {
+        label = "Blue";
+        cssClass = "laser-blue";
+      } else if (laserStr.includes("561")) {
+        label = "Green";
+        cssClass = "laser-green";
+      } else if (laserStr.includes("640")) {
+        label = "Red";
+        cssClass = "laser-red";
+      }
+
+      return { label, cssClass };
+    }
+
+    /***********************************************
      * 6) TOGGLE SELECT
      ***********************************************/
     function toggleSelect(id) {
@@ -1192,7 +1254,7 @@
       if (!ab) return;
 
       if (ab.locked && selectedIds.has(id)) {
-        return; // cannot remove locked
+        return; // can't remove locked
       }
       if (selectedIds.has(id)) {
         selectedIds.delete(id);
@@ -1295,25 +1357,22 @@
     }
 
     /***********************************************
-     * 10) SAVE AS CSV (instead of JSON)
+     * 10) SAVE AS CSV
      ***********************************************/
     function saveAsCSV() {
       const sel = antibodies.filter(a => selectedIds.has(a.id));
       if (!sel.length) return;
 
-      // Decide on CSV columns
       const headers = ["Marker","Antibody","Clone","Conjugation","Laser","Catalog","Role","Module"];
       let lines = [];
-      lines.push(headers.join(",")); // header row
+      lines.push(headers.join(","));
 
       sel.forEach(ab => {
-        // Escape commas if needed => simplest approach: replace commas with semicolons or enclose in quotes
         function fixCsv(val) {
           if (!val) return "";
-          // if it has a comma, wrap in quotes
           const needsQuotes = val.includes(",") || val.includes("\"");
           if (needsQuotes) {
-            return "\"" + val.replace(/"/g, '""') + "\""; 
+            return "\"" + val.replace(/"/g, '""') + "\"";
           }
           return val;
         }
@@ -1332,8 +1391,6 @@
       });
 
       const csvStr = lines.join("\n");
-
-      // Download as .csv
       const blob = new Blob([csvStr], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
 
