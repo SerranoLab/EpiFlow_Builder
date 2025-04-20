@@ -8,15 +8,13 @@
      * 1) ROOT VARIABLES & BASIC RESET
     ****************************************/
     :root {
-      /* Serrano Lab Brand Colors */
-      --blue-dark: #1F74AF;  /* PMS 2383 */
-      --blue-light: #45C5E2; /* PMS 2198 */
-      --orange-dark: #E05928; /* PMS 7579 */
-      --orange-light: #F78E28; /* PMS 1495 */
+      --blue-dark: #1F74AF;
+      --blue-light: #45C5E2;
+      --orange-dark: #E05928;
+      --orange-light: #F78E28;
 
-      /* We'll use the dark blue as "primary", orange as "accent" */
       --primary: var(--blue-dark);
-      --primary-dark: #164C73; 
+      --primary-dark: #164C73;
       --accent: var(--orange-light);
 
       /* Supporting colors */
@@ -158,7 +156,7 @@
     }
     .ab-card {
       background-color: #fff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--gray-light);
       box-shadow: 0 2px 4px var(--shadow);
       border-radius: 6px;
       overflow: hidden;
@@ -340,10 +338,29 @@
     .toast.show {
       opacity: 1;
     }
+
+    /****************************************
+     * 8) LICENSE BANNER FOOTER
+    ****************************************/
+    .license-banner {
+      width: 100%;
+      background-color: var(--gray-lighter);
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-color);
+      border-top: 1px solid var(--gray-light);
+    }
+    .license-banner p {
+      max-width: 1000px;
+      margin: 0 auto;
+      line-height: 1.4rem;
+    }
   </style>
 </head>
 <body>
-  <!-- TOP BANNER with "badge" behind the logo -->
+
+  <!-- TOP BANNER -->
   <div class="top-banner">
     <div class="lab-logo-wrapper">
       <img 
@@ -392,9 +409,19 @@
   <!-- Toast for "copied" -->
   <div class="toast" id="toast">Copied to clipboard!</div>
 
+  <!-- FOOTER LICENSE BANNER -->
+  <footer class="license-banner">
+    <p>
+      <strong>BSD 2-Clause License</strong><br>
+      Copyright (c) 2024, ma-serr <br>
+      M.A. Serrano <b>
+      <br><br>
+    </p>
+  </footer>
+
   <script>
     /***********************************************
-     * 1) FULL Antibody Data (56 entries, no truncation!)
+     * 1) FULL Antibody Data (all 56 entries)
      ***********************************************/
     const antibodies = [
       {
@@ -1074,12 +1101,12 @@
     /***********************************************
      * 2) STATE
      ***********************************************/
-    let selectedIds = new Set(); 
+    let selectedIds = new Set();
     let activeModule = "All";
     let searchQuery = "";
 
     /***********************************************
-     * 3) ON DOM LOAD => INITIALIZE
+     * 3) ON DOM LOAD => INIT
      ***********************************************/
     document.addEventListener("DOMContentLoaded", () => {
       buildModuleButtons();
@@ -1090,10 +1117,10 @@
 
     function setupEventListeners() {
       document.getElementById("searchInput")
-              .addEventListener("input", (e) => {
-                searchQuery = e.target.value.toLowerCase();
-                renderGrid();
-              });
+        .addEventListener("input", (e) => {
+          searchQuery = e.target.value.toLowerCase();
+          renderGrid();
+        });
 
       document.getElementById("copyButton").addEventListener("click", copyPanel);
       document.getElementById("saveButton").addEventListener("click", saveAsCSV);
@@ -1106,7 +1133,6 @@
       const mods = antibodies.map(a => a.module);
       let moduleSet = new Set();
       mods.forEach(m => {
-        // In case there are multiple modules in one string
         const splitted = m.split("|").map(x => x.trim());
         splitted.forEach(sub => moduleSet.add(sub));
       });
@@ -1121,7 +1147,6 @@
         if (m === "All") btn.classList.add("active");
         btn.addEventListener("click", () => {
           activeModule = m;
-          // remove "active" from siblings
           [...container.querySelectorAll("button")].forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           renderGrid();
@@ -1137,13 +1162,14 @@
       const abGrid = document.getElementById("abGrid");
       abGrid.innerHTML = "";
 
-      // Filter
       const filtered = antibodies.filter(ab => {
+        // module filter
         if (activeModule !== "All") {
           if (!ab.module.toLowerCase().includes(activeModule.toLowerCase())) {
             return false;
           }
         }
+        // search filter
         const haystack = (
           ab.marker +
           ab.antibody +
@@ -1155,7 +1181,6 @@
         return haystack.includes(searchQuery);
       });
 
-      // Build a card for each
       filtered.forEach(ab => {
         const card = document.createElement("div");
         card.classList.add("ab-card");
@@ -1191,21 +1216,27 @@
           modSpan.appendChild(c);
         }
 
-        // Laser badge
-        const laserInfo = getLaserInfo(ab.laser);
+        // Laser & Detector
+        // e.g. "355-UV9" => laserNum="355", detector="UV9"
+        let [laserNum, detector] = ab.laser.split("-");
+        if (!detector) detector = ""; // fallback if dash not found
 
-        // Details
+        const laserInfo = getLaserInfo(laserNum);
+
+        // Build details
         const details = document.createElement("div");
         details.className = "ab-details";
         details.innerHTML = `
           <div><strong>Antibody:</strong> ${ab.antibody}</div>
           <div><strong>Clone:</strong> ${ab.clone}</div>
           <div><strong>Conjugation:</strong> ${ab.conjugation}</div>
-          <div><strong>Laser:</strong> 
-            <span class="laser-badge ${laserInfo.cssClass}">
-              ${laserInfo.label}
-            </span>
+
+          <div>
+            <strong>Laser:</strong> ${laserNum}
+            <span class="laser-badge ${laserInfo.cssClass}">${laserInfo.label}</span>
           </div>
+          <div><strong>Detector:</strong> ${detector}</div>
+
           <div><strong>Catalog:</strong> ${ab.catNo}</div>
           <div><em>${ab.role}</em></div>
         `;
@@ -1220,25 +1251,26 @@
     }
 
     /***********************************************
-     * Laser Helper => returns label + css class
+     * Laser color-coded badge
      ***********************************************/
-    function getLaserInfo(laserStr) {
-      let label = laserStr;
+    function getLaserInfo(laserNum) {
+      let label = laserNum;
       let cssClass = "";
 
-      if (laserStr.includes("355")) {
+      // check numeric part
+      if (laserNum.includes("355")) {
         label = "UV";
         cssClass = "laser-uv";
-      } else if (laserStr.includes("405")) {
+      } else if (laserNum.includes("405")) {
         label = "Violet";
         cssClass = "laser-violet";
-      } else if (laserStr.includes("488")) {
+      } else if (laserNum.includes("488")) {
         label = "Blue";
         cssClass = "laser-blue";
-      } else if (laserStr.includes("561")) {
+      } else if (laserNum.includes("561")) {
         label = "Green";
         cssClass = "laser-green";
-      } else if (laserStr.includes("640")) {
+      } else if (laserNum.includes("640")) {
         label = "Red";
         cssClass = "laser-red";
       }
@@ -1309,12 +1341,15 @@
         if (!byLaser[ab.laser]) byLaser[ab.laser] = [];
         byLaser[ab.laser].push(ab);
 
-        if (!byConjugation[ab.conjugation]) byConjugation[ab.conjugation] = [];
+        if (!byConjugation[ab.conjugation]) {
+          byConjugation[ab.conjugation] = [];
+        }
         byConjugation[ab.conjugation].push(ab);
       });
 
       let messages = [];
 
+      // Laser
       Object.keys(byLaser).forEach(l => {
         if (byLaser[l].length > 1) {
           const items = byLaser[l].map(x => x.marker).join(", ");
@@ -1322,6 +1357,7 @@
         }
       });
 
+      // Conjugation
       Object.keys(byConjugation).forEach(c => {
         if (byConjugation[c].length > 1) {
           const items = byConjugation[c].map(x => x.marker).join(", ");
@@ -1377,7 +1413,7 @@
           return val;
         }
 
-        let row = [
+        const row = [
           fixCsv(ab.marker),
           fixCsv(ab.antibody),
           fixCsv(ab.clone),
@@ -1413,5 +1449,11 @@
       }, 2000);
     }
   </script>
+
+  <!-- FOOTER LICENSE BANNER -->
+  <footer class="license-banner">
+    <p>
+    </p>
+  </footer>
 </body>
 </html>
