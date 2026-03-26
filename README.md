@@ -1,6 +1,6 @@
 # Serrano Lab – EpiFlow Panel Builder
 
-A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 220 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
+A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 221 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
 
 **[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** *(update URL after deployment)*
 
@@ -73,7 +73,7 @@ The 210-entry inventory was compiled from Serrano Lab purchase orders spanning 2
 | **Structural** | Cytoskeletal and housekeeping markers | TUJ1/TUBB3, Vimentin, Acetylated Tubulin, beta-Actin, GAPDH |
 | **Detection** | Tags, secondaries, fluorescent proteins, streptavidin | FLAG/DYKDDDDK, GFP, mCherry, RFP, secondary antibodies, streptavidin |
 | **Phenotype** | Surface markers for cell identity/sorting | CD326/EpCAM, CD184/CXCR4, CD36, HK1, CD166/ALCAM |
-| **Fluorescent Protein** | Fluorescent protein reporters with spectral profiles | EGFP/GFP, EYFP/YFP, ECFP/CFP, TagBFP/BFP, EBFP2, mCherry, tdTomato, mOrange2, DsRed, mKate2 |
+| **Fluorescent Protein** | Fluorescent protein reporters with spectral profiles | EGFP/GFP, EYFP/YFP, ECFP/CFP, TagBFP/BFP, EBFP2, TagRFP/RFP, mCherry, tdTomato, mOrange2, DsRed, mKate2 |
 | **Control** | Isotype controls | IgG and IgM isotypes in various conjugations |
 
 ### Viability options
@@ -185,8 +185,18 @@ Spectral conflict heuristics and the overall panel-builder architecture are insp
 | `LICENSE` | BSD 2-Clause license |
 | `README.md` | This file |
 | `IMPLEMENTATION_GUIDE.md` | Guide for adapting the tool to other core facilities |
-| `clean_antibodies.json` | Machine-readable antibody inventory (220 entries) |
+| `clean_antibodies.json` | Machine-readable antibody inventory (221 entries) |
 | `instruments.json` | Instrument channel definitions and fluorochrome peak maps |
+
+---
+
+## Contributions & Acknowledgments
+
+The EpiFlow Panel Builder was conceived, directed, and scientifically validated by **M.A. Serrano** (Serrano Lab, CReM, Boston University), who designed the original tool architecture, compiled the antibody inventory from four years of lab purchase orders (2022–2026), defined the Core EpiFlow panel composition and biological module organization, provided domain expertise for all antibody and conjugation corrections, and guided every UX and scientific decision throughout development.
+
+Development assistance was provided by **Claude** (Anthropic, claude-opus-4-6), an AI assistant that contributed to: programmatic parsing and cross-referencing of 500+ purchase order line items against the builder inventory; identification of conjugation errors, missing markers, and duplicate entries; construction of the BD FACSDiscover S8 instrument model and fluorochrome-to-detector mappings from manufacturer selection guides; fluorescent protein spectral profile research; front-end implementation (HTML/CSS/JS); and drafting of documentation including this README and the Implementation Guide. All AI-generated content was reviewed, corrected, and validated by M.A. Serrano — notably, several critical data errors (e.g., CoraLite Plus 647 vs. Alexa Fluor 647 distinction, FLAG clone conjugation status, AQP4 mislabeled as isotype control) were caught by human review after the automated audit, underscoring that domain expertise remains essential when working with AI-assisted workflows.
+
+Spectral conflict heuristics and the overall panel-builder concept are inspired by [PanelBuildeR](https://github.com/exaexa/panelbuilder) by Mirek Kratochvíl (Apache-2.0). The implementation is independent.
 
 ---
 
