@@ -2,7 +2,7 @@
 
 A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 210 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
 
-**[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** *(update URL after deployment)*
+**[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** 
 
 ---
 
