@@ -1,262 +1,197 @@
-# Serrano Lab – Spectral Panel Builder
+# Serrano Lab – EpiFlow Panel Builder
 
-This is a single‑page web application for building and *spectrally* aware flow cytometry panels, designed around a curated library of >200 antibodies (including “Core EpiFlow” epigenetic reagents, neural, pericyte, endothelial, immune, cardiac, pluripotent, NOTCH, structural, and control modules). 
+A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 210 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
 
-It helps you:
+**[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** *(update URL after deployment)*
 
-* **Search** by marker, antibody name, catalog #, conjugation, module, etc.
-* **Filter** by module (e.g. *Core EpiFlow, Pericyte, NOTCH, PBMC/Immune, Endothelial, Cerebral/Neural,* etc.).
-* **Hide unconjugated / secondary** reagents (Purified, Biotin, HRP, MicroBeads) when you’re building a *strictly fluor-conjugated* panel.
-* **Visualize spectral behavior** of each fluor on a **Cytek Aurora 5L** (primary detector + heuristic spread across channels).
-* **See mini spectral fingerprints** per antibody (tiny bar‑plot strips grouped by laser family on card hover).
-* **Detect conflicts** by:
+---
 
-  * primary detector overlap,
-  * re‑using the same fluorochrome,
-  * and **spectral “load”** within specific Aurora channels.
-* **Get heuristic swap suggestions** when channels are congested.
-* **Check relative brightness tiers** for each fluor (3 = very bright, 2 = bright, 1 = moderate/dim).
-* **Copy** your selected panel to the clipboard as a text summary (with instrument‑specific laser/detector info).
-* **Save** your panel as a `.csv` file for documentation or downstream analysis.
+## What it does
 
+The EpiFlow Panel Builder helps you select antibodies and reagents for multi-parameter spectral flow cytometry panels. Unlike spectral viewers such as FluoroFinder, this tool operates one step earlier in the workflow: it helps you decide **which reagents to pull from the lab inventory** before you sit down at the instrument, catching detector conflicts and spectral overload before you waste cells and time.
 
+The tool is organized around the **Core EpiFlow panel** — an 11-marker configuration for multiparametric histone H3 post-translational modification (H3-PTM) profiling — with interchangeable biology modules (Neural, Pericyte, Endothelial, Cardiac, Immune, NOTCH, etc.) that can be layered on top.
 
-## Features
+### Key capabilities
 
-### 1. Top Banner & Logo
+- **Search and filter** 210 reagents by marker, antibody name, catalog number, conjugation, module, or role.
+- **Module filtering** with count badges showing how many conjugated reagents each module contains (Core EpiFlow, Cerebral/Neural, Pericyte, Endothelial, PBMC/Immune, NOTCH, Cardiac, Pluripotent, and more).
+- **One-click Core Panel loading** pre-selects the canonical 11-marker EpiFlow panel: FxCycle Violet (DNA), Zombie NIR (viability), total H3-AF700, H3K27me3-Pacific Blue, H3K4me3-AF647, H3K27ac-PE-Cy7, H3K9ac-Pacific Blue, H3K4me1-PE, H3K4me2-PE, phH3-AF532, Active Caspase-3-BV650.
+- **Dual instrument support** for Cytek Aurora 5L (64 channels) and BD FACSDiscover S8 (78 channels), with per-instrument fluorochrome-to-channel mapping derived from official Thermo Fisher selection guides.
+- **Conflict detection**: primary detector overlap, fluorochrome reuse, and heuristic spectral load per Aurora/S8 channel.
+- **Laser balance visualization** showing the proportional distribution of selected markers across UV, Violet, Blue, YG, and Red lasers.
+- **Spectral fingerprint strips** on card hover, showing the heuristic emission profile of each fluorochrome across the instrument's detector array.
+- **Export** your panel as clipboard text or CSV for lab notes and ordering.
+- **Save/load named panel configurations** via localStorage (on a server) or JSON export/import (for local file:// use).
 
-* Gradient banner (dark → light blue) with Serrano Lab logo in a white circular badge.
-* Subtitle reminds you this is an instrument‑aware, conflict‑checking panel builder. 
+---
 
-### 2. Large Antibody Library & Modules
+## Quick start
 
-* > 200 reagents defined in a single `antibodies` array (IDs `AB001`–`AB235`).
-* Each entry includes: `marker`, `antibody`, `clone`, `catNo`, `conjugation`, `laser` (when known), `role`, `module`, and flags for zebrafish usage, alternatives, vendor, and links. 
-* A secondary `antibodyPatch` map refines marker names, roles, and modules for many reagents (e.g. distinguishing *pericyte*, *endothelial*, *NOTCH*, *PBMC/Immune*, *structural*, etc.).
-* Modules can be composite (e.g. `"Cerebral|Neural|Pericyte|Angiogenesis"`), and module chips are **color‑coded** on each card based on category (neural, pericyte, endothelial, immune, cardiac, pluripotent, structural, flexible, control, phenotype, NOTCH, etc.). 
+### Option 1: Open locally
 
-> Note: Unlike the original 56‑antibody demo, this version is a broad Serrano Lab inventory including intracellular, surface, tags, secondaries, and epigenetic reagents.
+Download `index.html` and open it in any modern browser (Chrome, Firefox, Edge, Safari). Everything is self-contained — no build step, no dependencies, no server required.
 
-### 3. Search, Module Filter & “Hide Unconjugated”
+### Option 2: Deploy on GitHub Pages
 
-* **Search bar** filters the antibody grid in real time using a combined text haystack (marker, antibody name, catalog #, role, conjugation, module). 
-* **Module buttons** (`All`, `Core EpiFlow`, `PBMC`, `Neural`, `Endothelial|Angiogenesis|Vasculogenesis`, `Pericyte|Mesoderm`, `Pluripotent`, `NOTCH`, etc.) filter by module substring.
-* **“Hide unconjugated / secondary” checkbox** removes reagents whose conjugation is:
+1. Place `index.html` and `LICENSE` in a GitHub repository.
+2. Enable GitHub Pages in the repo settings (Settings → Pages → Source: main branch).
+3. The tool will be live at `https://<username>.github.io/<repo>/`.
 
-  * *Purified* with no detectable fluor,
-  * Biotin, HRP, or MicroBeads,
-  * or other clearly non‑fluorescent formats. This is inferred via `isUnconjugated()` and the fluor detection logic. 
+GitHub Pages deployment enables `localStorage` for persistent panel saves across sessions.
 
-### 4. Instrument & Spectral Model (Cytek Aurora 5L)
+### First use
 
-* Current instrument dropdown: **“Cytek Aurora 5L (5‑laser, spectral)”**.
-* Internally, `Instruments.Cytek_Aurora_5L` defines **UV, Violet, Blue, YG, Red** channel IDs and center wavelengths (e.g. `UV1–UV16`, `V1–V16`, `B1–B14`, `YG1–YG10`, `R1–R8`). 
-* A `FluorPeak` map associates fluorochromes (e.g. `BUV395`, `BV421`, `Pacific Blue`, `AF488`, `PE`, `PE-Cy7`, `APC`, `AF647`, `AF700`, `APC-Fire 810`) with their **primary detector channel** on Aurora.
-* `FluorSpectra` provides a **heuristic per‑channel spread** for each fluor:
+1. Click **Load Core Panel** to pre-select the 11-marker Core EpiFlow configuration.
+2. Use the **module buttons** to filter by biology (e.g., click "Neural" to see cerebral/neural reagents).
+3. Click **Add** on any card to include it in your panel. The conflict checker updates in real time.
+4. Check the **laser balance bar** — aim for reasonable distribution across all 5 lasers.
+5. If conflicts appear (red warnings), look for alternative conjugates of the same marker in the grid.
+6. **Copy to Clipboard** or **Save as CSV** to export your final panel.
+7. **Save Panel** to store your configuration by name for future sessions.
 
-  * Rough relative intensities across channels (0–1 range).
-  * A brightness flag (`1–3`) indicating dim → bright.
+---
 
-> This is **not** a quantitative unmixing model; it’s a hand‑tuned heuristic to highlight congested channels and suggest safer panel layouts. Always validate with single‑stained controls.
+## Reagent inventory
 
-### 5. Per‑Marker Excitation & Spectral Fingerprint Mini‑Plots
+The 210-entry inventory was compiled from Serrano Lab purchase orders spanning 2022–2026 and includes reagents from Cell Signaling Technology, BD Biosciences, BioLegend, R&D Systems, Miltenyi Biotec, Abcam, Thermo Fisher/Invitrogen, Novus Biologicals, Proteintech, and other vendors.
 
-For every antibody card:
+### Modules
 
-* The app automatically infers:
+| Module | Description | Examples |
+|--------|-------------|----------|
+| **Core EpiFlow** | H3-PTM profiling, cell cycle, viability, apoptosis | H3K27me3, H3K4me3, H3K27ac, H3K9ac, H3K4me1/me2, phH3, FxCycle Violet, Zombie NIR, Active Caspase-3 |
+| **Cerebral / Neural** | Neuronal and glial markers | PAX6, NEUN, GFAP, OLIG2, SOX10, TBR1, Nestin, MAP2 |
+| **Pericyte / Mesoderm** | Pericyte and mesenchymal markers | NG2/CSPG4, CD140a/PDGFRa, CD140b/PDGFRb, CD13, RGS5, alpha-SMA |
+| **Endothelial / Angiogenesis** | Vascular endothelial markers | CD31/PECAM-1, CD144/VE-Cadherin, CD309/VEGFR-2, CD34 |
+| **PBMC / Immune** | Immune cell markers | CD45, CD3, CD19, CD33, CD56, CD57, CD68, CD14 |
+| **NOTCH** | Notch signaling pathway | NOTCH1, NOTCH3, DLL4, Jagged1, EPHB4/ErbB4 |
+| **Cardiac** | Cardiomyocyte markers | HOPX, cTnT, NFATc1 |
+| **Pluripotent** | Stem cell markers | TRA-1-81, OCT4, SOX2 |
+| **Control** | Isotype controls | IgG and IgM isotypes in various conjugations |
+| **Detection** | Tags, secondaries, fluorescent proteins | FLAG/DYKDDDDK, GFP, mCherry, RFP, secondary antibodies |
 
-  * **Fluor key** from the antibody name + conjugation (`detectFluorKey()`),
-  * **Instrument laser & primary detector** from `FluorPeak` + Aurora metadata (`getExcitationAndDetector()`),
-  * **Laser badge** (UV, Violet, Blue, YG, Red). 
-* On hover, each card shows a compact **spectral fingerprint strip**:
+### Viability options
 
-  * Grouped by laser family (UV, V, B, YG, R).
-  * Within each group, narrow vertical bars represent the relative emission weight in each channel (e.g. `YG1`, `YG2`, `R2`, etc.).
-  * Heights are normalized within the fluor, giving a quick visual sense of where emission is concentrated across the Aurora detector array.
+Five viability reagents are available, each occupying a different detector channel:
 
-This helps you see, at a glance, which fluor lives in the same detection neighborhood as others.
+| Reagent | Laser | Channel | Notes |
+|---------|-------|---------|-------|
+| FxCycle Violet | UV 355 | UV5 | DNA content / cell cycle |
+| Zombie NIR | Red 640 | R8 | Fixable amine-reactive |
+| LIVE/DEAD Fixable Lime 506 | Violet 405 | V5 | Fixable amine-reactive |
+| LIVE/DEAD Fixable Violet | Violet 405 | V3 | Fixable amine-reactive |
+| BD FVS780 | YG 561 | YG9 | Fixable, PE-Cy7 channel |
 
-### 6. Selection, Locked Reagents & Module Badges
+---
 
-* Each antibody appears as a card with an **“Add / Remove”** button in the corner.
-* When selected, the card is styled as *selected* and the button toggles to **“Remove”**.
-* Support exists for `locked: true` (e.g. “Core EpiFlow” style markers that cannot be removed once selected), though currently all entries are `locked: false`.
-* Module badges on each card show color‑coded categories (e.g. *Core EpiFlow*, *Pericyte*, *Endothelial*, *PBMC/Immune*, etc.), with an extra **“Core” pill** when the module includes `Core EpiFlow`. 
+## Instrument support
 
-### 7. Advanced Conflict & Spectral Load Detection
+### Cytek Aurora 5L (spectral analyzer)
 
-The **Selected Panel** section now does much more than simple “same laser / same conjugation” warnings:
+Five lasers (355, 405, 488, 561, 640 nm), 64 detection channels. Channel layout and fluorophore-to-detector mappings derived from the [Thermo Fisher Cytek Aurora Fluorophore Selection Guide](https://www.thermofisher.com/flow) (PSTR-9668644, April 2025).
 
-1. **Primary detector conflicts**
+### BD FACSDiscover S8 (spectral cell sorter)
 
-   * Identifies when multiple selected antibodies map to the **same primary Aurora channel** (e.g. both are effectively “YG3”).
-   * Reports this as:
+Five lasers (349, 405, 488, 561, 637 nm), 78 detection channels. The S8 has finer spectral resolution than the Aurora (22 UV channels vs. 16, 20 Violet vs. 16). Mappings derived from the [Thermo Fisher BD S8 Fluorophore Selection Guide](https://www.thermofisher.com/flow) (PSTR-9669173, March 2025).
 
-     > `Primary detector overlap "YG3": Marker1, Marker2, Marker3`
+Switching instruments via the dropdown remaps all fluorochrome-to-channel assignments and updates conflict detection accordingly.
 
-2. **Fluor reuse conflicts**
+---
 
-   * Detects when the exact same fluor key (e.g. `AF647`, `PE-Cy7`, `BV421`) is reused across different markers.
-   * Reported as:
+## Conflict detection
 
-     > `Fluorochrome reuse "AF647": MarkerA, MarkerB`
+The panel builder checks three levels of compatibility:
 
-3. **Laser usage summary**
+1. **Primary detector overlap** — flags when two selected reagents map to the same primary detector channel on the active instrument (hard conflict — cannot be resolved by unmixing).
 
-   * Counts how many selected markers excite off each laser (UV, Violet, Blue, YG, Red) and shows a compact summary (e.g. `UV: 2 | Violet: 5 | YG: 8 | Red: 6`).
+2. **Fluorochrome reuse** — flags when the same fluorochrome (e.g., PE, AF647) is used on two different markers (hard conflict).
 
-4. **Spectral load per channel (heuristic)**
+3. **Spectral load (heuristic)** — sums the relative emission intensity of all selected fluorochromes in each detector channel. A channel load above 1.5 (equivalent to ~1.5 bright dyes in the same channel) is flagged as spectrally congested. This is a hand-tuned heuristic, not a quantitative unmixing model. Always validate with single-stained controls.
 
-   * Using `FluorSpectra`, the app sums relative intensities for all fluorochromes in each Aurora channel (`computeSpectralLoad()`).
-   * A channel with load ≈1 behaves like “one bright dye”; **>1.5** is flagged as **“spectral overload”**. 
-   * Overloaded channels are listed, e.g.:
+The **laser balance bar** provides a visual summary of how many conjugated markers are assigned to each laser. An imbalanced panel (e.g., 8 markers on YG but 0 on UV) is harder to unmix and more prone to spreading error.
 
-     > `Spectral overload: YG3 (load 2.10), R2 (load 1.70)`
+---
 
-5. **Top‑10 channel mini heatmap**
+## Saving and sharing panels
 
-   * Displays the ~10 most loaded channels as small pill‑shaped cells with intensity‑encoded background (`YG3 2.1`, `R2 1.7`, etc.).
-   * Darker pills indicate heavier spectral congestion in that channel.
+### On a web server (GitHub Pages, etc.)
 
-6. **Brightness summary**
+Panel configurations are saved to `localStorage` and persist across browser sessions. Name your panel, click **Save**, and it appears in the saved panels list. Click any saved panel to reload it.
 
-   * Collapses brightness tiers across fluorochromes and lists markers by brightness:
+### On local file:// URLs
 
-     * `3: H3K27ac [PE], H3K4me3 [AF647], …`
-     * `2: NG2 [AF700], …`
+Safari and some browsers block `localStorage` for `file://` URLs. The tool detects this automatically and shows a yellow note. Panels can still be saved in-session (they'll disappear on page reload). Use **Export (JSON)** to download your saved panels as a `.json` file, and **Import** to reload them later. This also lets lab members share panel configurations with each other.
 
-7. **Heuristic swap suggestions**
-
-   * For each overloaded channel, the app looks at markers heavily contributing to that channel and checks if the library contains **alternative conjugates for the same marker** that load that channel less.
-   * Where alternatives exist, it suggests lines such as:
-
-     > `• Channel YG3: H3K27ac [PE] → consider AF647→main R2; Pacific Blue→main V3`
-   * These are purely heuristic and based on library availability + spectral model; they must be checked against biology, clone performance, and reagent availability.
-
-### 8. Selected Panel Summary, Copy & CSV Export
-
-Under **Your Selected Panel**:
-
-* Shows each selected marker as a compact line: `Marker [Conjugation]`, with a small **“x”** remove button (unless locked).
-* **Copy to Clipboard**:
-
-  * Copies a text summary that includes:
-
-    * Marker name, conjugation (or fluor key),
-    * Instrument label (currently Cytek Aurora 5L),
-    * Laser label (e.g. “561 nm (YG)”) and primary detector channel. 
-* **Save as CSV**:
-
-  * Downloads `serrano_panel.csv` with columns:
-    `Marker, Antibody, Clone, Conjugation, Laser, Detector, Catalog, Role, Module`.
-  * Laser and detector fields use the instrument‑aware mapping (not just free text).
-
-### 9. Floating “Click to Rest” Bubble
-
-* A small animated bubble in the bottom‑right corner labeled **“Click to Rest”** opens a separate Serrano Lab game / webpage (`https://serranolab.github.io/GAME_webpage/`) in a new tab.
-* This is a fun Easter‑egg / mental break for long panel design sessions. 
-
-
-## How To Use
-
-1. **Open the HTML File**
-
-   * Open `index2.html` in any modern browser (Chrome, Firefox, Edge, Safari). Everything is self‑contained (HTML, CSS, JS in one file).
-
-2. **Search & Filter**
-
-   * Use the **Search** bar to filter by any text (marker, catalog, vendor, conjugation, role, etc.).
-   * Use **module buttons** to restrict the grid to specific biology (e.g. `Core EpiFlow`, `Pericyte`, `PBMC`, `NOTCH`, `Pluripotent`, `Cardiac`).
-   * Enable **“Hide unconjugated / secondary”** to view only fluor‑conjugated reagents.
-
-3. **Inspect Antibody Cards**
-
-   * Each card shows marker, full antibody name, clone, conjugation, laser, detector, catalog #, and role.
-   * Module chip color gives you context (e.g. Neural vs PBMC vs Endothelial).
-   * Hover to view the **mini spectral fingerprint** (strip of channel bars grouped by laser).
-
-4. **Select / Deselect Markers**
-
-   * Click **“Add”** to include an antibody in your panel; it will highlight and the button switches to **“Remove”**.
-   * Click **“Remove”** (or the small `x` in the selected list) to deselect.
-   * If a reagent is ever marked `locked: true`, the remove button will be disabled.
-
-5. **Check Conflicts & Spectral Load**
-
-   * As you add markers, check the **Selected Panel** section:
-
-     * Detector overlaps
-     * Fluor reuse
-     * Laser usage summary
-     * Spectral load / overload per Aurora channel
-     * Brightness tiers
-     * Suggested swaps (when available)
-
-6. **Copy or Export**
-
-   * Click **“Copy to Clipboard”** to copy a textual summary (handy for emails, lab notes, or ordering).
-   * Click **“Save as CSV”** to download your current panel configuration.
-
-
-
-## File Contents
-
-* **HTML**
-
-  * All layout structure (banner, controls, antibody grid, selected panel, footer) plus a floating “Click to Rest” bubble. 
-
-* **CSS (in `<style>` block)**
-
-  * Root color variables for Serrano Lab palette.
-  * Card styling, module chip color variants, laser badges, spectral strip styling, and warning/heatmap presentation.
-
-* **JavaScript (in `<script>` block)**
-
-  * `antibodies`: full reagent library.
-  * `antibodyPatch`: normalized markers/roles/modules for many entries.
-  * **Instrument model** (`Instruments`), **fluor → channel map** (`FluorPeak`), and **heuristic spectra** (`FluorSpectra`).
-  * Fluor inference (`detectFluorKey`, `getFluorKey`), laser labeling, and `getExcitationAndDetector()`.
-  * Unconjugated detection (`isUnconjugated`).
-  * UI state: selected IDs, active module, search query, unconjugated filter.
-  * Rendering functions (`renderGrid`, `renderSelected`) and module button generation.
-  * Spectral math: `computeSpectralLoad`, `computeBrightnessSummary`, `suggestSwaps`, and the conflict reporter `checkConflicts`.
-  * Utility functions for **copy to clipboard** and **CSV export**.
-
+---
 
 ## Customization
 
-1. **Colors & Branding**
+### Adding new antibodies
 
-   * Edit `:root` in the CSS to adjust `--blue-dark`, `--blue-light`, `--orange-dark`, `--orange-light`, and other neutrals.
+Add entries to the `antibodies` array in the `<script>` block. Each entry needs:
 
-2. **Adding / Editing Antibodies**
+```json
+{
+  "id": "AB211",
+  "marker": "Your Marker",
+  "antibody": "Full antibody product name",
+  "catNo": "Catalog number",
+  "clone": "Clone name or NA",
+  "conjugation": "PE",
+  "laser": "561-YG1",
+  "role": "Brief description",
+  "module": "Module Name",
+  "locked": false,
+  "vendor": "Vendor Name",
+  "alternatives": "",
+  "zebrafish": "",
+  "link": ""
+}
+```
 
-   * Add new entries to the `antibodies` array.
-   * Optionally add/adjust entries in `antibodyPatch` to refine `marker`, `role`, and `module`.
+If the conjugation is a fluorochrome, also add an entry to `CONJ_MAP` mapping the conjugation string to its `FluorPeakByInstrument` key.
 
-3. **Instrument Models**
+### Adding new fluorochromes
 
-   * You can extend `Instruments` with additional cytometers and channel maps.
-   * Add corresponding `FluorPeak` / `FluorSpectra` entries (or reuse) and update `instrumentSelect` options in the HTML.
+1. Add the fluorochrome key to `CONJ_MAP`.
+2. Add its primary detector channel to `FluorPeakByInstrument` for each instrument.
+3. Add a heuristic spectral spread to `FluorSpectra` with brightness tier (1=Low, 2=Medium, 3=High).
 
-4. **Spectral Heuristics**
+### Adding new instruments
 
-   * `FluorSpectra` can be tuned if you have better per‑channel response curves for your specific instrument configuration.
-   * Thresholds for “overload” can be changed in `checkConflicts()`.
+Add a new instrument object to `Instruments` with its channel array, then add a corresponding fluorochrome-to-channel map in `FluorPeakByInstrument`. Add the instrument as an `<option>` in the HTML `<select>` dropdown.
 
-5. **CSV Format**
+---
 
-   * To add more columns (e.g. `vendor`, `zebrafish`, `link`), extend the `headers` array and row construction in `saveAsCSV()`.
+## Data provenance
 
+The antibody inventory was compiled through a systematic audit of all Serrano Lab purchase orders from 2022 through 2026, cross-referenced against vendor catalogs to verify catalog numbers, conjugation assignments, clone identities, and fluorochrome-to-detector mappings. The audit identified and corrected 50+ conjugation field errors, filled 65 missing marker names, removed 25 duplicate entries, and added 5 viability reagents that were ordered but missing from the original dataset.
 
+Spectral conflict heuristics and the overall panel-builder architecture are inspired by the [PanelBuildeR](https://github.com/exaexa/panelbuilder) tool by Mirek Kratochvíl (Apache-2.0). The implementation and spectral model here are independent and simplified.
 
+---
 
-## License & Attribution
+## File contents
 
-* **BSD 2‑Clause License** (see footer in the HTML).
-* Spectral conflict ideas and overall architecture are inspired by the **PanelBuildeR** tool by Mirek Kratochvíl (`exaexa/panelbuilder`, Apache‑2.0), but the implementation and spectral heuristics here are independent and simplified. 
-* Always validate final panels with **single‑stained controls** on your own instrument configuration.
+| File | Description |
+|------|-------------|
+| `index.html` | Complete self-contained application (HTML + CSS + JS + data) |
+| `LICENSE` | BSD 2-Clause license |
+| `README.md` | This file |
+| `clean_antibodies.json` | Machine-readable antibody inventory (210 entries) |
+| `instruments.json` | Instrument channel definitions and fluorochrome peak maps |
 
+---
 
-**Questions or issues?**
-Contact the Serrano Lab, or open an issue in the corresponding GitHub repository if the app is hosted there.
+## License
+
+BSD 2-Clause License. Copyright © 2024–2026 M.A. Serrano, Center for Regenerative Medicine (CReM), Chobanian & Avedisian School of Medicine, Boston University.
+
+See [LICENSE](LICENSE) for the full text.
+
+---
+
+## Contact
+
+Questions, corrections, or antibody additions: contact the [Serrano Lab](https://github.com/ma-serr) or open an issue in this repository.

@@ -1,171 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Serrano Lab – EpiFlow Panel Builder</title>
-<style>
-:root {
-  --blue-dark:#1F74AF;--blue-light:#45C5E2;--orange-dark:#E05928;--orange-light:#F78E28;
-  --primary:var(--blue-dark);--primary-dark:#164C73;--accent:var(--orange-light);
-  --card-bg:#ffffff;--body-bg:#f8fafc;--text:#1e293b;--shadow:rgba(0,0,0,.1);
-  --danger:#ef4444;--success:#16a34a;--gray-light:#e2e8f0;--gray-lighter:#f1f5f9;
-}
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center}
-
-/* ── Banner ── */
-.top-banner{width:100%;padding:1.1rem .5rem;background:linear-gradient(135deg,var(--blue-dark),var(--blue-light));display:flex;justify-content:center;align-items:center;gap:1rem}
-.lab-logo-wrapper{background:#fff;border-radius:50%;padding:.35rem;box-shadow:0 2px 6px rgba(0,0,0,.25)}
-.lab-logo{width:68px;height:68px;border-radius:5%;display:block}
-.banner-text{color:#fff}.banner-text h1{font-size:1.5rem;margin-bottom:.15rem}.banner-text h2{font-size:.85rem;font-weight:400;opacity:.9}
-
-/* ── Container ── */
-.container{width:100%;max-width:1200px;margin:1rem auto 3rem;padding:0 1rem}
-
-/* ── Controls ── */
-.panel-controls{background:var(--card-bg);box-shadow:0 3px 8px var(--shadow);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.2rem}
-.top-row{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
-.top-row label{display:flex;gap:.4rem;align-items:center;font-weight:500;font-size:.88rem}
-.top-row input[type="text"]{padding:.4rem .7rem;border:1px solid var(--gray-light);border-radius:4px;width:210px;font-size:.88rem}
-.top-row select{padding:.4rem .7rem;border-radius:4px;border:1px solid var(--gray-light);background:#fff;font-size:.88rem}
-.filter-row{margin-top:.5rem;display:flex;align-items:center;gap:.7rem;font-size:.8rem;color:#475569;flex-wrap:wrap}
-.filter-row label{display:flex;align-items:center;gap:.25rem;cursor:pointer}
-.core-btn{background:var(--orange-light);color:#fff;border:none;padding:.4rem .8rem;border-radius:4px;cursor:pointer;font-size:.82rem;font-weight:600;transition:background .15s}
-.core-btn:hover{background:var(--orange-dark)}
-
-/* ── Module buttons ── */
-.module-buttons{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
-.module-buttons button{background:#f1f5f9;border:1px solid var(--gray-light);padding:.35rem .6rem;cursor:pointer;transition:all .12s;font-size:.78rem;border-radius:4px;display:flex;align-items:center;gap:.3rem;white-space:nowrap}
-.module-buttons button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-.module-buttons button:hover:not(.active){background:#e2e8f0}
-.mbadge{background:rgba(0,0,0,.1);font-size:.68rem;padding:0 5px;border-radius:99px;font-weight:600;min-width:16px;text-align:center}
-.module-buttons button.active .mbadge{background:rgba(255,255,255,.3);color:#fff}
-
-/* ── Antibody card grid ── */
-.result-count{font-size:.78rem;color:#64748b;margin-bottom:.4rem}
-.ab-grid{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fill,minmax(255px,1fr))}
-.ab-card{background:#fff;border:1px solid var(--gray-light);box-shadow:0 2px 4px var(--shadow);border-radius:6px;overflow:hidden;transition:transform .12s,box-shadow .12s;position:relative}
-.ab-card:hover{transform:translateY(-2px);box-shadow:0 5px 12px rgba(15,23,42,.14)}
-.ab-card.selected{border-color:var(--primary);box-shadow:0 0 0 2px rgba(31,116,175,.25)}
-.ab-card-body{padding:.75rem}
-.ab-marker{font-weight:600;font-size:.93rem;margin-bottom:.1rem}
-.ab-module{display:inline-block;font-size:.7rem;padding:1px 5px;border-radius:3px;margin-bottom:.3rem}
-.ab-core{background:var(--orange-light);color:#fff;margin-left:.35rem;padding:1px 5px;border-radius:99px;font-size:.66rem;font-weight:600}
-.ab-details{font-size:.78rem;line-height:1.2rem;color:#475569}
-.ab-details strong{color:#334155}
-
-/* Module colors */
-.mod-core{background:#e0f2fe;border-left:2px solid #0284c7}.mod-neural{background:#fef3c7;border-left:2px solid #f59e0b}
-.mod-pericyte{background:#ecfdf3;border-left:2px solid #16a34a}.mod-endothelial{background:#eff6ff;border-left:2px solid #2563eb}
-.mod-immune{background:#fef2f2;border-left:2px solid #b91c1c}.mod-cardiac{background:#fff1f2;border-left:2px solid #e11d48}
-.mod-pluripotent{background:#f5f3ff;border-left:2px solid #7c3aed}.mod-notch{background:#ecfeff;border-left:2px solid #06b6d4}
-.mod-phenotype{background:#f1f5f9;border-left:2px solid #64748b}.mod-structural{background:#f8fafc;border-left:2px solid #94a3b8}
-.mod-detection{background:#fefce8;border-left:2px solid #ca8a04}.mod-cell-cycle{background:#fce7f3;border-left:2px solid #db2777}
-.mod-control{background:#f9fafb;border-left:2px solid #6b7280}.mod-other{background:#e5e7eb;border-left:2px solid #4b5563}
-.mod-flexible{background:#eef2ff;border-left:2px solid #4f46e5}
-
-/* Select button */
-.sel-btn{position:absolute;top:0;right:0;padding:.3rem .5rem;cursor:pointer;background:var(--primary);color:#fff;border-radius:0 0 0 6px;font-size:.76rem;border:none;transition:background .12s}
-.sel-btn:hover{background:var(--primary-dark)}
-.selected .sel-btn{background:var(--danger)}.selected .sel-btn:hover{background:#dc2626}
-
-/* Laser badge */
-.lbadge{display:inline-block;color:#fff;font-size:.63rem;padding:1px 4px;border-radius:2px;font-weight:700;margin-left:2px}
-.l-uv{background:#302b8d}.l-vi{background:#783296}.l-bl{background:#2d61a6}.l-yg{background:#65bb18}.l-rd{background:#b20b0d}
-
-/* Spectral mini-strip */
-.spec-strip{margin-top:.25rem;display:none;flex-wrap:wrap;gap:3px}
-.ab-card:hover .spec-strip{display:flex}
-.ss-band{display:flex;align-items:flex-end;gap:1px}
-.ss-lbl{font-size:.58rem;margin-right:1px;color:#64748b}
-.ss-bar{width:3px;border-radius:1px;background:rgba(37,99,235,.5)}
-
-/* ── Selected Panel ── */
-.selected-panel{margin-top:1.2rem;padding-top:.8rem;border-top:1px dashed var(--gray-light)}
-.sp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem}
-.sp-header h3{font-size:1.05rem;color:var(--primary-dark)}.sp-count{font-size:.82rem;color:#64748b}
-
-.laser-bar-label{font-size:.7rem;color:#64748b;margin-bottom:.2rem}
-.laser-bar{display:flex;gap:1px;margin-bottom:.7rem;border-radius:5px;overflow:hidden;height:26px;background:#f1f5f9;border:1px solid var(--gray-light)}
-.lb-seg{display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:#fff;transition:flex .25s;min-width:0;overflow:hidden}
-.lb-seg.uv{background:#302b8d}.lb-seg.vi{background:#783296}.lb-seg.bl{background:#2d61a6}.lb-seg.yg{background:#65bb18}.lb-seg.rd{background:#b20b0d}
-
-.sel-list{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.6rem;max-height:280px;overflow-y:auto}
-.sel-item{display:flex;align-items:center;justify-content:space-between;background:var(--gray-lighter);border-left:3px solid var(--orange-dark);padding:.3rem .5rem;border-radius:4px;font-size:.8rem}
-.rm-btn{background:none;border:none;color:var(--orange-dark);font-weight:bold;cursor:pointer;font-size:.85rem;padding:0 .25rem}
-
-.warn-box{background:#fef2f2;border:1px solid #fecaca;border-radius:4px;padding:.4rem .5rem;min-height:24px;margin-bottom:.6rem;font-size:.8rem}
-.warn{color:var(--danger);font-weight:600;margin-bottom:.15rem}.ok-msg{color:var(--success);font-size:.8rem}
-.spec-hm{margin-top:.15rem;display:flex;flex-wrap:wrap;gap:2px}
-.spec-cell{padding:1px 4px;border-radius:3px;font-size:.63rem;color:#0f172a}
-
-.btn-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem}
-.btn{padding:.35rem .7rem;border:none;border-radius:4px;cursor:pointer;font-size:.8rem;transition:background .12s}
-.btn-p{background:var(--primary);color:#fff}.btn-p:hover{background:var(--primary-dark)}
-.btn-s{background:#64748b;color:#fff}.btn-s:hover{background:#475569}
-
-.saved-section{margin-top:.7rem;padding-top:.5rem;border-top:1px solid var(--gray-light)}
-.saved-section h4{font-size:.82rem;color:#475569;margin-bottom:.35rem}
-.save-row{display:flex;gap:.35rem;margin-bottom:.35rem}
-.save-row input{flex:1;padding:.25rem .45rem;border:1px solid var(--gray-light);border-radius:4px;font-size:.8rem}
-.save-row button{padding:.25rem .5rem;background:var(--primary);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.8rem}
-.saved-item{display:flex;align-items:center;justify-content:space-between;padding:.25rem .4rem;background:var(--gray-lighter);border-radius:4px;font-size:.78rem;margin-bottom:.2rem;cursor:pointer;transition:background .1s}
-.saved-item:hover{background:#e2e8f0}
-.saved-item .sname{font-weight:500}.saved-item .scount{color:#64748b;font-size:.7rem}
-.saved-item .sdel{background:none;border:none;color:var(--danger);cursor:pointer;font-size:.72rem;padding:0 .2rem}
-.file-note{font-size:.7rem;color:#d97706;padding:.25rem .35rem;background:#fef3c7;border-radius:3px;margin-bottom:.35rem}
-
-.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:#334155;color:#fff;padding:.45rem .9rem;border-radius:4px;box-shadow:0 2px 6px var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s;font-size:.82rem;z-index:9999}.toast.show{opacity:1}
-.license{width:100%;background:var(--gray-lighter);padding:.7rem;text-align:center;font-size:.72rem;color:var(--text);border-top:1px solid var(--gray-light);margin-top:auto}.license a{color:#3b82f6;text-decoration:underline}
-.rest-bubble{position:fixed;bottom:14px;right:14px;background:rgba(255,255,255,.92);border:2px solid var(--blue-dark);color:var(--blue-dark);border-radius:50%;padding:.55rem .7rem;font-weight:bold;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.2);cursor:pointer;animation:fb 3s ease-in-out infinite;z-index:9999;font-size:.7rem;text-decoration:none}
-@keyframes fb{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@media(max-width:768px){.ab-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.top-row{flex-direction:column;align-items:stretch}.top-row input[type="text"]{width:100%}}
-</style>
-</head>
-<body>
-<div class="top-banner">
-  <div class="lab-logo-wrapper"><img src="https://avatars.githubusercontent.com/u/177810676?s=200&v=4" alt="Serrano Lab" class="lab-logo"/></div>
-  <div class="banner-text"><h1>Serrano Lab – EpiFlow Panel Builder</h1><h2>210 reagents · Cytek Aurora 5L + BD S8 · conflict detection · spectral heuristics</h2></div>
-</div>
-<div class="container">
-  <div class="panel-controls">
-    <div class="top-row">
-      <label>Search <input type="text" id="searchInput" placeholder="Marker, Cat#, conjugation…"/></label>
-      <label>Instrument <select id="instrumentSelect"><option value="Cytek_Aurora_5L">Cytek Aurora 5L (5L spectral)</option><option value="BD_S8">BD FACSDiscover S8 (5L sorter)</option></select></label>
-      <button class="core-btn" id="loadCoreBtn" title="Pre-select the 11-marker Core EpiFlow panel">Load Core Panel</button>
-    </div>
-    <div class="filter-row">
-      <label><input type="checkbox" id="hideUnconj" checked/> Hide unconjugated</label>
-      <label><input type="checkbox" id="hideIsotype"/> Hide isotype controls</label>
-    </div>
-    <div class="module-buttons" id="modBtns"></div>
-  </div>
-  <div class="result-count" id="resultCount"></div>
-  <div class="ab-grid" id="grid"></div>
-  <div class="selected-panel">
-    <div class="sp-header"><h3>Your Selected Panel <span class="sp-count" id="panelCount"></span></h3><button class="btn btn-s" id="clearBtn" style="font-size:.75rem">Clear All</button></div>
-    <div class="laser-bar-label">Laser balance:</div>
-    <div class="laser-bar" id="laserBar"></div>
-    <div class="warn-box" id="warnBox"></div>
-    <div class="sel-list" id="selList"></div>
-    <div class="btn-row"><button class="btn btn-p" id="copyBtn">Copy to Clipboard</button><button class="btn btn-p" id="csvBtn">Save as CSV</button></div>
-    <div class="saved-section"><h4>Saved Panel Configurations</h4>
-      <div class="save-row"><input type="text" id="pnameInput" placeholder="Panel name…"/><button id="saveBtn">Save</button></div>
-      <div class="save-row"><button class="btn btn-s" id="exportBtn" style="flex:1">Export (JSON)</button><button class="btn btn-s" id="importBtn" style="flex:1">Import</button></div>
-      <div id="savedList"></div>
-    </div>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
-<footer class="license">
-  <p><strong>BSD 2-Clause License</strong> &middot; Copyright &copy; 2024–2026 M.A. Serrano, Center for Regenerative Medicine (CReM), Chobanian &amp; Avedisian School of Medicine</p>
-  <p style="margin-top:.25rem;color:#6b7280">Spectral conflict heuristics inspired by <a href="https://github.com/exaexa/panelbuilder" target="_blank">PanelBuildeR</a> (Kratochvíl, Apache-2.0). Always validate with single-stained controls.</p>
-</footer>
-<a class="rest-bubble" href="https://serranolab.github.io/GAME_webpage/" target="_blank" rel="noopener">Click<br/>to Rest</a>
-
-<script>
-const antibodies=[
+[
   {
     "id": "AB001",
     "marker": "HOPX",
@@ -297,7 +130,7 @@ const antibodies=[
   {
     "id": "AB009",
     "marker": "IgG",
-    "antibody": "Rabbit IgG Isotype Control (RbNP15), Alexa Fluor™ 647",
+    "antibody": "Rabbit IgG Isotype Control (RbNP15), Alexa Fluor\u2122 647",
     "catNo": "51-4616-82",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -313,7 +146,7 @@ const antibodies=[
   {
     "id": "AB010",
     "marker": "IgG",
-    "antibody": "Mouse IgG1 kappa Isotype Control (P3.6.2.8.1), Alexa Fluor™ 647, eBioscience",
+    "antibody": "Mouse IgG1 kappa Isotype Control (P3.6.2.8.1), Alexa Fluor\u2122 647, eBioscience",
     "catNo": "51-4714-81",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -329,7 +162,7 @@ const antibodies=[
   {
     "id": "AB011",
     "marker": "IgG",
-    "antibody": "Rabbit IgG Isotype Control (Alexa Fluor® 488 Conjugate)",
+    "antibody": "Rabbit IgG Isotype Control (Alexa Fluor\u00ae 488 Conjugate)",
     "catNo": "4340",
     "clone": "",
     "conjugation": "Alexa Fluor 488",
@@ -345,7 +178,7 @@ const antibodies=[
   {
     "id": "AB012",
     "marker": "IgG",
-    "antibody": "Rabbit (DA1E) mAb IgG XP® Isotype Control (PE Conjugate)",
+    "antibody": "Rabbit (DA1E) mAb IgG XP\u00ae Isotype Control (PE Conjugate)",
     "catNo": "5742",
     "clone": "DA1E",
     "conjugation": "PE",
@@ -505,7 +338,7 @@ const antibodies=[
   {
     "id": "AB022",
     "marker": "IgG",
-    "antibody": "Mouse IgG2a kappa Isotype Control (eBM2a), PE, eBioscience™",
+    "antibody": "Mouse IgG2a kappa Isotype Control (eBM2a), PE, eBioscience\u2122",
     "catNo": "12-4724-42",
     "clone": "",
     "conjugation": "PE",
@@ -521,7 +354,7 @@ const antibodies=[
   {
     "id": "AB023",
     "marker": "IgG",
-    "antibody": "Mouse IgG2b kappa Isotype Control (eBMG2b), APC, eBioscience™",
+    "antibody": "Mouse IgG2b kappa Isotype Control (eBMG2b), APC, eBioscience\u2122",
     "catNo": "17-4732-81",
     "clone": "",
     "conjugation": "APC",
@@ -601,7 +434,7 @@ const antibodies=[
   {
     "id": "AB028",
     "marker": "H3K4me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb (Alexa Fluor® 647 Conjugate) #12064",
+    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb (Alexa Fluor\u00ae 647 Conjugate) #12064",
     "catNo": "12064S",
     "clone": "C42D8",
     "conjugation": "Alexa Fluor 647",
@@ -617,7 +450,7 @@ const antibodies=[
   {
     "id": "AB029",
     "marker": "H3",
-    "antibody": "Histone H3 (D1H2) XP® Rabbit mAb (Alexa Fluor® 700 Conjugate) #54826",
+    "antibody": "Histone H3 (D1H2) XP\u00ae Rabbit mAb (Alexa Fluor\u00ae 700 Conjugate) #54826",
     "catNo": "54826S",
     "clone": "D1H2",
     "conjugation": "Alexa Fluor 700",
@@ -649,7 +482,7 @@ const antibodies=[
   {
     "id": "AB031",
     "marker": "H3K4me1",
-    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP® Rabbit mAb (PE Conjugate)",
+    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP\u00ae Rabbit mAb (PE Conjugate)",
     "catNo": "55800S",
     "clone": "D1A9",
     "conjugation": "PE",
@@ -713,7 +546,7 @@ const antibodies=[
   {
     "id": "AB035",
     "marker": "H3K4me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb (PE Conjugate)",
+    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb\u00a0(PE\u00a0Conjugate)",
     "catNo": "62255S",
     "clone": "C42D8",
     "conjugation": "PE",
@@ -729,7 +562,7 @@ const antibodies=[
   {
     "id": "AB036",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb (PE Conjugate) #15562",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb (PE Conjugate) #15562",
     "catNo": "15562",
     "clone": "D5E4",
     "conjugation": "PE",
@@ -745,7 +578,7 @@ const antibodies=[
   {
     "id": "AB037",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb (PE-Cy7® Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb (PE-Cy7\u00ae Conjugate)",
     "catNo": "30342S",
     "clone": "D5E4",
     "conjugation": "PE-Cy7",
@@ -761,7 +594,7 @@ const antibodies=[
   {
     "id": "AB038",
     "marker": "H3K27me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (PE-Cy7® Conjugate) #91611",
+    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (PE-Cy7\u00ae Conjugate) #91611",
     "catNo": "91611S",
     "clone": "C36B11",
     "conjugation": "PE-Cy7",
@@ -777,7 +610,7 @@ const antibodies=[
   {
     "id": "AB039",
     "marker": "H3K9ac",
-    "antibody": "Acetyl-Histone H3 (Lys9) (C5B11) Rabbit mAb (Pacific Blue™ Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys9) (C5B11) Rabbit mAb (Pacific Blue\u2122 Conjugate)",
     "catNo": "11857S",
     "clone": "C5B11",
     "conjugation": "Pacific Blue",
@@ -793,7 +626,7 @@ const antibodies=[
   {
     "id": "AB040",
     "marker": "H3K27me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Pacific Blue™ Conjugate)",
+    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Pacific Blue\u2122 Conjugate)",
     "catNo": "89120S",
     "clone": "C36B11",
     "conjugation": "Pacific Blue",
@@ -809,7 +642,7 @@ const antibodies=[
   {
     "id": "AB041",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb (Pacific Blue™ Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb (Pacific Blue\u2122 Conjugate)",
     "catNo": "23349S",
     "clone": "D5E4",
     "conjugation": "Pacific Blue",
@@ -825,7 +658,7 @@ const antibodies=[
   {
     "id": "AB042",
     "marker": "H3K9me3",
-    "antibody": "Alexa Fluor® 750 Anti-Histone H3 (tri methyl K9) antibody [EPR16601] - ChIP Grade",
+    "antibody": "Alexa Fluor\u00ae 750 Anti-Histone H3 (tri methyl K9) antibody [EPR16601] - ChIP Grade",
     "catNo": "ab321190",
     "clone": "EPR16601",
     "conjugation": "Alexa Fluor 750",
@@ -857,7 +690,7 @@ const antibodies=[
   {
     "id": "AB044",
     "marker": "H3",
-    "antibody": "Histone H3 (D1H2) XP® Rabbit mAb (Alexa Fluor® 488 Conjugate) #49711",
+    "antibody": "Histone H3 (D1H2) XP\u00ae Rabbit mAb (Alexa Fluor\u00ae 488 Conjugate) #49711",
     "catNo": "49711S",
     "clone": "D1H2",
     "conjugation": "Alexa Fluor 488",
@@ -873,7 +706,7 @@ const antibodies=[
   {
     "id": "AB045",
     "marker": "H3",
-    "antibody": "H3 | Histone H3 (D1H2) XP® Rabbit mAb",
+    "antibody": "H3 | Histone H3 (D1H2) XP\u00ae Rabbit mAb",
     "catNo": "4499",
     "clone": "D1H2",
     "conjugation": "Purified",
@@ -889,7 +722,7 @@ const antibodies=[
   {
     "id": "AB046",
     "marker": "phH3",
-    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP® Rabbit mAb (Alexa Fluor® 532 Conjugate)",
+    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP\u00ae\u00a0Rabbit mAb (Alexa Fluor\u00ae\u00a0532 Conjugate)",
     "catNo": "52725",
     "clone": "D2C8",
     "conjugation": "Alexa Fluor 532",
@@ -905,7 +738,7 @@ const antibodies=[
   {
     "id": "AB047",
     "marker": "H3K14ac",
-    "antibody": "Acetyl-Histone H3 (Lys14) (D4B9) Rabbit mAb (Alexa Fluor® 488 Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys14) (D4B9) Rabbit mAb (Alexa Fluor\u00ae 488 Conjugate)",
     "catNo": "26828S",
     "clone": "D4B9",
     "conjugation": "Alexa Fluor 488",
@@ -921,7 +754,7 @@ const antibodies=[
   {
     "id": "AB048",
     "marker": "H3K27me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Alexa Fluor® 594 Conjugate) #10584",
+    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Alexa Fluor\u00ae 594 Conjugate) #10584",
     "catNo": "10584S",
     "clone": "C36B11",
     "conjugation": "Alexa Fluor 594",
@@ -937,7 +770,7 @@ const antibodies=[
   {
     "id": "AB049",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb #8173",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb #8173",
     "catNo": "8173T",
     "clone": "D5E4",
     "conjugation": "Purified",
@@ -953,7 +786,7 @@ const antibodies=[
   {
     "id": "AB050",
     "marker": "phH3",
-    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP® Rabbit mAb (Alexa Fluor® 488 Conjugate)",
+    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP\u00ae Rabbit mAb (Alexa Fluor\u00ae 488 Conjugate)",
     "catNo": "3465",
     "clone": "D2C8",
     "conjugation": "Alexa Fluor 488",
@@ -969,7 +802,7 @@ const antibodies=[
   {
     "id": "AB051",
     "marker": "H3K4me1",
-    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP® Rabbit mAb #5326",
+    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP\u00ae Rabbit mAb #5326",
     "catNo": "5326S",
     "clone": "D1A9",
     "conjugation": "Purified",
@@ -1001,7 +834,7 @@ const antibodies=[
   {
     "id": "AB053",
     "marker": "H3",
-    "antibody": "Histone H3 (D1H2) XP® Rabbit mAb (SignalFlex™ mFluor™ UV375 Conjugate) #83701",
+    "antibody": "Histone H3 (D1H2) XP\u00ae Rabbit mAb (SignalFlex\u2122 mFluor\u2122 UV375 Conjugate) #83701",
     "catNo": "83701W2",
     "clone": "D1H2",
     "conjugation": "mFluor UV375",
@@ -1017,7 +850,7 @@ const antibodies=[
   {
     "id": "AB054",
     "marker": "FLAG/DYKDDDDK",
-    "antibody": "CoraLite® Plus 647-conjugated DYKDDDDK tag Monoclonal antibody (Binds to FLAG® tag epitope)",
+    "antibody": "CoraLite\u00ae Plus 647-conjugated DYKDDDDK tag Monoclonal antibody (Binds to FLAG\u00ae tag epitope)",
     "catNo": "CL647-66008",
     "clone": "",
     "conjugation": "CoraLite Plus 647",
@@ -1065,7 +898,7 @@ const antibodies=[
   {
     "id": "AB057",
     "marker": "FLAG/DYKDDDDK",
-    "antibody": "Monoclonal ANTI-FLAG® M2 antibody produced in mouse",
+    "antibody": "Monoclonal ANTI-FLAG\u00ae M2 antibody produced in mouse",
     "catNo": "F3165-.2MG",
     "clone": "",
     "conjugation": "Purified",
@@ -1097,7 +930,7 @@ const antibodies=[
   {
     "id": "AB059",
     "marker": "Streptavidin",
-    "antibody": "Streptavidin, Alexa Fluor™ 568 conjugate",
+    "antibody": "Streptavidin, Alexa Fluor\u2122 568 conjugate",
     "catNo": "S11226",
     "clone": "",
     "conjugation": "Alexa Fluor 568",
@@ -1113,7 +946,7 @@ const antibodies=[
   {
     "id": "AB060",
     "marker": "Streptavidin",
-    "antibody": "Streptavidin, Alexa Fluor™ 405 conjugate",
+    "antibody": "Streptavidin, Alexa Fluor\u2122 405 conjugate",
     "catNo": "S32351",
     "clone": "",
     "conjugation": "Alexa Fluor 405",
@@ -1129,7 +962,7 @@ const antibodies=[
   {
     "id": "AB061",
     "marker": "Streptavidin",
-    "antibody": "BD Horizon™ RB744 Streptavidin",
+    "antibody": "BD Horizon\u2122 RB744 Streptavidin",
     "catNo": "570516",
     "clone": "",
     "conjugation": "RB744",
@@ -1193,7 +1026,7 @@ const antibodies=[
   {
     "id": "AB065",
     "marker": "NESTIN",
-    "antibody": "Human Nestin Alexa Fluor® 594-conjugated Antibody",
+    "antibody": "Human Nestin Alexa Fluor\u00ae 594-conjugated Antibody",
     "catNo": "IC1259T-100UG",
     "clone": "",
     "conjugation": "Alexa Fluor 594",
@@ -1369,7 +1202,7 @@ const antibodies=[
   {
     "id": "AB076",
     "marker": "NR2F2/COUP-TFII",
-    "antibody": "Polyclonal Rabbit anti‑Human COUP‑TFII / NR2F2 Antibody (Biotin, N‑Terminus, IHC, WB) LS‑C438623",
+    "antibody": "Polyclonal Rabbit anti\u2011Human COUP\u2011TFII / NR2F2 Antibody (Biotin, N\u2011Terminus, IHC, WB) LS\u2011C438623",
     "catNo": "LS-C438623-100",
     "clone": "",
     "conjugation": "Biotin",
@@ -1513,7 +1346,7 @@ const antibodies=[
   {
     "id": "AB085",
     "marker": "beta-Actin",
-    "antibody": "β-Actin Antibody",
+    "antibody": "\u03b2-Actin Antibody",
     "catNo": "4967S",
     "clone": "",
     "conjugation": "Purified",
@@ -1641,7 +1474,7 @@ const antibodies=[
   {
     "id": "AB093",
     "marker": "Active Caspase-3",
-    "antibody": "BD Horizon™ BV650 Rabbit Anti-Active Caspase-3",
+    "antibody": "BD Horizon\u2122 BV650 Rabbit Anti-Active Caspase-3",
     "catNo": "570179",
     "clone": "C92-605",
     "conjugation": "BV650",
@@ -1657,7 +1490,7 @@ const antibodies=[
   {
     "id": "AB094",
     "marker": "Active Caspase-3",
-    "antibody": "anti-active Caspase 3 , Polyclonal, Abcam™",
+    "antibody": "anti-active Caspase 3 , Polyclonal, Abcam\u2122",
     "catNo": "AB13847",
     "clone": "",
     "conjugation": "Purified",
@@ -1721,7 +1554,7 @@ const antibodies=[
   {
     "id": "AB098",
     "marker": "EOMES/TBR2",
-    "antibody": "BD Horizon™ BUV395 Mouse Anti-EOMES",
+    "antibody": "BD Horizon\u2122 BUV395 Mouse Anti-EOMES",
     "catNo": "567171",
     "clone": "",
     "conjugation": "BUV395",
@@ -1737,7 +1570,7 @@ const antibodies=[
   {
     "id": "AB099",
     "marker": "Goat IgG (Donkey secondary)",
-    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 488",
+    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 488",
     "catNo": "A-11055",
     "clone": "",
     "conjugation": "Alexa Fluor 488",
@@ -1753,7 +1586,7 @@ const antibodies=[
   {
     "id": "AB100",
     "marker": "Goat IgG (Donkey secondary)",
-    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 568",
+    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 568",
     "catNo": "A-11057",
     "clone": "",
     "conjugation": "Alexa Fluor 568",
@@ -1849,7 +1682,7 @@ const antibodies=[
   {
     "id": "AB106",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, APC-Vio® 770, REAfinity™",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, APC-Vio\u00ae 770, REAfinity\u2122",
     "catNo": "130-117-914",
     "clone": "",
     "conjugation": "APC",
@@ -1881,7 +1714,7 @@ const antibodies=[
   {
     "id": "AB108",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, REAfinity™ - APC conjugated",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, REAfinity\u2122 - APC conjugated",
     "catNo": "130-117-984",
     "clone": "",
     "conjugation": "APC",
@@ -1897,7 +1730,7 @@ const antibodies=[
   {
     "id": "AB109",
     "marker": "CD14",
-    "antibody": "Biolegend APC/Fire™ 810 anti-human CD14",
+    "antibody": "Biolegend APC/Fire\u2122 810 anti-human CD14",
     "catNo": "50-207-8325",
     "clone": "",
     "conjugation": "APC",
@@ -1913,7 +1746,7 @@ const antibodies=[
   {
     "id": "AB110",
     "marker": "CD271/NGFR",
-    "antibody": "BD Pharmingen™ Alexa Fluor™ 488 Mouse Anti-Human CD271",
+    "antibody": "BD Pharmingen\u2122 Alexa Fluor\u2122 488 Mouse Anti-Human CD271",
     "catNo": "567393",
     "clone": "",
     "conjugation": "Alexa Fluor 488",
@@ -1929,7 +1762,7 @@ const antibodies=[
   {
     "id": "AB111",
     "marker": "CD36",
-    "antibody": "BD OptiBuild™ BUV496 Mouse Anti-Human CD36",
+    "antibody": "BD OptiBuild\u2122 BUV496 Mouse Anti-Human CD36",
     "catNo": "756799",
     "clone": "",
     "conjugation": "BUV496",
@@ -1945,7 +1778,7 @@ const antibodies=[
   {
     "id": "AB112",
     "marker": "NG2/CSPG4",
-    "antibody": "BD OptiBuild™ BUV496 Mouse Anti-Human Chondroitin Sulfate (NG2)",
+    "antibody": "BD OptiBuild\u2122 BUV496 Mouse Anti-Human Chondroitin Sulfate (NG2)",
     "catNo": "756711",
     "clone": "NG2",
     "conjugation": "BUV496",
@@ -1961,7 +1794,7 @@ const antibodies=[
   {
     "id": "AB113",
     "marker": "HK1",
-    "antibody": "BD Horizon™ BUV661 Rabbit Anti-Human HK1",
+    "antibody": "BD Horizon\u2122 BUV661 Rabbit Anti-Human HK1",
     "catNo": "570557",
     "clone": "",
     "conjugation": "BUV661",
@@ -1977,7 +1810,7 @@ const antibodies=[
   {
     "id": "AB114",
     "marker": "CD140a/PDGFRa",
-    "antibody": "BD OptiBuild™ BUV805 Mouse Anti-Human CD140a",
+    "antibody": "BD OptiBuild\u2122 BUV805 Mouse Anti-Human CD140a",
     "catNo": "748620",
     "clone": "",
     "conjugation": "BUV805",
@@ -2009,7 +1842,7 @@ const antibodies=[
   {
     "id": "AB116",
     "marker": "CD13",
-    "antibody": "BD OptiBuild™ BV786 Mouse Anti-Human CD13",
+    "antibody": "BD OptiBuild\u2122 BV786 Mouse Anti-Human CD13",
     "catNo": "740967",
     "clone": "",
     "conjugation": "BV786",
@@ -2025,7 +1858,7 @@ const antibodies=[
   {
     "id": "AB117",
     "marker": "DLL4",
-    "antibody": "DLL4 Antibody, anti-human, Biotin, REAfinity™",
+    "antibody": "DLL4 Antibody, anti-human, Biotin, REAfinity\u2122",
     "catNo": "130-118-234",
     "clone": "",
     "conjugation": "Biotin",
@@ -2041,7 +1874,7 @@ const antibodies=[
   {
     "id": "AB118",
     "marker": "NOTCH1",
-    "antibody": "Notch1 Antibody, anti-human, Biotin, REAfinity™",
+    "antibody": "Notch1 Antibody, anti-human, Biotin, REAfinity\u2122",
     "catNo": "130-112-523",
     "clone": "",
     "conjugation": "Biotin",
@@ -2057,7 +1890,7 @@ const antibodies=[
   {
     "id": "AB119",
     "marker": "NR2F2/COUP-TFII",
-    "antibody": "COUP-TF II/NR2F2 Rabbit anti-Human, Biotin, Polyclonal, Novus Biologicals™",
+    "antibody": "COUP-TF II/NR2F2 Rabbit anti-Human, Biotin, Polyclonal, Novus Biologicals\u2122",
     "catNo": "NB106334",
     "clone": "",
     "conjugation": "Biotin",
@@ -2073,7 +1906,7 @@ const antibodies=[
   {
     "id": "AB120",
     "marker": "CD57",
-    "antibody": "BD Pharmingen™ PE Mouse Anti-Human CD57",
+    "antibody": "BD Pharmingen\u2122 PE Mouse Anti-Human CD57",
     "catNo": "560844",
     "clone": "",
     "conjugation": "PE",
@@ -2089,7 +1922,7 @@ const antibodies=[
   {
     "id": "AB121",
     "marker": "CD140b/PDGFRb",
-    "antibody": "BD Pharmingen™ PE Mouse Anti-Human CD140b",
+    "antibody": "BD Pharmingen\u2122 PE Mouse Anti-Human CD140b",
     "catNo": "558821",
     "clone": "",
     "conjugation": "PE",
@@ -2169,7 +2002,7 @@ const antibodies=[
   {
     "id": "AB126",
     "marker": "CD140a/PDGFRa",
-    "antibody": "BD Pharmingen™ PE Mouse Anti-Human CD140a",
+    "antibody": "BD Pharmingen\u2122 PE Mouse Anti-Human CD140a",
     "catNo": "556002",
     "clone": "",
     "conjugation": "PE",
@@ -2185,7 +2018,7 @@ const antibodies=[
   {
     "id": "AB127",
     "marker": "DLL4",
-    "antibody": "DLL4 Antibody, anti-human, PE-Vio® 615, REAfinity™",
+    "antibody": "DLL4 Antibody, anti-human, PE-Vio\u00ae 615, REAfinity\u2122",
     "catNo": "130-118-229",
     "clone": "",
     "conjugation": "PE",
@@ -2201,7 +2034,7 @@ const antibodies=[
   {
     "id": "AB128",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, PE-Vio® 615, REAfinity™",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, PE-Vio\u00ae 615, REAfinity\u2122",
     "catNo": "130-117-985",
     "clone": "",
     "conjugation": "PE",
@@ -2217,7 +2050,7 @@ const antibodies=[
   {
     "id": "AB129",
     "marker": "CD69",
-    "antibody": "Biolegend PE/Fire™ 640 anti-human CD69",
+    "antibody": "Biolegend PE/Fire\u2122 640 anti-human CD69",
     "catNo": "50-207-3478",
     "clone": "",
     "conjugation": "PE",
@@ -2265,7 +2098,7 @@ const antibodies=[
   {
     "id": "AB132",
     "marker": "PAX3",
-    "antibody": "PAX-3 Antibody, anti-human/mouse, Vio® B515, REAfinity™",
+    "antibody": "PAX-3 Antibody, anti-human/mouse, Vio\u00ae B515, REAfinity\u2122",
     "catNo": "130-131-114",
     "clone": "",
     "conjugation": "Vio B515",
@@ -2345,7 +2178,7 @@ const antibodies=[
   {
     "id": "AB137",
     "marker": "CD184/CXCR4",
-    "antibody": "BD OptiBuild™ BUV737 Mouse Anti-Human CD184",
+    "antibody": "BD OptiBuild\u2122 BUV737 Mouse Anti-Human CD184",
     "catNo": "741862",
     "clone": "",
     "conjugation": "BUV737",
@@ -2361,7 +2194,7 @@ const antibodies=[
   {
     "id": "AB138",
     "marker": "CD140a/PDGFRa",
-    "antibody": "CD140a Antibody, anti-human, REAfinity™",
+    "antibody": "CD140a Antibody, anti-human, REAfinity\u2122",
     "catNo": "130-115-241",
     "clone": "",
     "conjugation": "Purified",
@@ -2377,7 +2210,7 @@ const antibodies=[
   {
     "id": "AB139",
     "marker": "DLL4",
-    "antibody": "BD OptiBuild™ BUV563 Mouse Anti-Human Delta-Like Protein 4",
+    "antibody": "BD OptiBuild\u2122 BUV563 Mouse Anti-Human Delta-Like Protein 4",
     "catNo": "748346",
     "clone": "",
     "conjugation": "BUV563",
@@ -2393,7 +2226,7 @@ const antibodies=[
   {
     "id": "AB140",
     "marker": "HER4/ErbB4",
-    "antibody": "BD OptiBuild™ BV711 Rat Anti-Human HER4 (ErbB4)",
+    "antibody": "BD OptiBuild\u2122 BV711 Rat Anti-Human HER4 (ErbB4)",
     "catNo": "756650",
     "clone": "",
     "conjugation": "BV711",
@@ -2409,7 +2242,7 @@ const antibodies=[
   {
     "id": "AB141",
     "marker": "cTnT",
-    "antibody": "Cardiac Troponin T Antibody, anti-human/mouse/rat, Vio® B515, REAfinity™",
+    "antibody": "Cardiac Troponin T Antibody, anti-human/mouse/rat, Vio\u00ae B515, REAfinity\u2122",
     "catNo": "130-129-225",
     "clone": "",
     "conjugation": "Vio B515",
@@ -2441,7 +2274,7 @@ const antibodies=[
   {
     "id": "AB143",
     "marker": "CD140b/PDGFRb",
-    "antibody": "BD Pharmingen™ Purified Mouse Anti-Human CD140b",
+    "antibody": "BD Pharmingen\u2122 Purified Mouse Anti-Human CD140b",
     "catNo": "558820",
     "clone": "",
     "conjugation": "Purified",
@@ -2457,7 +2290,7 @@ const antibodies=[
   {
     "id": "AB144",
     "marker": "CD13",
-    "antibody": "BD Pharmingen™ Purified Mouse Anti-Human CD13",
+    "antibody": "BD Pharmingen\u2122 Purified Mouse Anti-Human CD13",
     "catNo": "555393",
     "clone": "",
     "conjugation": "Purified",
@@ -2473,7 +2306,7 @@ const antibodies=[
   {
     "id": "AB145",
     "marker": "NOTCH3",
-    "antibody": "BD OptiBuild™ BV711 Mouse Anti-Human Notch3",
+    "antibody": "BD OptiBuild\u2122 BV711 Mouse Anti-Human Notch3",
     "catNo": "745463",
     "clone": "",
     "conjugation": "BV711",
@@ -2505,7 +2338,7 @@ const antibodies=[
   {
     "id": "AB147",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, Vio® Bright V423, REAfinity",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, Vio\u00ae Bright V423, REAfinity",
     "catNo": "130-128-286",
     "clone": "",
     "conjugation": "Vio Bright V423",
@@ -2521,7 +2354,7 @@ const antibodies=[
   {
     "id": "AB148",
     "marker": "NOTCH1",
-    "antibody": "Notch1 Antibody, anti-human, REAfinity  Vio® Bright V423",
+    "antibody": "Notch1 Antibody, anti-human, REAfinity  Vio\u00ae Bright V423",
     "catNo": "130-128-652",
     "clone": "",
     "conjugation": "Vio Bright V423",
@@ -2537,7 +2370,7 @@ const antibodies=[
   {
     "id": "AB149",
     "marker": "Ki67",
-    "antibody": "BD Horizon™ BUV395 Mouse Anti-Ki-67",
+    "antibody": "BD Horizon\u2122 BUV395 Mouse Anti-Ki-67",
     "catNo": "564071",
     "clone": "",
     "conjugation": "BUV395",
@@ -2569,7 +2402,7 @@ const antibodies=[
   {
     "id": "AB151",
     "marker": "CD140a/PDGFRa",
-    "antibody": "CD140a Antibody, anti-mouse, APC-Vio® 770",
+    "antibody": "CD140a Antibody, anti-mouse, APC-Vio\u00ae 770",
     "catNo": "130-125-521",
     "clone": "",
     "conjugation": "APC",
@@ -2601,7 +2434,7 @@ const antibodies=[
   {
     "id": "AB153",
     "marker": "Mouse IgG2a (secondary)",
-    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 568",
+    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 568",
     "catNo": "A-21134",
     "clone": "",
     "conjugation": "Alexa Fluor 568",
@@ -2617,7 +2450,7 @@ const antibodies=[
   {
     "id": "AB154",
     "marker": "Mouse IgM (secondary)",
-    "antibody": "Goat anti-Mouse IgM (Heavy chain) Secondary Antibody, Alexa Fluor™ 647",
+    "antibody": "Goat anti-Mouse IgM (Heavy chain) Secondary Antibody, Alexa Fluor\u2122 647",
     "catNo": "A-21238",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2633,7 +2466,7 @@ const antibodies=[
   {
     "id": "AB155",
     "marker": "Mouse IgG2a (secondary)",
-    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 647",
+    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 647",
     "catNo": "A-21241",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2681,7 +2514,7 @@ const antibodies=[
   {
     "id": "AB158",
     "marker": "Nestin",
-    "antibody": "Brilliant Violet 421™ anti-Nestin Antibody",
+    "antibody": "Brilliant Violet 421\u2122 anti-Nestin Antibody",
     "catNo": "656808",
     "clone": "",
     "conjugation": "BV421",
@@ -2697,7 +2530,7 @@ const antibodies=[
   {
     "id": "AB159",
     "marker": "NFATc1",
-    "antibody": "Alexa Fluor® 488 anti-NFATc1 Antibody Clone 7A6",
+    "antibody": "Alexa Fluor\u00ae 488 anti-NFATc1 Antibody Clone 7A6",
     "catNo": "50-605-848",
     "clone": "7A6",
     "conjugation": "Alexa Fluor 488",
@@ -2793,7 +2626,7 @@ const antibodies=[
   {
     "id": "AB165",
     "marker": "Rabbit IgG (secondary)",
-    "antibody": "Goat anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor™ Plus 405, Invitrog",
+    "antibody": "Goat anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 Plus 405, Invitrog",
     "catNo": "PIA48254",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2809,7 +2642,7 @@ const antibodies=[
   {
     "id": "AB166",
     "marker": "Rabbit IgG (secondary)",
-    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 647",
+    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 647",
     "catNo": "A-31573",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2825,7 +2658,7 @@ const antibodies=[
   {
     "id": "AB167",
     "marker": "Rabbit IgG (secondary)",
-    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 647, Invitrogen",
+    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 647, Invitrogen",
     "catNo": "10543623",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -3145,7 +2978,7 @@ const antibodies=[
   {
     "id": "AB187",
     "marker": "CYCLIN D1",
-    "antibody": "Cyclin D1 Monoclonal Antibody (2G3G5), Cardinal Red™",
+    "antibody": "Cyclin D1 Monoclonal Antibody (2G3G5), Cardinal Red\u2122",
     "catNo": "CR-60186",
     "clone": "2G3G5",
     "conjugation": "Cardinal Red",
@@ -3177,7 +3010,7 @@ const antibodies=[
   {
     "id": "AB189",
     "marker": "GFP",
-    "antibody": "turboGFP Polyclonal Antibody, TrueMAB™",
+    "antibody": "turboGFP Polyclonal Antibody, TrueMAB\u2122",
     "catNo": "TA150075",
     "clone": "",
     "conjugation": "Purified",
@@ -3273,7 +3106,7 @@ const antibodies=[
   {
     "id": "AB195",
     "marker": "TBR1",
-    "antibody": "CoraLite®594-conjugated TBR1 Monoclonal antibody",
+    "antibody": "CoraLite\u00ae594-conjugated TBR1 Monoclonal antibody",
     "catNo": "CL594-66564",
     "clone": "",
     "conjugation": "CoraLite 594",
@@ -3305,7 +3138,7 @@ const antibodies=[
   {
     "id": "AB197",
     "marker": "Chondroitin Sulfate/NG2",
-    "antibody": "BD Pharmingen™ Alexa Fluor® 488 Mouse Anti-Chondroitin Sulfate",
+    "antibody": "BD Pharmingen\u2122 Alexa Fluor\u00ae 488 Mouse Anti-Chondroitin Sulfate",
     "catNo": "562413",
     "clone": "",
     "conjugation": "Alexa Fluor 488",
@@ -3337,7 +3170,7 @@ const antibodies=[
   {
     "id": "AB199",
     "marker": "NG2",
-    "antibody": "Human NG2/MCSP Alexa Fluor® 700-conjugated Antibody",
+    "antibody": "Human NG2/MCSP Alexa Fluor\u00ae 700-conjugated Antibody",
     "catNo": "FAB2585N",
     "clone": "",
     "conjugation": "Alexa Fluor 700",
@@ -3417,7 +3250,7 @@ const antibodies=[
   {
     "id": "AB204",
     "marker": "Tubulin",
-    "antibody": "Neuron-specific beta -III Tubulin Alexa Fluor® 488-conjugated Antibody",
+    "antibody": "Neuron-specific beta -III Tubulin Alexa Fluor\u00ae 488-conjugated Antibody",
     "catNo": "IC1195G-100",
     "clone": "",
     "conjugation": "Alexa Fluor 488",
@@ -3449,7 +3282,7 @@ const antibodies=[
   {
     "id": "AB206",
     "marker": "DNA content",
-    "antibody": "FxCycle™ Violet Ready Flow™ Reagent",
+    "antibody": "FxCycle\u2122 Violet Ready Flow\u2122 Reagent",
     "catNo": "R37166",
     "clone": "NA",
     "conjugation": "FxCycle Violet",
@@ -3465,7 +3298,7 @@ const antibodies=[
   {
     "id": "AB207",
     "marker": "Viability",
-    "antibody": "Zombie NIR™ Fixable Viability Kit",
+    "antibody": "Zombie NIR\u2122 Fixable Viability Kit",
     "catNo": "50-604-714",
     "clone": "NA",
     "conjugation": "Zombie NIR",
@@ -3480,7 +3313,7 @@ const antibodies=[
   },
   {
     "marker": "Viability (Lime)",
-    "antibody": "LIVE/DEAD™ Fixable Lime (506) Viability Kit",
+    "antibody": "LIVE/DEAD\u2122 Fixable Lime (506) Viability Kit",
     "catNo": "L34989",
     "clone": "NA",
     "conjugation": "Fixable Lime 506",
@@ -3496,7 +3329,7 @@ const antibodies=[
   },
   {
     "marker": "Viability (Violet)",
-    "antibody": "LIVE/DEAD™ Fixable Violet Dead Cell Stain Kit",
+    "antibody": "LIVE/DEAD\u2122 Fixable Violet Dead Cell Stain Kit",
     "catNo": "L34955",
     "clone": "NA",
     "conjugation": "Fixable Violet",
@@ -3512,7 +3345,7 @@ const antibodies=[
   },
   {
     "marker": "Viability (FVS780)",
-    "antibody": "BD Horizon™ Fixable Viability Stain 780",
+    "antibody": "BD Horizon\u2122 Fixable Viability Stain 780",
     "catNo": "565388",
     "clone": "NA",
     "conjugation": "FVS780",
@@ -3526,1550 +3359,4 @@ const antibodies=[
     "link": "",
     "id": "AB210"
   }
-];
-const Instruments={
-  "Cytek_Aurora_5L": {
-    "id": "Cytek_Aurora_5L",
-    "label": "Cytek Aurora 5L (5-laser, spectral)",
-    "channels": [
-      {
-        "id": "UV1",
-        "laser": "355",
-        "center": 373
-      },
-      {
-        "id": "UV2",
-        "laser": "355",
-        "center": 388
-      },
-      {
-        "id": "UV3",
-        "laser": "355",
-        "center": 428
-      },
-      {
-        "id": "UV4",
-        "laser": "355",
-        "center": 443
-      },
-      {
-        "id": "UV5",
-        "laser": "355",
-        "center": 458
-      },
-      {
-        "id": "UV6",
-        "laser": "355",
-        "center": 473
-      },
-      {
-        "id": "UV7",
-        "laser": "355",
-        "center": 514
-      },
-      {
-        "id": "UV8",
-        "laser": "355",
-        "center": 542
-      },
-      {
-        "id": "UV9",
-        "laser": "355",
-        "center": 582
-      },
-      {
-        "id": "UV10",
-        "laser": "355",
-        "center": 613
-      },
-      {
-        "id": "UV11",
-        "laser": "355",
-        "center": 664
-      },
-      {
-        "id": "UV12",
-        "laser": "355",
-        "center": 692
-      },
-      {
-        "id": "UV13",
-        "laser": "355",
-        "center": 720
-      },
-      {
-        "id": "UV14",
-        "laser": "355",
-        "center": 750
-      },
-      {
-        "id": "UV15",
-        "laser": "355",
-        "center": 780
-      },
-      {
-        "id": "UV16",
-        "laser": "355",
-        "center": 812
-      },
-      {
-        "id": "V1",
-        "laser": "405",
-        "center": 428
-      },
-      {
-        "id": "V2",
-        "laser": "405",
-        "center": 443
-      },
-      {
-        "id": "V3",
-        "laser": "405",
-        "center": 458
-      },
-      {
-        "id": "V4",
-        "laser": "405",
-        "center": 473
-      },
-      {
-        "id": "V5",
-        "laser": "405",
-        "center": 508
-      },
-      {
-        "id": "V6",
-        "laser": "405",
-        "center": 525
-      },
-      {
-        "id": "V7",
-        "laser": "405",
-        "center": 542
-      },
-      {
-        "id": "V8",
-        "laser": "405",
-        "center": 581
-      },
-      {
-        "id": "V9",
-        "laser": "405",
-        "center": 598
-      },
-      {
-        "id": "V10",
-        "laser": "405",
-        "center": 615
-      },
-      {
-        "id": "V11",
-        "laser": "405",
-        "center": 664
-      },
-      {
-        "id": "V12",
-        "laser": "405",
-        "center": 692
-      },
-      {
-        "id": "V13",
-        "laser": "405",
-        "center": 720
-      },
-      {
-        "id": "V14",
-        "laser": "405",
-        "center": 750
-      },
-      {
-        "id": "V15",
-        "laser": "405",
-        "center": 780
-      },
-      {
-        "id": "V16",
-        "laser": "405",
-        "center": 812
-      },
-      {
-        "id": "B1",
-        "laser": "488",
-        "center": 508
-      },
-      {
-        "id": "B2",
-        "laser": "488",
-        "center": 525
-      },
-      {
-        "id": "B3",
-        "laser": "488",
-        "center": 542
-      },
-      {
-        "id": "B4",
-        "laser": "488",
-        "center": 581
-      },
-      {
-        "id": "B5",
-        "laser": "488",
-        "center": 598
-      },
-      {
-        "id": "B6",
-        "laser": "488",
-        "center": 615
-      },
-      {
-        "id": "B7",
-        "laser": "488",
-        "center": 661
-      },
-      {
-        "id": "B8",
-        "laser": "488",
-        "center": 679
-      },
-      {
-        "id": "B9",
-        "laser": "488",
-        "center": 697
-      },
-      {
-        "id": "B10",
-        "laser": "488",
-        "center": 717
-      },
-      {
-        "id": "B11",
-        "laser": "488",
-        "center": 738
-      },
-      {
-        "id": "B12",
-        "laser": "488",
-        "center": 760
-      },
-      {
-        "id": "B13",
-        "laser": "488",
-        "center": 783
-      },
-      {
-        "id": "B14",
-        "laser": "488",
-        "center": 812
-      },
-      {
-        "id": "YG1",
-        "laser": "561",
-        "center": 577
-      },
-      {
-        "id": "YG2",
-        "laser": "561",
-        "center": 598
-      },
-      {
-        "id": "YG3",
-        "laser": "561",
-        "center": 615
-      },
-      {
-        "id": "YG4",
-        "laser": "561",
-        "center": 661
-      },
-      {
-        "id": "YG5",
-        "laser": "561",
-        "center": 679
-      },
-      {
-        "id": "YG6",
-        "laser": "561",
-        "center": 697
-      },
-      {
-        "id": "YG7",
-        "laser": "561",
-        "center": 720
-      },
-      {
-        "id": "YG8",
-        "laser": "561",
-        "center": 750
-      },
-      {
-        "id": "YG9",
-        "laser": "561",
-        "center": 780
-      },
-      {
-        "id": "YG10",
-        "laser": "561",
-        "center": 812
-      },
-      {
-        "id": "R1",
-        "laser": "640",
-        "center": 661
-      },
-      {
-        "id": "R2",
-        "laser": "640",
-        "center": 679
-      },
-      {
-        "id": "R3",
-        "laser": "640",
-        "center": 697
-      },
-      {
-        "id": "R4",
-        "laser": "640",
-        "center": 717
-      },
-      {
-        "id": "R5",
-        "laser": "640",
-        "center": 738
-      },
-      {
-        "id": "R6",
-        "laser": "640",
-        "center": 760
-      },
-      {
-        "id": "R7",
-        "laser": "640",
-        "center": 783
-      },
-      {
-        "id": "R8",
-        "laser": "640",
-        "center": 812
-      }
-    ]
-  },
-  "BD_S8": {
-    "id": "BD_S8",
-    "label": "BD FACSDiscover S8 (5-laser, spectral sorter)",
-    "channels": [
-      {
-        "id": "UV1",
-        "laser": "349",
-        "center": 375
-      },
-      {
-        "id": "UV2",
-        "laser": "349",
-        "center": 393
-      },
-      {
-        "id": "UV3",
-        "laser": "349",
-        "center": 418
-      },
-      {
-        "id": "UV4",
-        "laser": "349",
-        "center": 433
-      },
-      {
-        "id": "UV5",
-        "laser": "349",
-        "center": 450
-      },
-      {
-        "id": "UV6",
-        "laser": "349",
-        "center": 478
-      },
-      {
-        "id": "UV7",
-        "laser": "349",
-        "center": 503
-      },
-      {
-        "id": "UV8",
-        "laser": "349",
-        "center": 518
-      },
-      {
-        "id": "UV9",
-        "laser": "349",
-        "center": 533
-      },
-      {
-        "id": "UV10",
-        "laser": "349",
-        "center": 548
-      },
-      {
-        "id": "UV11",
-        "laser": "349",
-        "center": 578
-      },
-      {
-        "id": "UV12",
-        "laser": "349",
-        "center": 593
-      },
-      {
-        "id": "UV13",
-        "laser": "349",
-        "center": 610
-      },
-      {
-        "id": "UV14",
-        "laser": "349",
-        "center": 630
-      },
-      {
-        "id": "UV15",
-        "laser": "349",
-        "center": 650
-      },
-      {
-        "id": "UV16",
-        "laser": "349",
-        "center": 673
-      },
-      {
-        "id": "UV17",
-        "laser": "349",
-        "center": 698
-      },
-      {
-        "id": "UV18",
-        "laser": "349",
-        "center": 725
-      },
-      {
-        "id": "UV19",
-        "laser": "349",
-        "center": 755
-      },
-      {
-        "id": "UV20",
-        "laser": "349",
-        "center": 785
-      },
-      {
-        "id": "UV21",
-        "laser": "349",
-        "center": 815
-      },
-      {
-        "id": "UV22",
-        "laser": "349",
-        "center": 845
-      },
-      {
-        "id": "V1",
-        "laser": "405",
-        "center": 420
-      },
-      {
-        "id": "V2",
-        "laser": "405",
-        "center": 440
-      },
-      {
-        "id": "V3",
-        "laser": "405",
-        "center": 463
-      },
-      {
-        "id": "V4",
-        "laser": "405",
-        "center": 485
-      },
-      {
-        "id": "V5",
-        "laser": "405",
-        "center": 503
-      },
-      {
-        "id": "V6",
-        "laser": "405",
-        "center": 518
-      },
-      {
-        "id": "V7",
-        "laser": "405",
-        "center": 533
-      },
-      {
-        "id": "V8",
-        "laser": "405",
-        "center": 548
-      },
-      {
-        "id": "V9",
-        "laser": "405",
-        "center": 578
-      },
-      {
-        "id": "V10",
-        "laser": "405",
-        "center": 593
-      },
-      {
-        "id": "V11",
-        "laser": "405",
-        "center": 610
-      },
-      {
-        "id": "V12",
-        "laser": "405",
-        "center": 630
-      },
-      {
-        "id": "V13",
-        "laser": "405",
-        "center": 650
-      },
-      {
-        "id": "V14",
-        "laser": "405",
-        "center": 670
-      },
-      {
-        "id": "V15",
-        "laser": "405",
-        "center": 695
-      },
-      {
-        "id": "V16",
-        "laser": "405",
-        "center": 725
-      },
-      {
-        "id": "V17",
-        "laser": "405",
-        "center": 755
-      },
-      {
-        "id": "V18",
-        "laser": "405",
-        "center": 785
-      },
-      {
-        "id": "V19",
-        "laser": "405",
-        "center": 815
-      },
-      {
-        "id": "V20",
-        "laser": "405",
-        "center": 845
-      },
-      {
-        "id": "B1",
-        "laser": "488",
-        "center": 503
-      },
-      {
-        "id": "B2",
-        "laser": "488",
-        "center": 518
-      },
-      {
-        "id": "B3",
-        "laser": "488",
-        "center": 533
-      },
-      {
-        "id": "B4",
-        "laser": "488",
-        "center": 548
-      },
-      {
-        "id": "B5",
-        "laser": "488",
-        "center": 578
-      },
-      {
-        "id": "B6",
-        "laser": "488",
-        "center": 593
-      },
-      {
-        "id": "B7",
-        "laser": "488",
-        "center": 610
-      },
-      {
-        "id": "B8",
-        "laser": "488",
-        "center": 630
-      },
-      {
-        "id": "B9",
-        "laser": "488",
-        "center": 650
-      },
-      {
-        "id": "B10",
-        "laser": "488",
-        "center": 670
-      },
-      {
-        "id": "B11",
-        "laser": "488",
-        "center": 695
-      },
-      {
-        "id": "B12",
-        "laser": "488",
-        "center": 725
-      },
-      {
-        "id": "B13",
-        "laser": "488",
-        "center": 755
-      },
-      {
-        "id": "B14",
-        "laser": "488",
-        "center": 785
-      },
-      {
-        "id": "B15",
-        "laser": "488",
-        "center": 815
-      },
-      {
-        "id": "B16",
-        "laser": "488",
-        "center": 845
-      },
-      {
-        "id": "YG1",
-        "laser": "561",
-        "center": 578
-      },
-      {
-        "id": "YG2",
-        "laser": "561",
-        "center": 593
-      },
-      {
-        "id": "YG3",
-        "laser": "561",
-        "center": 610
-      },
-      {
-        "id": "YG4",
-        "laser": "561",
-        "center": 630
-      },
-      {
-        "id": "YG5",
-        "laser": "561",
-        "center": 650
-      },
-      {
-        "id": "YG6",
-        "laser": "561",
-        "center": 670
-      },
-      {
-        "id": "YG7",
-        "laser": "561",
-        "center": 695
-      },
-      {
-        "id": "YG8",
-        "laser": "561",
-        "center": 725
-      },
-      {
-        "id": "YG9",
-        "laser": "561",
-        "center": 755
-      },
-      {
-        "id": "YG10",
-        "laser": "561",
-        "center": 785
-      },
-      {
-        "id": "YG11",
-        "laser": "561",
-        "center": 815
-      },
-      {
-        "id": "YG12",
-        "laser": "561",
-        "center": 845
-      },
-      {
-        "id": "R1",
-        "laser": "637",
-        "center": 650
-      },
-      {
-        "id": "R2",
-        "laser": "637",
-        "center": 670
-      },
-      {
-        "id": "R3",
-        "laser": "637",
-        "center": 695
-      },
-      {
-        "id": "R4",
-        "laser": "637",
-        "center": 725
-      },
-      {
-        "id": "R5",
-        "laser": "637",
-        "center": 755
-      },
-      {
-        "id": "R6",
-        "laser": "637",
-        "center": 785
-      },
-      {
-        "id": "R7",
-        "laser": "637",
-        "center": 815
-      },
-      {
-        "id": "R8",
-        "laser": "637",
-        "center": 845
-      }
-    ]
-  }
-};
-const FluorPeakByInstrument={
-  "Cytek_Aurora_5L": {
-    "BUV395": "UV2",
-    "BUV496": "UV7",
-    "BUV563": "UV8",
-    "BUV615": "UV10",
-    "BUV661": "UV11",
-    "BUV737": "UV14",
-    "BUV805": "UV16",
-    "NOVAFLUOR UV765": "UV15",
-    "BV421": "V1",
-    "SUPER BRIGHT 436": "V2",
-    "EFLUOR 450": "V3",
-    "PACIFIC BLUE": "V3",
-    "BV480": "V4",
-    "EFLUOR 506": "V7",
-    "PACIFIC ORANGE": "V8",
-    "SUPER BRIGHT 600": "V10",
-    "BV605": "V10",
-    "MFLUOR VIOLET 610": "V10",
-    "SUPER BRIGHT 645": "V11",
-    "BV650": "V11",
-    "NOVAFLUOR VIOLET 690": "V12",
-    "SUPER BRIGHT 702": "V13",
-    "BV711": "V13",
-    "MFLUOR VIOLET 500": "V5",
-    "NOVAFLUOR VIOLET 745": "V14",
-    "BV750": "V14",
-    "SUPER BRIGHT 780": "V15",
-    "BV786": "V15",
-    "BV510": "V7",
-    "VIO BRIGHT V423": "V2",
-    "AF405": "V2",
-    "NOVAFLUOR BLUE 510": "B1",
-    "AF488": "B2",
-    "FITC": "B2",
-    "VIO B515": "B2",
-    "NOVAFLUOR BLUE 555": "B3",
-    "AF532": "B3",
-    "BB515": "B1",
-    "PERCP": "B8",
-    "PERCP-CY5.5": "B9",
-    "PERCP-EF710": "B10",
-    "RB670": "B7",
-    "RB705": "B9",
-    "RB744": "B11",
-    "RB780": "B13",
-    "PE": "YG1",
-    "AF561": "YG1",
-    "NOVAFLUOR YELLOW 590": "YG2",
-    "PE-EFLUOR 610": "YG3",
-    "PE-VIO 615": "YG3",
-    "PE-CF594": "YG3",
-    "AF594": "YG3",
-    "CORALITE 594": "YG3",
-    "DYLIGHT 594": "YG3",
-    "PE-FIRE 640": "YG4",
-    "PE-CY5": "YG5",
-    "PE-CY5.5": "YG6",
-    "RY703": "YG6",
-    "PE-CY7": "YG9",
-    "PE-VIO 770": "YG9",
-    "PE-FIRE 810": "YG10",
-    "APC": "R1",
-    "EFLUOR 660": "R2",
-    "AF647": "R2",
-    "NOVAFLUOR RED 685": "R3",
-    "AF660": "R3",
-    "NOVAFLUOR RED 710": "R4",
-    "AF700": "R4",
-    "CARDINAL RED": "R4",
-    "NOVAFLUOR RED 725": "R5",
-    "NOVAFLUOR RED 755": "R6",
-    "APC-EFLUOR 780": "R7",
-    "APC-CY7": "R7",
-    "APC-VIO 770": "R7",
-    "APC-FIRE 750": "R7",
-    "AF750": "R7",
-    "APC-FIRE 810": "R8",
-    "ZOMBIE NIR": "R8",
-    "MFLUOR UV375": "UV1",
-    "AF555/568": "YG1",
-    "CORALITE PLUS 647": "R2",
-    "FXCYCLE VIOLET": "UV5",
-    "FIXABLE LIME 506": "V5",
-    "FIXABLE VIOLET": "V3",
-    "FVS780": "YG9"
-  },
-  "BD_S8": {
-    "BUV395": "UV3",
-    "BUV496": "UV7",
-    "BUV563": "UV11",
-    "BUV615": "UV13",
-    "BUV661": "UV15",
-    "BUV737": "UV18",
-    "BUV805": "UV21",
-    "NOVAFLUOR UV765": "UV19",
-    "BV421": "V1",
-    "SUPER BRIGHT 436": "V2",
-    "EFLUOR 450": "V2",
-    "PACIFIC BLUE": "V3",
-    "BV480": "V4",
-    "EFLUOR 506": "V6",
-    "PACIFIC ORANGE": "V9",
-    "SUPER BRIGHT 600": "V11",
-    "BV605": "V11",
-    "MFLUOR VIOLET 610": "V11",
-    "SUPER BRIGHT 645": "V12",
-    "BV650": "V13",
-    "NOVAFLUOR VIOLET 690": "V15",
-    "SUPER BRIGHT 702": "V15",
-    "BV711": "V15",
-    "MFLUOR VIOLET 500": "V5",
-    "NOVAFLUOR VIOLET 745": "V17",
-    "BV750": "V17",
-    "SUPER BRIGHT 780": "V18",
-    "BV786": "V18",
-    "BV510": "V6",
-    "VIO BRIGHT V423": "V2",
-    "AF405": "V2",
-    "NOVAFLUOR BLUE 510": "B2",
-    "AF488": "B2",
-    "FITC": "B2",
-    "VIO B515": "B2",
-    "NOVAFLUOR BLUE 555": "B4",
-    "AF532": "B4",
-    "BB515": "B2",
-    "PERCP": "B10",
-    "PERCP-CY5.5": "B11",
-    "PERCP-EF710": "B11",
-    "RB670": "B10",
-    "RB705": "B11",
-    "RB744": "B12",
-    "RB780": "B13",
-    "PE": "YG1",
-    "AF561": "YG1",
-    "PE-EFLUOR 610": "YG3",
-    "PE-VIO 615": "YG3",
-    "AF594": "YG3",
-    "CORALITE 594": "YG3",
-    "DYLIGHT 594": "YG3",
-    "PE-FIRE 640": "YG5",
-    "PE-CY5": "YG6",
-    "PE-CY5.5": "YG7",
-    "RY703": "YG7",
-    "PE-CY7": "YG10",
-    "PE-VIO 770": "YG10",
-    "PE-FIRE 810": "YG11",
-    "APC": "R1",
-    "EFLUOR 660": "R2",
-    "AF647": "R2",
-    "NOVAFLUOR RED 685": "R3",
-    "AF660": "R3",
-    "NOVAFLUOR RED 710": "R3",
-    "AF700": "R4",
-    "CARDINAL RED": "R4",
-    "NOVAFLUOR RED 725": "R5",
-    "NOVAFLUOR RED 755": "R6",
-    "APC-EFLUOR 780": "R6",
-    "APC-CY7": "R6",
-    "APC-VIO 770": "R6",
-    "APC-FIRE 750": "R6",
-    "AF750": "R6",
-    "APC-FIRE 810": "R7",
-    "ZOMBIE NIR": "R7",
-    "MFLUOR UV375": "UV1",
-    "AF555/568": "YG1",
-    "CORALITE PLUS 647": "R2",
-    "FXCYCLE VIOLET": "UV5",
-    "FIXABLE LIME 506": "V5",
-    "FIXABLE VIOLET": "V3",
-    "FVS780": "YG10"
-  }
-};
-const FluorSpectra={
-  "BUV395": {
-    "brightness": 1,
-    "channels": {
-      "UV2": 1.0,
-      "UV1": 0.3,
-      "UV3": 0.1
-    }
-  },
-  "BUV496": {
-    "brightness": 2,
-    "channels": {
-      "UV7": 1.0,
-      "UV6": 0.3,
-      "UV8": 0.2
-    }
-  },
-  "BUV563": {
-    "brightness": 2,
-    "channels": {
-      "UV8": 1.0,
-      "UV7": 0.2,
-      "UV9": 0.3
-    }
-  },
-  "BUV615": {
-    "brightness": 3,
-    "channels": {
-      "UV10": 1.0,
-      "UV9": 0.3,
-      "UV11": 0.2
-    }
-  },
-  "BUV661": {
-    "brightness": 3,
-    "channels": {
-      "UV11": 1.0,
-      "UV10": 0.3,
-      "UV12": 0.2
-    }
-  },
-  "BUV737": {
-    "brightness": 3,
-    "channels": {
-      "UV14": 1.0,
-      "UV13": 0.3,
-      "UV15": 0.3
-    }
-  },
-  "BUV805": {
-    "brightness": 2,
-    "channels": {
-      "UV16": 1.0,
-      "UV15": 0.4
-    }
-  },
-  "PACIFIC BLUE": {
-    "brightness": 1,
-    "channels": {
-      "V3": 1.0,
-      "V2": 0.4,
-      "V4": 0.2
-    }
-  },
-  "BV421": {
-    "brightness": 3,
-    "channels": {
-      "V1": 1.0,
-      "V2": 0.3
-    }
-  },
-  "BV480": {
-    "brightness": 2,
-    "channels": {
-      "V4": 1.0,
-      "V5": 0.3
-    }
-  },
-  "BV510": {
-    "brightness": 3,
-    "channels": {
-      "V7": 1.0,
-      "V6": 0.3
-    }
-  },
-  "BV605": {
-    "brightness": 2,
-    "channels": {
-      "V10": 1.0,
-      "V9": 0.3
-    }
-  },
-  "BV650": {
-    "brightness": 3,
-    "channels": {
-      "V11": 1.0,
-      "V12": 0.3
-    }
-  },
-  "BV711": {
-    "brightness": 1,
-    "channels": {
-      "V13": 1.0,
-      "V12": 0.3,
-      "V14": 0.2
-    }
-  },
-  "BV750": {
-    "brightness": 1,
-    "channels": {
-      "V14": 1.0,
-      "V15": 0.3
-    }
-  },
-  "BV786": {
-    "brightness": 3,
-    "channels": {
-      "V15": 1.0,
-      "V16": 0.3
-    }
-  },
-  "MFLUOR VIOLET 610": {
-    "brightness": 2,
-    "channels": {
-      "V10": 1.0,
-      "V9": 0.3
-    }
-  },
-  "MFLUOR VIOLET 500": {
-    "brightness": 2,
-    "channels": {
-      "V5": 1.0,
-      "V4": 0.3
-    }
-  },
-  "VIO BRIGHT V423": {
-    "brightness": 2,
-    "channels": {
-      "V2": 1.0,
-      "V1": 0.3
-    }
-  },
-  "AF405": {
-    "brightness": 2,
-    "channels": {
-      "V2": 1.0,
-      "V3": 0.3
-    }
-  },
-  "AF488": {
-    "brightness": 2,
-    "channels": {
-      "B2": 1.0,
-      "B1": 0.2,
-      "B3": 0.2
-    }
-  },
-  "FITC": {
-    "brightness": 2,
-    "channels": {
-      "B2": 1.0,
-      "B3": 0.3
-    }
-  },
-  "VIO B515": {
-    "brightness": 2,
-    "channels": {
-      "B2": 1.0,
-      "B1": 0.2
-    }
-  },
-  "BB515": {
-    "brightness": 2,
-    "channels": {
-      "B1": 1.0,
-      "B2": 0.3
-    }
-  },
-  "AF532": {
-    "brightness": 1,
-    "channels": {
-      "B3": 1.0,
-      "B4": 0.3
-    }
-  },
-  "PE": {
-    "brightness": 3,
-    "channels": {
-      "YG1": 1.0,
-      "YG2": 0.4
-    }
-  },
-  "PE-VIO 615": {
-    "brightness": 3,
-    "channels": {
-      "YG3": 1.0,
-      "YG2": 0.4,
-      "YG4": 0.2
-    }
-  },
-  "PE-CF594": {
-    "brightness": 2,
-    "channels": {
-      "YG3": 1.0,
-      "YG2": 0.3,
-      "YG4": 0.3
-    }
-  },
-  "PE-FIRE 640": {
-    "brightness": 3,
-    "channels": {
-      "YG4": 1.0,
-      "YG3": 0.3,
-      "YG5": 0.2
-    }
-  },
-  "PE-CY5": {
-    "brightness": 2,
-    "channels": {
-      "YG5": 1.0,
-      "YG4": 0.3,
-      "YG6": 0.2
-    }
-  },
-  "PE-CY5.5": {
-    "brightness": 2,
-    "channels": {
-      "YG6": 1.0,
-      "YG5": 0.3,
-      "YG7": 0.2
-    }
-  },
-  "PE-CY7": {
-    "brightness": 3,
-    "channels": {
-      "YG9": 1.0,
-      "YG8": 0.3,
-      "YG10": 0.2
-    }
-  },
-  "PE-VIO 770": {
-    "brightness": 3,
-    "channels": {
-      "YG9": 1.0,
-      "YG10": 0.4
-    }
-  },
-  "PE-FIRE 810": {
-    "brightness": 3,
-    "channels": {
-      "YG10": 1.0,
-      "YG9": 0.4
-    }
-  },
-  "PERCP": {
-    "brightness": 1,
-    "channels": {
-      "B8": 1.0,
-      "B9": 0.3
-    }
-  },
-  "PERCP-CY5.5": {
-    "brightness": 1,
-    "channels": {
-      "B9": 1.0,
-      "B10": 0.4
-    }
-  },
-  "PERCP-EF710": {
-    "brightness": 3,
-    "channels": {
-      "B10": 1.0,
-      "B9": 0.3,
-      "B11": 0.2
-    }
-  },
-  "AF594": {
-    "brightness": 2,
-    "channels": {
-      "YG3": 0.9,
-      "YG4": 0.4
-    }
-  },
-  "AF555/568": {
-    "brightness": 2,
-    "channels": {
-      "YG1": 0.7,
-      "YG2": 0.4,
-      "YG3": 0.2
-    }
-  },
-  "CORALITE 594": {
-    "brightness": 2,
-    "channels": {
-      "YG3": 0.9,
-      "YG4": 0.4
-    }
-  },
-  "CORALITE PLUS 647": {
-    "brightness": 2,
-    "channels": {
-      "R2": 1.0,
-      "R1": 0.2,
-      "R3": 0.2
-    }
-  },
-  "DYLIGHT 594": {
-    "brightness": 2,
-    "channels": {
-      "YG3": 0.9,
-      "YG4": 0.4
-    }
-  },
-  "APC": {
-    "brightness": 3,
-    "channels": {
-      "R1": 1.0,
-      "R2": 0.3
-    }
-  },
-  "AF647": {
-    "brightness": 2,
-    "channels": {
-      "R2": 1.0,
-      "R1": 0.2,
-      "R3": 0.2
-    }
-  },
-  "AF700": {
-    "brightness": 2,
-    "channels": {
-      "R4": 1.0,
-      "R3": 0.3,
-      "R5": 0.2
-    }
-  },
-  "AF750": {
-    "brightness": 2,
-    "channels": {
-      "R7": 1.0,
-      "R6": 0.3
-    }
-  },
-  "APC-CY7": {
-    "brightness": 3,
-    "channels": {
-      "R7": 1.0,
-      "R6": 0.3,
-      "R8": 0.3
-    }
-  },
-  "APC-VIO 770": {
-    "brightness": 3,
-    "channels": {
-      "R7": 1.0,
-      "R8": 0.4
-    }
-  },
-  "APC-FIRE 750": {
-    "brightness": 3,
-    "channels": {
-      "R7": 1.0,
-      "R6": 0.3
-    }
-  },
-  "APC-FIRE 810": {
-    "brightness": 3,
-    "channels": {
-      "R8": 1.0,
-      "R7": 0.4
-    }
-  },
-  "CARDINAL RED": {
-    "brightness": 2,
-    "channels": {
-      "R4": 1.0,
-      "R5": 0.3
-    }
-  },
-  "RB670": {
-    "brightness": 2,
-    "channels": {
-      "B7": 1.0,
-      "B6": 0.3,
-      "B8": 0.2
-    }
-  },
-  "RB705": {
-    "brightness": 2,
-    "channels": {
-      "B9": 1.0,
-      "B8": 0.3,
-      "B10": 0.2
-    }
-  },
-  "RB744": {
-    "brightness": 2,
-    "channels": {
-      "B11": 1.0,
-      "B10": 0.3,
-      "B12": 0.2
-    }
-  },
-  "RB780": {
-    "brightness": 2,
-    "channels": {
-      "B13": 1.0,
-      "B12": 0.3,
-      "B14": 0.2
-    }
-  },
-  "RY703": {
-    "brightness": 2,
-    "channels": {
-      "YG6": 1.0,
-      "YG5": 0.3,
-      "YG7": 0.2
-    }
-  },
-  "ZOMBIE NIR": {
-    "brightness": 3,
-    "channels": {
-      "R8": 1.0,
-      "R7": 0.3
-    }
-  },
-  "MFLUOR UV375": {
-    "brightness": 2,
-    "channels": {
-      "UV1": 1.0,
-      "UV2": 0.3
-    }
-  },
-  "FXCYCLE VIOLET": {
-    "brightness": 2,
-    "channels": {
-      "UV5": 1.0,
-      "UV6": 0.4,
-      "UV4": 0.3
-    }
-  },
-  "FIXABLE LIME 506": {
-    "brightness": 2,
-    "channels": {
-      "V5": 1.0,
-      "V6": 0.3
-    }
-  },
-  "FIXABLE VIOLET": {
-    "brightness": 2,
-    "channels": {
-      "V3": 1.0,
-      "V2": 0.3
-    }
-  },
-  "FVS780": {
-    "brightness": 3,
-    "channels": {
-      "YG9": 1.0,
-      "YG10": 0.3
-    }
-  }
-};
-const CORE_PANEL_IDS=["AB206", "AB207", "AB029", "AB040", "AB028", "AB037", "AB039", "AB031", "AB034", "AB046", "AB093"];
-
-/* ═══ Helpers ═══ */
-const NON_FLUOR=new Set(["Purified","Biotin","HRP",""]);
-const CONJ_MAP={
-  "BUV395":"BUV395","BUV496":"BUV496","BUV563":"BUV563","BUV615":"BUV615","BUV661":"BUV661","BUV737":"BUV737","BUV805":"BUV805",
-  "BV421":"BV421","BV480":"BV480","BV510":"BV510","BV570":"BV570","BV605":"BV605","BV650":"BV650","BV711":"BV711","BV750":"BV750","BV786":"BV786",
-  "Pacific Blue":"PACIFIC BLUE","mFluor Violet 610":"MFLUOR VIOLET 610","mFluor Violet 500":"MFLUOR VIOLET 500","mFluor UV375":"MFLUOR UV375",
-  "Vio Bright V423":"VIO BRIGHT V423","Vio B515":"VIO B515",
-  "Alexa Fluor 405":"AF405","Alexa Fluor 488":"AF488","Alexa Fluor 532":"AF532","Alexa Fluor 568":"AF555/568",
-  "Alexa Fluor 594":"AF594","Alexa Fluor 647":"AF647","Alexa Fluor 700":"AF700","Alexa Fluor 750":"AF750",
-  "PE":"PE","PE-Cy7":"PE-CY7","PE-Cy5":"PE-CY5","PE-Cy5.5":"PE-CY5.5","PE-Vio 615":"PE-VIO 615","PE-Vio 770":"PE-VIO 770",
-  "PE-Fire 640":"PE-FIRE 640","PE-Fire 810":"PE-FIRE 810","PE-CF594":"PE-CF594",
-  "APC":"APC","APC-Cy7":"APC-CY7","APC-Vio 770":"APC-VIO 770","APC-Fire 750":"APC-FIRE 750","APC-Fire 810":"APC-FIRE 810",
-  "FITC":"FITC","BB515":"BB515","PerCP":"PERCP","PerCP-Cy5.5":"PERCP-CY5.5","PerCP-eF710":"PERCP-EF710",
-  "Cardinal Red":"CARDINAL RED","RB670":"RB670","RB705":"RB705","RB744":"RB744","RB780":"RB780","RY703":"RY703",
-  "CoraLite 594":"CORALITE 594","CoraLite Plus 647":"CORALITE PLUS 647","DyLight 594":"DYLIGHT 594",
-  "Zombie NIR":"ZOMBIE NIR","FxCycle Violet":"FXCYCLE VIOLET",
-  "Fixable Lime 506":"FIXABLE LIME 506","Fixable Violet":"FIXABLE VIOLET","FVS780":"FVS780"
-};
-function getFluorKey(ab){return CONJ_MAP[ab.conjugation]||null}
-function isUnconj(ab){return NON_FLUOR.has(ab.conjugation||"")&&!getFluorKey(ab)}
-function getModClass(m){m=(m||"").toLowerCase();if(m.includes("core epiflow"))return"mod-core";if(m.includes("cell cycle"))return"mod-cell-cycle";if(m.includes("cerebral")||m.includes("neural"))return"mod-neural";if(m.includes("pericyte"))return"mod-pericyte";if(m.includes("endothelial")||m.includes("angiogenesis")||m.includes("vasculogenesis"))return"mod-endothelial";if(m.includes("pbmc")||m.includes("immune"))return"mod-immune";if(m.includes("cardiac"))return"mod-cardiac";if(m.includes("pluripotent"))return"mod-pluripotent";if(m.includes("notch"))return"mod-notch";if(m.includes("phenotype"))return"mod-phenotype";if(m.includes("structural"))return"mod-structural";if(m.includes("detection"))return"mod-detection";if(m.includes("control"))return"mod-control";if(m.includes("flexible"))return"mod-flexible";return"mod-other"}
-
-let activeInstrument="Cytek_Aurora_5L";
-function getInfo(ab){
-  const key=getFluorKey(ab),pm=FluorPeakByInstrument[activeInstrument]||{};
-  if(key&&pm[key]){const det=pm[key],inst=Instruments[activeInstrument];let laser="";if(inst){const ch=inst.channels.find(c=>c.id===det);if(ch)laser=ch.laser}return{fluorKey:key,laser,detector:det,brightness:(FluorSpectra[key]||{}).brightness||2}}
-  const raw=(ab.laser||"").toUpperCase().trim();let laser="",det="";
-  if(raw.includes("-")){const p=raw.split("-");if(/^\d{3}$/.test(p[0])){laser=p[0];det=p[1]}}
-  return{fluorKey:null,laser,detector:det,brightness:2}
-}
-function laserLabel(n){n=String(n||"");if(n==="355"||n==="349")return{l:n+" nm (UV)",b:"UV",c:"l-uv"};if(n==="405")return{l:"405 nm (Violet)",b:"Violet",c:"l-vi"};if(n==="488")return{l:"488 nm (Blue)",b:"Blue",c:"l-bl"};if(n==="561")return{l:"561 nm (YG)",b:"YG",c:"l-yg"};if(n==="640"||n==="637")return{l:n+" nm (Red)",b:"Red",c:"l-rd"};return{l:n||"—",b:"",c:""}}
-
-/* ═══ State ═══ */
-let selectedIds=new Set(),activeMod="All",searchQ="";
-
-/* ═══ Init ═══ */
-document.addEventListener("DOMContentLoaded",()=>{
-  buildModBtns();renderGrid();renderPanel();loadSaved();
-  document.getElementById("searchInput").addEventListener("input",e=>{searchQ=e.target.value.toLowerCase();renderGrid()});
-  document.getElementById("hideUnconj").addEventListener("change",renderGrid);
-  document.getElementById("hideIsotype").addEventListener("change",renderGrid);
-  document.getElementById("instrumentSelect").addEventListener("change",e=>{activeInstrument=e.target.value;renderGrid();renderPanel()});
-  document.getElementById("loadCoreBtn").addEventListener("click",()=>{CORE_PANEL_IDS.forEach(id=>selectedIds.add(id));renderGrid();renderPanel();toast("Core EpiFlow panel loaded (11 markers)")});
-  document.getElementById("clearBtn").addEventListener("click",()=>{selectedIds.clear();renderGrid();renderPanel()});
-  document.getElementById("copyBtn").addEventListener("click",copyPanel);
-  document.getElementById("csvBtn").addEventListener("click",saveCSV);
-  document.getElementById("saveBtn").addEventListener("click",saveCurrent);
-  document.getElementById("exportBtn").addEventListener("click",exportJSON);
-  document.getElementById("importBtn").addEventListener("click",importJSON);
-});
-
-/* ═══ Module buttons ═══ */
-function buildModBtns(){
-  const counts=new Map();
-  antibodies.forEach(a=>{if(!isUnconj(a))(a.module||"").split("|").map(x=>x.trim()).filter(Boolean).forEach(s=>counts.set(s,(counts.get(s)||0)+1))});
-  const el=document.getElementById("modBtns");el.innerHTML="";
-  const mk=(mod,cnt)=>{const b=document.createElement("button");b.innerHTML=mod+' <span class="mbadge">'+cnt+'</span>';b.dataset.mod=mod;if(mod===activeMod)b.classList.add("active");b.onclick=()=>{activeMod=mod;[...el.children].forEach(c=>c.classList.toggle("active",c.dataset.mod===mod));renderGrid()};el.appendChild(b)};
-  mk("All",antibodies.length);
-  [...counts.entries()].sort((a,b)=>b[1]-a[1]).forEach(([m,c])=>mk(m,c));
-}
-
-/* ═══ Card grid ═══ */
-function renderGrid(){
-  const grid=document.getElementById("grid");grid.innerHTML="";
-  const hideU=document.getElementById("hideUnconj").checked,hideI=document.getElementById("hideIsotype").checked;
-  const filtered=antibodies.filter(ab=>{
-    if(hideU&&isUnconj(ab))return false;
-    if(hideI&&(ab.role||"").toLowerCase().includes("isotype"))return false;
-    if(activeMod!=="All"&&!(ab.module||"").toLowerCase().includes(activeMod.toLowerCase()))return false;
-    const hay=((ab.marker||"")+(ab.antibody||"")+(ab.catNo||"")+(ab.role||"")+(ab.conjugation||"")+(ab.module||"")).toLowerCase();
-    return hay.includes(searchQ);
-  });
-  document.getElementById("resultCount").textContent="Showing "+filtered.length+" of "+antibodies.length+" reagents";
-
-  filtered.forEach(ab=>{
-    const card=document.createElement("div");card.className="ab-card";
-    if(selectedIds.has(ab.id))card.classList.add("selected");
-
-    const btn=document.createElement("button");btn.className="sel-btn";btn.textContent=selectedIds.has(ab.id)?"Remove":"Add";
-    btn.addEventListener("click",()=>{if(selectedIds.has(ab.id))selectedIds.delete(ab.id);else selectedIds.add(ab.id);renderGrid();renderPanel()});
-    card.appendChild(btn);
-
-    const body=document.createElement("div");body.className="ab-card-body";
-    const info=getInfo(ab),li=laserLabel(info.laser);
-    const modText=ab.module||"Other",modCls=getModClass(modText);
-
-    let h='<div class="ab-marker">'+ab.marker;
-    if(modText.includes("Core EpiFlow"))h+='<span class="ab-core">Core</span>';
-    h+='</div><span class="ab-module '+modCls+'">'+modText.split("|")[0]+'</span>';
-    h+='<div class="ab-details">';
-    h+='<div><strong>Clone:</strong> '+(ab.clone||"—")+'</div>';
-    h+='<div><strong>Conjugation:</strong> '+(ab.conjugation||"Purified");
-    if(li.b)h+=' <span class="lbadge '+li.c+'">'+li.b+'</span>';
-    h+='</div>';
-    h+='<div><strong>Detector:</strong> '+(info.detector||ab.laser||"—")+'</div>';
-    h+='<div><strong>Catalog:</strong> '+(ab.catNo||"—")+'</div>';
-    h+='<div><em>'+(ab.role||"")+'</em></div></div>';
-    body.innerHTML=h;
-
-    /* Spectral strip on hover */
-    const fk=getFluorKey(ab),spec=fk?FluorSpectra[fk]:null;
-    if(spec&&spec.channels){
-      const strip=document.createElement("div");strip.className="spec-strip";strip.title="Spectral fingerprint: "+(fk||"");
-      const groups={UV:[],V:[],B:[],YG:[],R:[]};let gMax=0;
-      Object.entries(spec.channels).forEach(([ch,val])=>{
-        let fam=ch.startsWith("UV")?"UV":ch.startsWith("V")?"V":ch.startsWith("B")?"B":ch.startsWith("YG")?"YG":ch.startsWith("R")?"R":null;
-        if(fam){groups[fam].push({ch,val});if(val>gMax)gMax=val}
-      });
-      Object.entries(groups).forEach(([fam,bars])=>{
-        if(!bars.length)return;
-        bars.sort((a,b)=>parseInt(a.ch.replace(/\D/g,""))-parseInt(b.ch.replace(/\D/g,"")));
-        const band=document.createElement("div");band.className="ss-band";
-        const lbl=document.createElement("span");lbl.className="ss-lbl";lbl.textContent=fam;band.appendChild(lbl);
-        bars.forEach(({ch,val})=>{const bar=document.createElement("div");bar.className="ss-bar";bar.style.height=Math.max(2,(val/gMax)*16)+"px";bar.title=ch+": "+val.toFixed(2);band.appendChild(bar)});
-        strip.appendChild(band);
-      });
-      body.appendChild(strip);
-    }
-    card.appendChild(body);grid.appendChild(card);
-  });
-}
-
-/* ═══ Selected Panel ═══ */
-function renderPanel(){
-  const list=document.getElementById("selList");list.innerHTML="";
-  const sel=antibodies.filter(a=>selectedIds.has(a.id));
-  document.getElementById("panelCount").textContent=sel.length?"("+sel.length+" markers)":"";
-  sel.forEach(ab=>{
-    const item=document.createElement("div");item.className="sel-item";
-    const info=getInfo(ab),li=laserLabel(info.laser);
-    item.innerHTML='<span>'+ab.marker+' <strong>['+(ab.conjugation||"Purified")+']</strong>'+(li.b?' <span class="lbadge '+li.c+'">'+li.b+'</span>':'')+'</span>';
-    const rm=document.createElement("button");rm.className="rm-btn";rm.textContent="×";
-    rm.onclick=()=>{selectedIds.delete(ab.id);renderGrid();renderPanel()};
-    item.appendChild(rm);list.appendChild(item);
-  });
-  renderLaserBar(sel);checkConflicts(sel);
-}
-function renderLaserBar(sel){
-  const bar=document.getElementById("laserBar");bar.innerHTML="";
-  const lc={};let total=0;
-  sel.forEach(ab=>{if(isUnconj(ab))return;const info=getInfo(ab);const ln=info.laser||"?";lc[ln]=(lc[ln]||0)+1;total++});
-  if(!total){bar.innerHTML='<div style="display:flex;align-items:center;justify-content:center;width:100%;font-size:.72rem;color:#94a3b8">No conjugated markers selected</div>';return}
-  const order=activeInstrument==="BD_S8"?["349","405","488","561","637"]:["355","405","488","561","640"];
-  const cls={"355":"uv","349":"uv","405":"vi","488":"bl","561":"yg","640":"rd","637":"rd"};
-  order.forEach(ln=>{const c=lc[ln]||0;if(!c)return;const seg=document.createElement("div");seg.className="lb-seg "+(cls[ln]||"");seg.style.flex=c/total*100;seg.textContent=laserLabel(ln).b+" "+c;seg.title=laserLabel(ln).l+": "+c+" markers ("+(c/total*100).toFixed(0)+"%)";bar.appendChild(seg)});
-}
-
-/* ═══ Conflicts ═══ */
-function checkConflicts(sel){
-  const box=document.getElementById("warnBox");box.innerHTML="";
-  if(!sel.length){box.innerHTML='<span style="font-size:.78rem;color:#94a3b8">Select markers to see conflicts</span>';return}
-  const byDet={},byFluor={},byLaser={};
-  sel.forEach(ab=>{const info=getInfo(ab);const lk=info.laser||"?";byLaser[lk]=(byLaser[lk]||0)+1;if(info.detector)(byDet[info.detector]||=[]).push(ab);if(info.fluorKey)(byFluor[info.fluorKey]||=[]).push(ab)});
-  const msgs=[];
-  Object.entries(byDet).forEach(([d,arr])=>{if(arr.length>1)msgs.push("Detector overlap \""+d+"\": "+arr.map(x=>x.marker).join(", "))});
-  Object.entries(byFluor).forEach(([k,arr])=>{if(arr.length>1)msgs.push("Fluor reuse \""+k+"\": "+arr.map(x=>x.marker).join(", "))});
-  if(msgs.length)msgs.forEach(m=>{const p=document.createElement("p");p.className="warn";p.textContent=m;box.appendChild(p)});
-  else{const p=document.createElement("p");p.className="ok-msg";p.textContent="No conflicts detected.";box.appendChild(p)}
-  const sum=document.createElement("p");sum.style.cssText="font-size:.72rem;margin-top:.15rem;color:#475569";
-  sum.textContent="Lasers: "+Object.entries(byLaser).map(([l,c])=>laserLabel(l).b+": "+c).join(" | ");box.appendChild(sum);
-  const load={};sel.forEach(ab=>{const k=getFluorKey(ab);if(!k)return;const s=FluorSpectra[k];if(!s||!s.channels)return;Object.entries(s.channels).forEach(([ch,v])=>{load[ch]=(load[ch]||0)+v})});
-  const overloads=Object.entries(load).filter(([,v])=>v>1.5);
-  if(overloads.length){const p=document.createElement("p");p.className="warn";p.textContent="Spectral overload: "+overloads.map(([c,v])=>c+" ("+v.toFixed(1)+")").join(", ");box.appendChild(p)}
-  if(Object.keys(load).length){const hm=document.createElement("div");hm.className="spec-hm";const mx=Math.max(...Object.values(load));Object.entries(load).sort((a,b)=>b[1]-a[1]).slice(0,12).forEach(([ch,v])=>{const c=document.createElement("span");c.className="spec-cell";c.style.backgroundColor="rgba(37,99,235,"+(0.12+0.65*(mx?v/mx:0)).toFixed(2)+")";c.textContent=ch+" "+v.toFixed(1);hm.appendChild(c)});box.appendChild(hm)}
-}
-
-/* ═══ Copy / CSV ═══ */
-function copyPanel(){const sel=antibodies.filter(a=>selectedIds.has(a.id));if(!sel.length)return;const il=Instruments[activeInstrument]?.label||activeInstrument;let t="Serrano Lab Panel ("+il+"):\n";sel.forEach(ab=>{const info=getInfo(ab),li=laserLabel(info.laser);t+="- "+ab.marker+" ["+(ab.conjugation||"Purified")+"], Laser: "+li.l+", Det: "+(info.detector||"—")+"\n"});navigator.clipboard.writeText(t).then(()=>toast("Copied!")).catch(e=>console.error(e))}
-function saveCSV(){const sel=antibodies.filter(a=>selectedIds.has(a.id));if(!sel.length)return;const h=["Marker","Antibody","Clone","Conjugation","Laser","Detector","Catalog","Role","Module"];const rows=[h.join(",")];sel.forEach(ab=>{const info=getInfo(ab),li=laserLabel(info.laser);const f=v=>{const s=String(v||"");return(s.includes(",")||s.includes('"'))?'"'+s.replace(/"/g,'""')+'"':s};rows.push([f(ab.marker),f(ab.antibody),f(ab.clone),f(ab.conjugation),f(li.l),f(info.detector||ab.laser),f(ab.catNo),f(ab.role),f(ab.module)].join(","))});const blob=new Blob([rows.join("\n")],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="serrano_panel.csv";document.body.appendChild(a);a.click();document.body.removeChild(a)}
-
-/* ═══ Storage ═══ */
-const Store=(()=>{let mem={},ok=false;try{localStorage.setItem("_t","1");localStorage.removeItem("_t");ok=true}catch{};return{get(k){if(ok)try{return JSON.parse(localStorage.getItem(k)||"{}")}catch{return{}}return mem[k]||{}},set(k,v){if(ok)localStorage.setItem(k,JSON.stringify(v));mem[k]=v},get persistent(){return ok}}})();
-function saveCurrent(){const name=document.getElementById("pnameInput").value.trim();if(!name){toast("Enter a name");return}if(!selectedIds.size){toast("No markers selected");return}const panels=Store.get("ep");panels[name]={ids:[...selectedIds],inst:activeInstrument,date:new Date().toISOString().slice(0,10)};Store.set("ep",panels);document.getElementById("pnameInput").value="";loadSaved();toast("Saved!"+(Store.persistent?"":" (session only)"))}
-function loadP(name){const p=Store.get("ep")[name];if(!p)return;selectedIds=new Set(p.ids);if(p.inst){activeInstrument=p.inst;document.getElementById("instrumentSelect").value=activeInstrument}renderGrid();renderPanel();toast('Loaded "'+name+'"')}
-function delP(name){const p=Store.get("ep");delete p[name];Store.set("ep",p);loadSaved()}
-function exportJSON(){const p=Store.get("ep");if(!Object.keys(p).length){toast("No panels to export");return}const blob=new Blob([JSON.stringify(p,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="epiflow_panels.json";document.body.appendChild(a);a.click();document.body.removeChild(a);toast("Exported")}
-function importJSON(){const input=document.createElement("input");input.type="file";input.accept=".json";input.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const imp=JSON.parse(ev.target.result);const ex=Store.get("ep");Object.assign(ex,imp);Store.set("ep",ex);loadSaved();toast("Imported "+Object.keys(imp).length+" panel(s)")}catch{toast("Invalid JSON")}};r.readAsText(file)};input.click()}
-function loadSaved(){const el=document.getElementById("savedList");el.innerHTML="";if(!Store.persistent){const n=document.createElement("div");n.className="file-note";n.textContent="Running from file:// — panels won't persist after reload. Use Export/Import.";el.appendChild(n)}const panels=Store.get("ep");const names=Object.keys(panels);if(!names.length){const d=document.createElement("div");d.style.cssText="font-size:.72rem;color:#94a3b8";d.textContent="No saved panels";el.appendChild(d);return}names.forEach(name=>{const p=panels[name];const item=document.createElement("div");item.className="saved-item";item.innerHTML='<span class="sname">'+name+'</span><span class="scount">'+p.ids.length+' markers · '+(p.date||"")+'</span>';item.onclick=e=>{if(!e.target.classList.contains("sdel"))loadP(name)};const del=document.createElement("button");del.className="sdel";del.textContent="✕";del.onclick=e=>{e.stopPropagation();delP(name)};item.appendChild(del);el.appendChild(item)})}
-
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000)}
-</script>
-</body>
-</html>
+]
