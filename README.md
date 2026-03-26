@@ -184,6 +184,7 @@ Spectral conflict heuristics and the overall panel-builder architecture are insp
 | `index.html` | Complete self-contained application (HTML + CSS + JS + data) |
 | `LICENSE` | BSD 2-Clause license |
 | `README.md` | This file |
+| `IMPLEMENTATION_GUIDE.md` | Guide for adapting the tool to other core facilities |
 | `clean_antibodies.json` | Machine-readable antibody inventory (220 entries) |
 | `instruments.json` | Instrument channel definitions and fluorochrome peak maps |
 
