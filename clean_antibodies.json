@@ -3518,5 +3518,21 @@
     "zebrafish": "",
     "link": "",
     "id": "AB220"
+  },
+  {
+    "id": "AB221",
+    "marker": "TagRFP/RFP",
+    "antibody": "TagRFP Red Fluorescent Protein",
+    "catNo": "",
+    "clone": "NA",
+    "conjugation": "TagRFP",
+    "laser": "561-YG1",
+    "role": "Fluorescent protein reporter (Ex 555/Em 584 nm). Monomeric; brighter than DsRed. Best by 561 nm YG laser.",
+    "module": "Fluorescent Protein",
+    "locked": false,
+    "vendor": "",
+    "alternatives": "DsRed, tdTomato, mCherry",
+    "zebrafish": "X",
+    "link": ""
   }
 ]

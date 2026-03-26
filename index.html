@@ -125,7 +125,7 @@ body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;f
 <body>
 <div class="top-banner">
   <div class="lab-logo-wrapper"><img src="https://avatars.githubusercontent.com/u/177810676?s=200&v=4" alt="Serrano Lab" class="lab-logo"/></div>
-  <div class="banner-text"><h1>Serrano Lab – EpiFlow Panel Builder</h1><h2>220 reagents · Cytek Aurora 5L + BD S8 · conflict detection · spectral heuristics</h2></div>
+  <div class="banner-text"><h1>Serrano Lab – EpiFlow Panel Builder</h1><h2>221 reagents · Cytek Aurora 5L + BD S8 · conflict detection · spectral heuristics</h2></div>
 </div>
 <div class="container">
   <div class="panel-controls">
@@ -3684,6 +3684,22 @@ const antibodies=[
     "zebrafish": "",
     "link": "",
     "id": "AB220"
+  },
+  {
+    "id": "AB221",
+    "marker": "TagRFP/RFP",
+    "antibody": "TagRFP Red Fluorescent Protein",
+    "catNo": "",
+    "clone": "NA",
+    "conjugation": "TagRFP",
+    "laser": "561-YG1",
+    "role": "Fluorescent protein reporter (Ex 555/Em 584 nm). Monomeric; brighter than DsRed. Best by 561 nm YG laser.",
+    "module": "Fluorescent Protein",
+    "locked": false,
+    "vendor": "",
+    "alternatives": "DsRed, tdTomato, mCherry",
+    "zebrafish": "X",
+    "link": ""
   }
 ];
 const Instruments={
@@ -4506,7 +4522,8 @@ const FluorPeakByInstrument={
     "TDTOMATO": "YG1",
     "MORANGE2": "YG1",
     "DSRED": "YG1",
-    "MKATE2": "YG4"
+    "MKATE2": "YG4",
+    "TAGRFP": "YG1"
   },
   "BD_S8": {
     "BUV395": "UV3",
@@ -4601,7 +4618,8 @@ const FluorPeakByInstrument={
     "TDTOMATO": "YG1",
     "MORANGE2": "YG1",
     "DSRED": "YG1",
-    "MKATE2": "YG5"
+    "MKATE2": "YG5",
+    "TAGRFP": "YG1"
   }
 };
 const FluorSpectra={
@@ -5144,6 +5162,14 @@ const FluorSpectra={
       "YG5": 0.3,
       "YG3": 0.2
     }
+  },
+  "TAGRFP": {
+    "brightness": 2,
+    "channels": {
+      "YG1": 1.0,
+      "YG2": 0.4,
+      "YG3": 0.15
+    }
   }
 };
 const CORE_PANEL_IDS=["AB206", "AB207", "AB029", "AB040", "AB028", "AB037", "AB039", "AB031", "AB034", "AB046", "AB093"];
@@ -5166,7 +5192,7 @@ const CONJ_MAP={
   "Zombie NIR":"ZOMBIE NIR","FxCycle Violet":"FXCYCLE VIOLET",
   "Fixable Lime 506":"FIXABLE LIME 506","Fixable Violet":"FIXABLE VIOLET","FVS780":"FVS780",
   "EGFP":"EGFP","EYFP":"EYFP","ECFP":"ECFP","TagBFP":"TAGBFP","EBFP2":"EBFP2",
-  "mCherry":"MCHERRY","tdTomato":"TDTOMATO","mOrange2":"MORANGE2","DsRed":"DSRED","mKate2":"MKATE2"
+  "mCherry":"MCHERRY","tdTomato":"TDTOMATO","mOrange2":"MORANGE2","DsRed":"DSRED","mKate2":"MKATE2","TagRFP":"TAGRFP"
 };
 function getFluorKey(ab){return CONJ_MAP[ab.conjugation]||null}
 function isUnconj(ab){return NON_FLUOR.has(ab.conjugation||"")&&!getFluorKey(ab)}
