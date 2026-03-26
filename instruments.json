@@ -1143,7 +1143,21 @@
       "ZOMBIE NIR": "R8",
       "MFLUOR UV375": "UV1",
       "AF555/568": "YG1",
-      "CORALITE PLUS 647": "R2"
+      "CORALITE PLUS 647": "R2",
+      "FXCYCLE VIOLET": "UV5",
+      "FIXABLE LIME 506": "V5",
+      "FIXABLE VIOLET": "V3",
+      "FVS780": "YG9",
+      "EGFP": "B2",
+      "EYFP": "B2",
+      "ECFP": "V4",
+      "TAGBFP": "V3",
+      "EBFP2": "UV4",
+      "MCHERRY": "YG3",
+      "TDTOMATO": "YG1",
+      "MORANGE2": "YG1",
+      "DSRED": "YG1",
+      "MKATE2": "YG4"
     },
     "BD_S8": {
       "BUV395": "UV3",
@@ -1224,7 +1238,21 @@
       "ZOMBIE NIR": "R7",
       "MFLUOR UV375": "UV1",
       "AF555/568": "YG1",
-      "CORALITE PLUS 647": "R2"
+      "CORALITE PLUS 647": "R2",
+      "FXCYCLE VIOLET": "UV5",
+      "FIXABLE LIME 506": "V5",
+      "FIXABLE VIOLET": "V3",
+      "FVS780": "YG10",
+      "EGFP": "B2",
+      "EYFP": "B2",
+      "ECFP": "V4",
+      "TAGBFP": "V3",
+      "EBFP2": "UV4",
+      "MCHERRY": "YG3",
+      "TDTOMATO": "YG1",
+      "MORANGE2": "YG1",
+      "DSRED": "YG1",
+      "MKATE2": "YG5"
     }
   }
 }

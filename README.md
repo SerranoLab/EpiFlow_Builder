@@ -1,8 +1,8 @@
 # Serrano Lab – EpiFlow Panel Builder
 
-A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 210 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
+A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 220 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
 
-**[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** 
+**[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** *(update URL after deployment)*
 
 ---
 
@@ -61,15 +61,20 @@ The 210-entry inventory was compiled from Serrano Lab purchase orders spanning 2
 | Module | Description | Examples |
 |--------|-------------|----------|
 | **Core EpiFlow** | H3-PTM profiling, cell cycle, viability, apoptosis | H3K27me3, H3K4me3, H3K27ac, H3K9ac, H3K4me1/me2, phH3, FxCycle Violet, Zombie NIR, Active Caspase-3 |
-| **Cerebral / Neural** | Neuronal and glial markers | PAX6, NEUN, GFAP, OLIG2, SOX10, TBR1, Nestin, MAP2 |
-| **Pericyte / Mesoderm** | Pericyte and mesenchymal markers | NG2/CSPG4, CD140a/PDGFRa, CD140b/PDGFRb, CD13, RGS5, alpha-SMA |
-| **Endothelial / Angiogenesis** | Vascular endothelial markers | CD31/PECAM-1, CD144/VE-Cadherin, CD309/VEGFR-2, CD34 |
-| **PBMC / Immune** | Immune cell markers | CD45, CD3, CD19, CD33, CD56, CD57, CD68, CD14 |
-| **NOTCH** | Notch signaling pathway | NOTCH1, NOTCH3, DLL4, Jagged1, EPHB4/ErbB4 |
+| **Cell Cycle** | Proliferation and cell cycle markers | Ki67, Cyclin D1, PCNA, p53 |
+| **Epigenetic** | Chromatin writers/erasers (non-H3-PTM) | KMT2D, p53K372me |
+| **Neural** | Neuronal, glial, and neural progenitor markers | PAX6, NEUN, GFAP, OLIG2, SOX10, TBR1, Nestin, SOX2, MAP2, MBP, HuC/HuD |
+| **Pericyte** | Pericyte, mural cell, and mesoderm markers | NG2/CSPG4, CD140a/PDGFRa, CD140b/PDGFRb, CD13, RGS5, alpha-SMA, Brachyury/T, FOXF2 |
+| **Vascular** | Endothelial, angiogenesis, and vasculogenesis | CD31/PECAM-1, CD144/VE-Cadherin, CD309/VEGFR-2, CD34, EPHB4 |
+| **Immune** | PBMC and immune cell markers | CD45, CD3, CD19, CD33, CD56, CD57, CD68, CD14, CD11b |
+| **NOTCH** | Notch signaling pathway | NOTCH1, NOTCH3, DLL4, Jagged1, HER4/ErbB4, EPHB4 |
 | **Cardiac** | Cardiomyocyte markers | HOPX, cTnT, NFATc1 |
 | **Pluripotent** | Stem cell markers | TRA-1-81, OCT4, SOX2 |
+| **Structural** | Cytoskeletal and housekeeping markers | TUJ1/TUBB3, Vimentin, Acetylated Tubulin, beta-Actin, GAPDH |
+| **Detection** | Tags, secondaries, fluorescent proteins, streptavidin | FLAG/DYKDDDDK, GFP, mCherry, RFP, secondary antibodies, streptavidin |
+| **Phenotype** | Surface markers for cell identity/sorting | CD326/EpCAM, CD184/CXCR4, CD36, HK1, CD166/ALCAM |
+| **Fluorescent Protein** | Fluorescent protein reporters with spectral profiles | EGFP/GFP, EYFP/YFP, ECFP/CFP, TagBFP/BFP, EBFP2, mCherry, tdTomato, mOrange2, DsRed, mKate2 |
 | **Control** | Isotype controls | IgG and IgM isotypes in various conjugations |
-| **Detection** | Tags, secondaries, fluorescent proteins | FLAG/DYKDDDDK, GFP, mCherry, RFP, secondary antibodies |
 
 ### Viability options
 
@@ -179,7 +184,7 @@ Spectral conflict heuristics and the overall panel-builder architecture are insp
 | `index.html` | Complete self-contained application (HTML + CSS + JS + data) |
 | `LICENSE` | BSD 2-Clause license |
 | `README.md` | This file |
-| `clean_antibodies.json` | Machine-readable antibody inventory (210 entries) |
+| `clean_antibodies.json` | Machine-readable antibody inventory (220 entries) |
 | `instruments.json` | Instrument channel definitions and fluorochrome peak maps |
 
 ---
