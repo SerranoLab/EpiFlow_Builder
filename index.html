@@ -99,6 +99,22 @@ body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;f
 .spec-hm{margin-top:.15rem;display:flex;flex-wrap:wrap;gap:2px}
 .spec-cell{padding:1px 4px;border-radius:3px;font-size:.63rem;color:#0f172a}
 
+/* ── Alternative conjugates suggestions ── */
+.alt-block{margin-top:.45rem;padding:.4rem .5rem;background:#fff;border:1px dashed #fca5a5;border-radius:4px}
+.alt-header{font-size:.72rem;color:#475569;margin-bottom:.3rem;font-weight:600}
+.alt-header .alt-marker{color:var(--primary-dark)}
+.alt-row{display:flex;flex-wrap:wrap;gap:.3rem}
+.alt-chip{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .45rem;background:#f1f5f9;border:1px solid var(--gray-light);border-radius:99px;font-size:.7rem;cursor:pointer;transition:all .12s;color:#1e293b}
+.alt-chip:hover{background:#e2e8f0;border-color:#94a3b8;transform:translateY(-1px)}
+.alt-chip.alt-clean{background:#f0fdf4;border-color:#86efac}
+.alt-chip.alt-clean:hover{background:#dcfce7;border-color:#22c55e}
+.alt-chip.alt-conflict{background:#fef9c3;border-color:#fde047}
+.alt-chip.alt-conflict:hover{background:#fef08a;border-color:#facc15}
+.alt-chip .alt-conj{font-weight:600}
+.alt-chip .alt-status{font-size:.62rem;margin-left:.15rem;opacity:.7}
+.alt-chip .lbadge{margin-left:.1rem}
+.alt-empty{font-size:.7rem;color:#94a3b8;font-style:italic}
+
 .btn-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem}
 .btn{padding:.35rem .7rem;border:none;border-radius:4px;cursor:pointer;font-size:.8rem;transition:background .12s}
 .btn-p{background:var(--primary);color:#fff}.btn-p:hover{background:var(--primary-dark)}
@@ -218,7 +234,7 @@ const antibodies=[
     "marker": "GFAP",
     "antibody": "GFAP-647 conjugate",
     "catNo": "561470",
-    "clone": "",
+    "clone": "1B4",
     "conjugation": "Alexa Fluor 647",
     "laser": "640-R2",
     "role": "Astrocyte",
@@ -266,7 +282,7 @@ const antibodies=[
     "marker": "OLIG2",
     "antibody": "OLIG2 Polyclonal Antibody",
     "catNo": "CL48813999100UL",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Oligodendrocyte",
@@ -296,9 +312,9 @@ const antibodies=[
   {
     "id": "AB009",
     "marker": "IgG",
-    "antibody": "Rabbit IgG Isotype Control (RbNP15), Alexa Fluor™ 647",
+    "antibody": "Rabbit IgG Isotype Control (RbNP15), Alexa Fluor\u2122 647",
     "catNo": "51-4616-82",
-    "clone": "",
+    "clone": "RbNP15",
     "conjugation": "Alexa Fluor 647",
     "laser": "640-R2",
     "role": "Isotype control",
@@ -312,9 +328,9 @@ const antibodies=[
   {
     "id": "AB010",
     "marker": "IgG",
-    "antibody": "Mouse IgG1 kappa Isotype Control (P3.6.2.8.1), Alexa Fluor™ 647, eBioscience",
+    "antibody": "Mouse IgG1 kappa Isotype Control (P3.6.2.8.1), Alexa Fluor\u2122 647, eBioscience",
     "catNo": "51-4714-81",
-    "clone": "",
+    "clone": "P3.6.2.8.1",
     "conjugation": "Alexa Fluor 647",
     "laser": "640-R2",
     "role": "Isotype control",
@@ -328,7 +344,7 @@ const antibodies=[
   {
     "id": "AB011",
     "marker": "IgG",
-    "antibody": "Rabbit IgG Isotype Control (Alexa Fluor® 488 Conjugate)",
+    "antibody": "Rabbit IgG Isotype Control (Alexa Fluor\u00ae 488 Conjugate)",
     "catNo": "4340",
     "clone": "",
     "conjugation": "Alexa Fluor 488",
@@ -344,7 +360,7 @@ const antibodies=[
   {
     "id": "AB012",
     "marker": "IgG",
-    "antibody": "Rabbit (DA1E) mAb IgG XP® Isotype Control (PE Conjugate)",
+    "antibody": "Rabbit (DA1E) mAb IgG XP\u00ae Isotype Control (PE Conjugate)",
     "catNo": "5742",
     "clone": "DA1E",
     "conjugation": "PE",
@@ -378,7 +394,7 @@ const antibodies=[
     "marker": "IgG",
     "antibody": "Isotype Polyclonal Goat IgG - PE",
     "catNo": "IC108P",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Isotype control",
@@ -504,9 +520,9 @@ const antibodies=[
   {
     "id": "AB022",
     "marker": "IgG",
-    "antibody": "Mouse IgG2a kappa Isotype Control (eBM2a), PE, eBioscience™",
+    "antibody": "Mouse IgG2a kappa Isotype Control (eBM2a), PE, eBioscience\u2122",
     "catNo": "12-4724-42",
-    "clone": "",
+    "clone": "eBM2a",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Isotype control",
@@ -520,9 +536,9 @@ const antibodies=[
   {
     "id": "AB023",
     "marker": "IgG",
-    "antibody": "Mouse IgG2b kappa Isotype Control (eBMG2b), APC, eBioscience™",
+    "antibody": "Mouse IgG2b kappa Isotype Control (eBMG2b), APC, eBioscience\u2122",
     "catNo": "17-4732-81",
-    "clone": "",
+    "clone": "eBMG2b",
     "conjugation": "APC",
     "laser": "640-R1",
     "role": "Isotype control",
@@ -600,7 +616,7 @@ const antibodies=[
   {
     "id": "AB028",
     "marker": "H3K4me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb (Alexa Fluor® 647 Conjugate) #12064",
+    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb (Alexa Fluor\u00ae 647 Conjugate) #12064",
     "catNo": "12064S",
     "clone": "C42D8",
     "conjugation": "Alexa Fluor 647",
@@ -616,7 +632,7 @@ const antibodies=[
   {
     "id": "AB029",
     "marker": "H3",
-    "antibody": "Histone H3 (D1H2) XP® Rabbit mAb (Alexa Fluor® 700 Conjugate) #54826",
+    "antibody": "Histone H3 (D1H2) XP\u00ae Rabbit mAb (Alexa Fluor\u00ae 700 Conjugate) #54826",
     "catNo": "54826S",
     "clone": "D1H2",
     "conjugation": "Alexa Fluor 700",
@@ -648,7 +664,7 @@ const antibodies=[
   {
     "id": "AB031",
     "marker": "H3K4me1",
-    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP® Rabbit mAb (PE Conjugate)",
+    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP\u00ae Rabbit mAb (PE Conjugate)",
     "catNo": "55800S",
     "clone": "D1A9",
     "conjugation": "PE",
@@ -666,7 +682,7 @@ const antibodies=[
     "marker": "H3K9ac",
     "antibody": "Acetyl-histone H3 (Lys9) (C4B11) Rabbit mAb (PE conjugate",
     "catNo": "28036s",
-    "clone": "C4B11",
+    "clone": "C5B11",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Activation | Enhancer, Promoters",
@@ -712,7 +728,7 @@ const antibodies=[
   {
     "id": "AB035",
     "marker": "H3K4me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb (PE Conjugate)",
+    "antibody": "Tri-Methyl-Histone H3 (Lys4) (C42D8) Rabbit mAb\u00a0(PE\u00a0Conjugate)",
     "catNo": "62255S",
     "clone": "C42D8",
     "conjugation": "PE",
@@ -728,7 +744,7 @@ const antibodies=[
   {
     "id": "AB036",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb (PE Conjugate) #15562",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb (PE Conjugate) #15562",
     "catNo": "15562",
     "clone": "D5E4",
     "conjugation": "PE",
@@ -744,7 +760,7 @@ const antibodies=[
   {
     "id": "AB037",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb (PE-Cy7® Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb (PE-Cy7\u00ae Conjugate)",
     "catNo": "30342S",
     "clone": "D5E4",
     "conjugation": "PE-Cy7",
@@ -760,7 +776,7 @@ const antibodies=[
   {
     "id": "AB038",
     "marker": "H3K27me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (PE-Cy7® Conjugate) #91611",
+    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (PE-Cy7\u00ae Conjugate) #91611",
     "catNo": "91611S",
     "clone": "C36B11",
     "conjugation": "PE-Cy7",
@@ -776,7 +792,7 @@ const antibodies=[
   {
     "id": "AB039",
     "marker": "H3K9ac",
-    "antibody": "Acetyl-Histone H3 (Lys9) (C5B11) Rabbit mAb (Pacific Blue™ Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys9) (C5B11) Rabbit mAb (Pacific Blue\u2122 Conjugate)",
     "catNo": "11857S",
     "clone": "C5B11",
     "conjugation": "Pacific Blue",
@@ -792,7 +808,7 @@ const antibodies=[
   {
     "id": "AB040",
     "marker": "H3K27me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Pacific Blue™ Conjugate)",
+    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Pacific Blue\u2122 Conjugate)",
     "catNo": "89120S",
     "clone": "C36B11",
     "conjugation": "Pacific Blue",
@@ -808,7 +824,7 @@ const antibodies=[
   {
     "id": "AB041",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb (Pacific Blue™ Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb (Pacific Blue\u2122 Conjugate)",
     "catNo": "23349S",
     "clone": "D5E4",
     "conjugation": "Pacific Blue",
@@ -824,7 +840,7 @@ const antibodies=[
   {
     "id": "AB042",
     "marker": "H3K9me3",
-    "antibody": "Alexa Fluor® 750 Anti-Histone H3 (tri methyl K9) antibody [EPR16601] - ChIP Grade",
+    "antibody": "Alexa Fluor\u00ae 750 Anti-Histone H3 (tri methyl K9) antibody [EPR16601] - ChIP Grade",
     "catNo": "ab321190",
     "clone": "EPR16601",
     "conjugation": "Alexa Fluor 750",
@@ -856,7 +872,7 @@ const antibodies=[
   {
     "id": "AB044",
     "marker": "H3",
-    "antibody": "Histone H3 (D1H2) XP® Rabbit mAb (Alexa Fluor® 488 Conjugate) #49711",
+    "antibody": "Histone H3 (D1H2) XP\u00ae Rabbit mAb (Alexa Fluor\u00ae 488 Conjugate) #49711",
     "catNo": "49711S",
     "clone": "D1H2",
     "conjugation": "Alexa Fluor 488",
@@ -872,7 +888,7 @@ const antibodies=[
   {
     "id": "AB045",
     "marker": "H3",
-    "antibody": "H3 | Histone H3 (D1H2) XP® Rabbit mAb",
+    "antibody": "H3 | Histone H3 (D1H2) XP\u00ae Rabbit mAb",
     "catNo": "4499",
     "clone": "D1H2",
     "conjugation": "Purified",
@@ -888,7 +904,7 @@ const antibodies=[
   {
     "id": "AB046",
     "marker": "phH3",
-    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP® Rabbit mAb (Alexa Fluor® 532 Conjugate)",
+    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP\u00ae\u00a0Rabbit mAb (Alexa Fluor\u00ae\u00a0532 Conjugate)",
     "catNo": "52725",
     "clone": "D2C8",
     "conjugation": "Alexa Fluor 532",
@@ -904,7 +920,7 @@ const antibodies=[
   {
     "id": "AB047",
     "marker": "H3K14ac",
-    "antibody": "Acetyl-Histone H3 (Lys14) (D4B9) Rabbit mAb (Alexa Fluor® 488 Conjugate)",
+    "antibody": "Acetyl-Histone H3 (Lys14) (D4B9) Rabbit mAb (Alexa Fluor\u00ae 488 Conjugate)",
     "catNo": "26828S",
     "clone": "D4B9",
     "conjugation": "Alexa Fluor 488",
@@ -920,7 +936,7 @@ const antibodies=[
   {
     "id": "AB048",
     "marker": "H3K27me3",
-    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Alexa Fluor® 594 Conjugate) #10584",
+    "antibody": "Tri-Methyl-Histone H3 (Lys27) (C36B11) Rabbit mAb (Alexa Fluor\u00ae 594 Conjugate) #10584",
     "catNo": "10584S",
     "clone": "C36B11",
     "conjugation": "Alexa Fluor 594",
@@ -936,7 +952,7 @@ const antibodies=[
   {
     "id": "AB049",
     "marker": "H3K27ac",
-    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP® Rabbit mAb #8173",
+    "antibody": "Acetyl-Histone H3 (Lys27) (D5E4) XP\u00ae Rabbit mAb #8173",
     "catNo": "8173T",
     "clone": "D5E4",
     "conjugation": "Purified",
@@ -952,7 +968,7 @@ const antibodies=[
   {
     "id": "AB050",
     "marker": "phH3",
-    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP® Rabbit mAb (Alexa Fluor® 488 Conjugate)",
+    "antibody": "Phospho-Histone H3 (Ser10) (D2C8) XP\u00ae Rabbit mAb (Alexa Fluor\u00ae 488 Conjugate)",
     "catNo": "3465",
     "clone": "D2C8",
     "conjugation": "Alexa Fluor 488",
@@ -968,7 +984,7 @@ const antibodies=[
   {
     "id": "AB051",
     "marker": "H3K4me1",
-    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP® Rabbit mAb #5326",
+    "antibody": "Mono-Methyl-Histone H3 (Lys4) (D1A9) XP\u00ae Rabbit mAb #5326",
     "catNo": "5326S",
     "clone": "D1A9",
     "conjugation": "Purified",
@@ -1000,7 +1016,7 @@ const antibodies=[
   {
     "id": "AB053",
     "marker": "H3",
-    "antibody": "Histone H3 (D1H2) XP® Rabbit mAb (SignalFlex™ mFluor™ UV375 Conjugate) #83701",
+    "antibody": "Histone H3 (D1H2) XP\u00ae Rabbit mAb (SignalFlex\u2122 mFluor\u2122 UV375 Conjugate) #83701",
     "catNo": "83701W2",
     "clone": "D1H2",
     "conjugation": "mFluor UV375",
@@ -1016,7 +1032,7 @@ const antibodies=[
   {
     "id": "AB054",
     "marker": "FLAG/DYKDDDDK",
-    "antibody": "CoraLite® Plus 647-conjugated DYKDDDDK tag Monoclonal antibody (Binds to FLAG® tag epitope)",
+    "antibody": "CoraLite\u00ae Plus 647-conjugated DYKDDDDK tag Monoclonal antibody (Binds to FLAG\u00ae tag epitope)",
     "catNo": "CL647-66008",
     "clone": "",
     "conjugation": "CoraLite Plus 647",
@@ -1064,7 +1080,7 @@ const antibodies=[
   {
     "id": "AB057",
     "marker": "FLAG/DYKDDDDK",
-    "antibody": "Monoclonal ANTI-FLAG® M2 antibody produced in mouse",
+    "antibody": "Monoclonal ANTI-FLAG\u00ae M2 antibody produced in mouse",
     "catNo": "F3165-.2MG",
     "clone": "",
     "conjugation": "Purified",
@@ -1096,7 +1112,7 @@ const antibodies=[
   {
     "id": "AB059",
     "marker": "Streptavidin",
-    "antibody": "Streptavidin, Alexa Fluor™ 568 conjugate",
+    "antibody": "Streptavidin, Alexa Fluor\u2122 568 conjugate",
     "catNo": "S11226",
     "clone": "",
     "conjugation": "Alexa Fluor 568",
@@ -1112,7 +1128,7 @@ const antibodies=[
   {
     "id": "AB060",
     "marker": "Streptavidin",
-    "antibody": "Streptavidin, Alexa Fluor™ 405 conjugate",
+    "antibody": "Streptavidin, Alexa Fluor\u2122 405 conjugate",
     "catNo": "S32351",
     "clone": "",
     "conjugation": "Alexa Fluor 405",
@@ -1128,7 +1144,7 @@ const antibodies=[
   {
     "id": "AB061",
     "marker": "Streptavidin",
-    "antibody": "BD Horizon™ RB744 Streptavidin",
+    "antibody": "BD Horizon\u2122 RB744 Streptavidin",
     "catNo": "570516",
     "clone": "",
     "conjugation": "RB744",
@@ -1146,7 +1162,7 @@ const antibodies=[
     "marker": "Brachyury/T",
     "antibody": "Human/Mouse Brachyury APC-conjugated Antibody",
     "catNo": "IC2085A",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "APC",
     "laser": "640-R1",
     "role": "Primitive streak / mesoderm (Brachyury/T)",
@@ -1162,7 +1178,7 @@ const antibodies=[
     "marker": "Brachyury/T",
     "antibody": "Human/Mouse Brachyury PE-conjugated Antibody",
     "catNo": "IC2085P",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Primitive streak / mesoderm (Brachyury/T)",
@@ -1178,7 +1194,7 @@ const antibodies=[
     "marker": "HuC/HuD",
     "antibody": "Rabbit polyclonal to HuC/HUD protein",
     "catNo": "ab210554",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Neuronal",
@@ -1192,9 +1208,9 @@ const antibodies=[
   {
     "id": "AB065",
     "marker": "NESTIN",
-    "antibody": "Human Nestin Alexa Fluor® 594-conjugated Antibody",
+    "antibody": "Human Nestin Alexa Fluor\u00ae 594-conjugated Antibody",
     "catNo": "IC1259T-100UG",
-    "clone": "",
+    "clone": "196908",
     "conjugation": "Alexa Fluor 594",
     "laser": "561-YG3",
     "role": "Neural progenitor, pericyte",
@@ -1258,7 +1274,7 @@ const antibodies=[
     "marker": "PAX6",
     "antibody": "PAX6 PE-conjugate",
     "catNo": "561552",
-    "clone": "",
+    "clone": "O18-1330",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Neural progenitor",
@@ -1274,7 +1290,7 @@ const antibodies=[
     "marker": "PAX6",
     "antibody": "Pax6 Antibody (PAX6/1166) [mFluor Violet 500 SE], Novus Biologicals",
     "catNo": "NBP2-47915MFV500",
-    "clone": "",
+    "clone": "PAX6/1166",
     "conjugation": "mFluor Violet 500",
     "laser": "405-V5",
     "role": "Neural progenitor",
@@ -1290,7 +1306,7 @@ const antibodies=[
     "marker": "SOX10",
     "antibody": "SOX10 647 conjugate",
     "catNo": "ab270151",
-    "clone": "",
+    "clone": "SP267",
     "conjugation": "Alexa Fluor 647",
     "laser": "640-R2",
     "role": "Neural crest, OPC",
@@ -1322,7 +1338,7 @@ const antibodies=[
     "marker": "SOX10",
     "antibody": "SOX10 Antibody (SOX10/991) [PerCP]",
     "catNo": "NBP2-59621PCP",
-    "clone": "",
+    "clone": "SOX10/991",
     "conjugation": "PerCP",
     "laser": "561-YG4",
     "role": "Neural crest, OPC",
@@ -1338,7 +1354,7 @@ const antibodies=[
     "marker": "SOX10",
     "antibody": "Human SOX10 Antibody",
     "catNo": "AF2864-SP",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Neural crest, OPC",
@@ -1368,9 +1384,9 @@ const antibodies=[
   {
     "id": "AB076",
     "marker": "NR2F2/COUP-TFII",
-    "antibody": "Polyclonal Rabbit anti‑Human COUP‑TFII / NR2F2 Antibody (Biotin, N‑Terminus, IHC, WB) LS‑C438623",
+    "antibody": "Polyclonal Rabbit anti\u2011Human COUP\u2011TFII / NR2F2 Antibody (Biotin, N\u2011Terminus, IHC, WB) LS\u2011C438623",
     "catNo": "LS-C438623-100",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Biotin",
     "laser": "",
     "role": "Venous endothelial and pericyte transcription factor",
@@ -1386,7 +1402,7 @@ const antibodies=[
     "marker": "alpha-SMA/ACTA2",
     "antibody": "Human alpha-Smooth Muscle Actin PerCP-conjugated Antibody",
     "catNo": "IC1420C",
-    "clone": "",
+    "clone": "1A4",
     "conjugation": "PerCP",
     "laser": "561-YG4",
     "role": "Contractile smooth muscle and pericyte marker",
@@ -1402,7 +1418,7 @@ const antibodies=[
     "marker": "p53K372me",
     "antibody": "Methyl-p53 (Lys372) Polyclonal antibody",
     "catNo": "PA5-30947",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "p53 tumor suppressor Lys372 methylation",
@@ -1418,7 +1434,7 @@ const antibodies=[
     "marker": "p53",
     "antibody": "p53 Monoclonal antibody (Do-7)",
     "catNo": "MA5-12557",
-    "clone": "",
+    "clone": "DO-7",
     "conjugation": "Purified",
     "laser": "",
     "role": "p53 tumor suppressor, DNA damage response",
@@ -1449,14 +1465,14 @@ const antibodies=[
     "id": "AB081",
     "marker": "TUJ1/TUBB3",
     "antibody": "TUJ1 antibody",
-    "catNo": "Cat# 801213",
-    "clone": "",
+    "catNo": "801213",
+    "clone": "TUJ1",
     "conjugation": "Purified",
     "laser": "",
     "role": "Neuronal beta-III tubulin",
     "module": "Neural|Structural",
     "locked": false,
-    "vendor": "BD Biosciences",
+    "vendor": "BioLegend",
     "alternatives": "",
     "zebrafish": "",
     "link": ""
@@ -1482,7 +1498,7 @@ const antibodies=[
     "marker": "AQP4",
     "antibody": "Aquaporin 4 Polyclonal Antibody, Invitrogen",
     "catNo": "15711181",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Astrocyte endfoot water channel",
@@ -1498,7 +1514,7 @@ const antibodies=[
     "marker": "ABCC9/SUR2",
     "antibody": "ABCC9 Polyclonal Antibody",
     "catNo": "PA5-103640",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Pericyte and smooth muscle KATP channel subunit",
@@ -1512,7 +1528,7 @@ const antibodies=[
   {
     "id": "AB085",
     "marker": "beta-Actin",
-    "antibody": "β-Actin Antibody",
+    "antibody": "\u03b2-Actin Antibody",
     "catNo": "4967S",
     "clone": "",
     "conjugation": "Purified",
@@ -1578,7 +1594,7 @@ const antibodies=[
     "marker": "FOXF2",
     "antibody": "FOXF2 Polyclonal Antibody",
     "catNo": "PA5-109230",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Mesenchymal/pericyte-associated transcription factor",
@@ -1624,7 +1640,7 @@ const antibodies=[
   {
     "id": "AB092",
     "marker": "Acetylated Tubulin",
-    "antibody": "Anti-acetylated Tublin antibody, Mouse Monoclonal",
+    "antibody": "Anti-acetylated Tubulin antibody, Mouse Monoclonal",
     "catNo": "T7451-25ul",
     "clone": "",
     "conjugation": "Purified",
@@ -1640,7 +1656,7 @@ const antibodies=[
   {
     "id": "AB093",
     "marker": "Active Caspase-3",
-    "antibody": "BD Horizon™ BV650 Rabbit Anti-Active Caspase-3",
+    "antibody": "BD Horizon\u2122 BV650 Rabbit Anti-Active Caspase-3",
     "catNo": "570179",
     "clone": "C92-605",
     "conjugation": "BV650",
@@ -1656,9 +1672,9 @@ const antibodies=[
   {
     "id": "AB094",
     "marker": "Active Caspase-3",
-    "antibody": "anti-active Caspase 3 , Polyclonal, Abcam™",
+    "antibody": "anti-active Caspase 3 , Polyclonal, Abcam\u2122",
     "catNo": "AB13847",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Apoptotic cells (cleaved caspase-3)",
@@ -1704,7 +1720,7 @@ const antibodies=[
   {
     "id": "AB097",
     "marker": "CD144/VE-Cadherin",
-    "antibody": "Anti-CD144 PE conjudated CLon REA199",
+    "antibody": "Anti-CD144 PE conjugated Clone REA199",
     "catNo": "120-118-495",
     "clone": "",
     "conjugation": "PE",
@@ -1720,9 +1736,9 @@ const antibodies=[
   {
     "id": "AB098",
     "marker": "EOMES/TBR2",
-    "antibody": "BD Horizon™ BUV395 Mouse Anti-EOMES",
+    "antibody": "BD Horizon\u2122 BUV395 Mouse Anti-EOMES",
     "catNo": "567171",
-    "clone": "",
+    "clone": "X4-83",
     "conjugation": "BUV395",
     "laser": "355-UV2",
     "role": "TBR2, intermediate progenitor",
@@ -1736,7 +1752,7 @@ const antibodies=[
   {
     "id": "AB099",
     "marker": "Goat IgG (Donkey secondary)",
-    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 488",
+    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 488",
     "catNo": "A-11055",
     "clone": "",
     "conjugation": "Alexa Fluor 488",
@@ -1752,7 +1768,7 @@ const antibodies=[
   {
     "id": "AB100",
     "marker": "Goat IgG (Donkey secondary)",
-    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 568",
+    "antibody": "Donkey anti-Goat IgG (H+L) Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 568",
     "catNo": "A-11057",
     "clone": "",
     "conjugation": "Alexa Fluor 568",
@@ -1800,9 +1816,9 @@ const antibodies=[
   {
     "id": "AB103",
     "marker": "CD326/EpCAM",
-    "antibody": "APC Mouse Anti-Human CD325 (EpCAM)",
+    "antibody": "APC Mouse Anti-Human CD326 (EpCAM)",
     "catNo": "566842",
-    "clone": "",
+    "clone": "9C4",
     "conjugation": "APC",
     "laser": "640-R1",
     "role": "Epithelial cell adhesion molecule",
@@ -1848,7 +1864,7 @@ const antibodies=[
   {
     "id": "AB106",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, APC-Vio® 770, REAfinity™",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, APC-Vio\u00ae 770, REAfinity\u2122",
     "catNo": "130-117-914",
     "clone": "",
     "conjugation": "APC-Vio 770",
@@ -1880,7 +1896,7 @@ const antibodies=[
   {
     "id": "AB108",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, REAfinity™ - APC conjugated",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, REAfinity\u2122 - APC conjugated",
     "catNo": "130-117-984",
     "clone": "",
     "conjugation": "APC",
@@ -1896,7 +1912,7 @@ const antibodies=[
   {
     "id": "AB109",
     "marker": "CD14",
-    "antibody": "Biolegend APC/Fire™ 810 anti-human CD14",
+    "antibody": "Biolegend APC/Fire\u2122 810 anti-human CD14",
     "catNo": "50-207-8325",
     "clone": "",
     "conjugation": "APC-Fire 810",
@@ -1912,9 +1928,9 @@ const antibodies=[
   {
     "id": "AB110",
     "marker": "CD271/NGFR",
-    "antibody": "BD Pharmingen™ Alexa Fluor™ 488 Mouse Anti-Human CD271",
+    "antibody": "BD Pharmingen\u2122 Alexa Fluor\u2122 488 Mouse Anti-Human CD271",
     "catNo": "567393",
-    "clone": "",
+    "clone": "C40-1457",
     "conjugation": "Alexa Fluor 488",
     "laser": "488-B2",
     "role": "Neural crest and pericyte NGFR",
@@ -1928,9 +1944,9 @@ const antibodies=[
   {
     "id": "AB111",
     "marker": "CD36",
-    "antibody": "BD OptiBuild™ BUV496 Mouse Anti-Human CD36",
+    "antibody": "BD OptiBuild\u2122 BUV496 Mouse Anti-Human CD36",
     "catNo": "756799",
-    "clone": "",
+    "clone": "CLB-IVC7",
     "conjugation": "BUV496",
     "laser": "355-UV7",
     "role": "Lipid metabolism; mitochondria-rich cardiomyocytes",
@@ -1944,7 +1960,7 @@ const antibodies=[
   {
     "id": "AB112",
     "marker": "NG2/CSPG4",
-    "antibody": "BD OptiBuild™ BUV496 Mouse Anti-Human Chondroitin Sulfate (NG2)",
+    "antibody": "BD OptiBuild\u2122 BUV496 Mouse Anti-Human Chondroitin Sulfate (NG2)",
     "catNo": "756711",
     "clone": "NG2",
     "conjugation": "BUV496",
@@ -1960,9 +1976,9 @@ const antibodies=[
   {
     "id": "AB113",
     "marker": "HK1",
-    "antibody": "BD Horizon™ BUV661 Rabbit Anti-Human HK1",
+    "antibody": "BD Horizon\u2122 BUV661 Rabbit Anti-Human HK1",
     "catNo": "570557",
-    "clone": "",
+    "clone": "EPR10134(B)",
     "conjugation": "BUV661",
     "laser": "355-UV11",
     "role": "Glucose metabolism (hexokinase 1)",
@@ -1976,9 +1992,9 @@ const antibodies=[
   {
     "id": "AB114",
     "marker": "CD140a/PDGFRa",
-    "antibody": "BD OptiBuild™ BUV805 Mouse Anti-Human CD140a",
+    "antibody": "BD OptiBuild\u2122 BUV805 Mouse Anti-Human CD140a",
     "catNo": "748620",
-    "clone": "",
+    "clone": "\u03b1R1",
     "conjugation": "BUV805",
     "laser": "355-UV16",
     "role": "Early mesoderm / pericyte receptor",
@@ -1994,7 +2010,7 @@ const antibodies=[
     "marker": "CD13",
     "antibody": "Brilliant Violet 421 anti-human CD13 Antibody -CD13",
     "catNo": "301716",
-    "clone": "",
+    "clone": "WM15",
     "conjugation": "BV421",
     "laser": "405-V1",
     "role": "Pericytes (aminopeptidase N)",
@@ -2008,9 +2024,9 @@ const antibodies=[
   {
     "id": "AB116",
     "marker": "CD13",
-    "antibody": "BD OptiBuild™ BV786 Mouse Anti-Human CD13",
+    "antibody": "BD OptiBuild\u2122 BV786 Mouse Anti-Human CD13",
     "catNo": "740967",
-    "clone": "",
+    "clone": "WM15",
     "conjugation": "BV786",
     "laser": "405-V15",
     "role": "Pericytes (aminopeptidase N)",
@@ -2024,7 +2040,7 @@ const antibodies=[
   {
     "id": "AB117",
     "marker": "DLL4",
-    "antibody": "DLL4 Antibody, anti-human, Biotin, REAfinity™",
+    "antibody": "DLL4 Antibody, anti-human, Biotin, REAfinity\u2122",
     "catNo": "130-118-234",
     "clone": "",
     "conjugation": "Biotin",
@@ -2040,7 +2056,7 @@ const antibodies=[
   {
     "id": "AB118",
     "marker": "NOTCH1",
-    "antibody": "Notch1 Antibody, anti-human, Biotin, REAfinity™",
+    "antibody": "Notch1 Antibody, anti-human, Biotin, REAfinity\u2122",
     "catNo": "130-112-523",
     "clone": "",
     "conjugation": "Biotin",
@@ -2056,9 +2072,9 @@ const antibodies=[
   {
     "id": "AB119",
     "marker": "NR2F2/COUP-TFII",
-    "antibody": "COUP-TF II/NR2F2 Rabbit anti-Human, Biotin, Polyclonal, Novus Biologicals™",
+    "antibody": "COUP-TF II/NR2F2 Rabbit anti-Human, Biotin, Polyclonal, Novus Biologicals\u2122",
     "catNo": "NB106334",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Biotin",
     "laser": "",
     "role": "Venous endothelial / pericyte transcription factor",
@@ -2072,9 +2088,9 @@ const antibodies=[
   {
     "id": "AB120",
     "marker": "CD57",
-    "antibody": "BD Pharmingen™ PE Mouse Anti-Human CD57",
+    "antibody": "BD Pharmingen\u2122 PE Mouse Anti-Human CD57",
     "catNo": "560844",
-    "clone": "",
+    "clone": "NK-1",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Terminally differentiated NK and T cells",
@@ -2088,9 +2104,9 @@ const antibodies=[
   {
     "id": "AB121",
     "marker": "CD140b/PDGFRb",
-    "antibody": "BD Pharmingen™ PE Mouse Anti-Human CD140b",
+    "antibody": "BD Pharmingen\u2122 PE Mouse Anti-Human CD140b",
     "catNo": "558821",
-    "clone": "",
+    "clone": "28D4",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Pericyte / vascular smooth muscle growth factor receptor",
@@ -2104,9 +2120,9 @@ const antibodies=[
   {
     "id": "AB122",
     "marker": "CD56/NCAM1",
-    "antibody": "PE Mouse Anti-Human CD56 (NCAM1-1)",
+    "antibody": "PE Mouse Anti-Human CD56 (NCAM-1)",
     "catNo": "561903",
-    "clone": "",
+    "clone": "B159",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "NK cell and neural cell adhesion molecule",
@@ -2138,7 +2154,7 @@ const antibodies=[
     "marker": "CD57",
     "antibody": "PE anti-human CD57 antibody",
     "catNo": "359612",
-    "clone": "",
+    "clone": "HNK-1",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Terminally differentiated NK and T cells",
@@ -2168,9 +2184,9 @@ const antibodies=[
   {
     "id": "AB126",
     "marker": "CD140a/PDGFRa",
-    "antibody": "BD Pharmingen™ PE Mouse Anti-Human CD140a",
+    "antibody": "BD Pharmingen\u2122 PE Mouse Anti-Human CD140a",
     "catNo": "556002",
-    "clone": "",
+    "clone": "\u03b1R1",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Early mesoderm / pericyte receptor",
@@ -2184,7 +2200,7 @@ const antibodies=[
   {
     "id": "AB127",
     "marker": "DLL4",
-    "antibody": "DLL4 Antibody, anti-human, PE-Vio® 615, REAfinity™",
+    "antibody": "DLL4 Antibody, anti-human, PE-Vio\u00ae 615, REAfinity\u2122",
     "catNo": "130-118-229",
     "clone": "",
     "conjugation": "PE-Vio 615",
@@ -2200,7 +2216,7 @@ const antibodies=[
   {
     "id": "AB128",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, PE-Vio® 615, REAfinity™",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, PE-Vio\u00ae 615, REAfinity\u2122",
     "catNo": "130-117-985",
     "clone": "",
     "conjugation": "PE-Vio 615",
@@ -2216,7 +2232,7 @@ const antibodies=[
   {
     "id": "AB129",
     "marker": "CD69",
-    "antibody": "Biolegend PE/Fire™ 640 anti-human CD69",
+    "antibody": "Biolegend PE/Fire\u2122 640 anti-human CD69",
     "catNo": "50-207-3478",
     "clone": "",
     "conjugation": "PE-Fire 640",
@@ -2234,7 +2250,7 @@ const antibodies=[
     "marker": "TBR1",
     "antibody": "TBR1 Rabbit anti-human, Mouse, Rat, Polyclonal Proteintech",
     "catNo": "50560052",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Deep-layer cortical neuron transcription factor",
@@ -2264,7 +2280,7 @@ const antibodies=[
   {
     "id": "AB132",
     "marker": "PAX3",
-    "antibody": "PAX-3 Antibody, anti-human/mouse, Vio® B515, REAfinity™",
+    "antibody": "PAX-3 Antibody, anti-human/mouse, Vio\u00ae B515, REAfinity\u2122",
     "catNo": "130-131-114",
     "clone": "",
     "conjugation": "Vio B515",
@@ -2344,9 +2360,9 @@ const antibodies=[
   {
     "id": "AB137",
     "marker": "CD184/CXCR4",
-    "antibody": "BD OptiBuild™ BUV737 Mouse Anti-Human CD184",
+    "antibody": "BD OptiBuild\u2122 BUV737 Mouse Anti-Human CD184",
     "catNo": "741862",
-    "clone": "",
+    "clone": "12G5",
     "conjugation": "BUV737",
     "laser": "355-UV14",
     "role": "Chemokine receptor 4, homing/migration",
@@ -2360,7 +2376,7 @@ const antibodies=[
   {
     "id": "AB138",
     "marker": "CD140a/PDGFRa",
-    "antibody": "CD140a Antibody, anti-human, REAfinity™",
+    "antibody": "CD140a Antibody, anti-human, REAfinity\u2122",
     "catNo": "130-115-241",
     "clone": "",
     "conjugation": "Purified",
@@ -2376,9 +2392,9 @@ const antibodies=[
   {
     "id": "AB139",
     "marker": "DLL4",
-    "antibody": "BD OptiBuild™ BUV563 Mouse Anti-Human Delta-Like Protein 4",
+    "antibody": "BD OptiBuild\u2122 BUV563 Mouse Anti-Human Delta-Like Protein 4",
     "catNo": "748346",
-    "clone": "",
+    "clone": "MHD4-46",
     "conjugation": "BUV563",
     "laser": "355-UV9",
     "role": "Delta-like 4, tip-cell ligand",
@@ -2392,9 +2408,9 @@ const antibodies=[
   {
     "id": "AB140",
     "marker": "HER4/ErbB4",
-    "antibody": "BD OptiBuild™ BV711 Rat Anti-Human HER4 (ErbB4)",
+    "antibody": "BD OptiBuild\u2122 BV711 Rat Anti-Human HER4 (ErbB4)",
     "catNo": "756650",
-    "clone": "",
+    "clone": "P6-1",
     "conjugation": "BV711",
     "laser": "405-V13",
     "role": "EGF receptor family member 4",
@@ -2408,7 +2424,7 @@ const antibodies=[
   {
     "id": "AB141",
     "marker": "cTnT",
-    "antibody": "Cardiac Troponin T Antibody, anti-human/mouse/rat, Vio® B515, REAfinity™",
+    "antibody": "Cardiac Troponin T Antibody, anti-human/mouse/rat, Vio\u00ae B515, REAfinity\u2122",
     "catNo": "130-129-225",
     "clone": "",
     "conjugation": "Vio B515",
@@ -2440,9 +2456,9 @@ const antibodies=[
   {
     "id": "AB143",
     "marker": "CD140b/PDGFRb",
-    "antibody": "BD Pharmingen™ Purified Mouse Anti-Human CD140b",
+    "antibody": "BD Pharmingen\u2122 Purified Mouse Anti-Human CD140b",
     "catNo": "558820",
-    "clone": "",
+    "clone": "28D4",
     "conjugation": "Purified",
     "laser": "",
     "role": "Pericyte / vascular smooth muscle growth factor receptor",
@@ -2456,9 +2472,9 @@ const antibodies=[
   {
     "id": "AB144",
     "marker": "CD13",
-    "antibody": "BD Pharmingen™ Purified Mouse Anti-Human CD13",
+    "antibody": "BD Pharmingen\u2122 Purified Mouse Anti-Human CD13",
     "catNo": "555393",
-    "clone": "",
+    "clone": "WM15",
     "conjugation": "Purified",
     "laser": "",
     "role": "Pericytes (aminopeptidase N)",
@@ -2472,9 +2488,9 @@ const antibodies=[
   {
     "id": "AB145",
     "marker": "NOTCH3",
-    "antibody": "BD OptiBuild™ BV711 Mouse Anti-Human Notch3",
+    "antibody": "BD OptiBuild\u2122 BV711 Mouse Anti-Human Notch3",
     "catNo": "745463",
-    "clone": "",
+    "clone": "MHN3-21",
     "conjugation": "BV711",
     "laser": "405-V13",
     "role": "Notch3 receptor, pericyte/VSMC signaling",
@@ -2504,7 +2520,7 @@ const antibodies=[
   {
     "id": "AB147",
     "marker": "CD309/VEGFR-2",
-    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, Vio® Bright V423, REAfinity",
+    "antibody": "CD309 (VEGFR-2) Antibody, anti-human, Vio\u00ae Bright V423, REAfinity",
     "catNo": "130-128-286",
     "clone": "",
     "conjugation": "Vio Bright V423",
@@ -2520,7 +2536,7 @@ const antibodies=[
   {
     "id": "AB148",
     "marker": "NOTCH1",
-    "antibody": "Notch1 Antibody, anti-human, REAfinity  Vio® Bright V423",
+    "antibody": "Notch1 Antibody, anti-human, REAfinity  Vio\u00ae Bright V423",
     "catNo": "130-128-652",
     "clone": "",
     "conjugation": "Vio Bright V423",
@@ -2536,9 +2552,9 @@ const antibodies=[
   {
     "id": "AB149",
     "marker": "Ki67",
-    "antibody": "BD Horizon™ BUV395 Mouse Anti-Ki-67",
+    "antibody": "BD Horizon\u2122 BUV395 Mouse Anti-Ki-67",
     "catNo": "564071",
-    "clone": "",
+    "clone": "B56",
     "conjugation": "BUV395",
     "laser": "355-UV2",
     "role": "Proliferating cells (cell cycle marker)",
@@ -2568,7 +2584,7 @@ const antibodies=[
   {
     "id": "AB151",
     "marker": "CD140a/PDGFRa",
-    "antibody": "CD140a Antibody, anti-mouse, APC-Vio® 770",
+    "antibody": "CD140a Antibody, anti-mouse, APC-Vio\u00ae 770",
     "catNo": "130-125-521",
     "clone": "",
     "conjugation": "APC-Vio 770",
@@ -2600,7 +2616,7 @@ const antibodies=[
   {
     "id": "AB153",
     "marker": "Mouse IgG2a (secondary)",
-    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 568",
+    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 568",
     "catNo": "A-21134",
     "clone": "",
     "conjugation": "Alexa Fluor 568",
@@ -2616,7 +2632,7 @@ const antibodies=[
   {
     "id": "AB154",
     "marker": "Mouse IgM (secondary)",
-    "antibody": "Goat anti-Mouse IgM (Heavy chain) Secondary Antibody, Alexa Fluor™ 647",
+    "antibody": "Goat anti-Mouse IgM (Heavy chain) Secondary Antibody, Alexa Fluor\u2122 647",
     "catNo": "A-21238",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2632,7 +2648,7 @@ const antibodies=[
   {
     "id": "AB155",
     "marker": "Mouse IgG2a (secondary)",
-    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 647",
+    "antibody": "Goat anti-Mouse IgG2a Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 647",
     "catNo": "A-21241",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2680,9 +2696,9 @@ const antibodies=[
   {
     "id": "AB158",
     "marker": "Nestin",
-    "antibody": "Brilliant Violet 421™ anti-Nestin Antibody",
+    "antibody": "Brilliant Violet 421\u2122 anti-Nestin Antibody",
     "catNo": "656808",
-    "clone": "",
+    "clone": "10C2",
     "conjugation": "BV421",
     "laser": "405-V1",
     "role": "Neural progenitor, pericyte",
@@ -2696,7 +2712,7 @@ const antibodies=[
   {
     "id": "AB159",
     "marker": "NFATc1",
-    "antibody": "Alexa Fluor® 488 anti-NFATc1 Antibody Clone 7A6",
+    "antibody": "Alexa Fluor\u00ae 488 anti-NFATc1 Antibody Clone 7A6",
     "catNo": "50-605-848",
     "clone": "7A6",
     "conjugation": "Alexa Fluor 488",
@@ -2714,7 +2730,7 @@ const antibodies=[
     "marker": "NG2/CSPG4",
     "antibody": "Recombinant Anti-NG2 antibody",
     "catNo": "ab255811",
-    "clone": "",
+    "clone": "EPR22410-145",
     "conjugation": "Purified",
     "laser": "",
     "role": "CSPG4, pericyte",
@@ -2730,7 +2746,7 @@ const antibodies=[
     "marker": "OLIG2",
     "antibody": "Recombinant Anti-Olig2 antibody [EPR2673] (ab109186)",
     "catNo": "ab109186",
-    "clone": "",
+    "clone": "EPR2673",
     "conjugation": "Purified",
     "laser": "",
     "role": "Oligodendrocyte",
@@ -2762,7 +2778,7 @@ const antibodies=[
     "marker": "Pro-Caspase-3",
     "antibody": "Recombinant Alexa Fluor 647 Anti-pro Caspase antibody [E61]",
     "catNo": "ab303716",
-    "clone": "",
+    "clone": "E61",
     "conjugation": "Alexa Fluor 647",
     "laser": "640-R2",
     "role": "Pro-caspase (inactive caspase-3 precursor)",
@@ -2776,7 +2792,7 @@ const antibodies=[
   {
     "id": "AB164",
     "marker": "PCNA",
-    "antibody": "Monoclonal Anti-proliferating cell nuclear antigen antibody prodcued in mouse",
+    "antibody": "Monoclonal Anti-proliferating cell nuclear antigen antibody produced in mouse",
     "catNo": "P8825-25UL",
     "clone": "",
     "conjugation": "Purified",
@@ -2792,7 +2808,7 @@ const antibodies=[
   {
     "id": "AB165",
     "marker": "Rabbit IgG (secondary)",
-    "antibody": "Goat anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor™ Plus 405, Invitrog",
+    "antibody": "Goat anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 Plus 405, Invitrog",
     "catNo": "PIA48254",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2808,7 +2824,7 @@ const antibodies=[
   {
     "id": "AB166",
     "marker": "Rabbit IgG (secondary)",
-    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 647",
+    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 647",
     "catNo": "A-31573",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2824,7 +2840,7 @@ const antibodies=[
   {
     "id": "AB167",
     "marker": "Rabbit IgG (secondary)",
-    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor™ 647, Invitrogen",
+    "antibody": "Donkey anti-Rabbit IgG (H+L) Highly Cross-Adsorbed Secondary Antibody, Alexa Fluor\u2122 647, Invitrogen",
     "catNo": "10543623",
     "clone": "",
     "conjugation": "Alexa Fluor 647",
@@ -2890,7 +2906,7 @@ const antibodies=[
     "marker": "CD11b",
     "antibody": "Hu CD11b RY703 D12 50ug",
     "catNo": "772003",
-    "clone": "",
+    "clone": "D12",
     "conjugation": "RY703",
     "laser": "561-YG6",
     "role": "Macrophage/monocyte integrin (CD11b, myeloid)",
@@ -2906,7 +2922,7 @@ const antibodies=[
     "marker": "CD146",
     "antibody": "Hu CD146 BUV737 P1H12 50ug",
     "catNo": "749292",
-    "clone": "",
+    "clone": "P1H12",
     "conjugation": "BUV737",
     "laser": "355-UV14",
     "role": "Endothelial/pericyte adhesion molecule (MCAM)",
@@ -2922,7 +2938,7 @@ const antibodies=[
     "marker": "CD163",
     "antibody": "Hu CD163 BUV737 GHI/61 50ug",
     "catNo": "741863",
-    "clone": "",
+    "clone": "GHI/61",
     "conjugation": "BUV737",
     "laser": "355-UV14",
     "role": "M2 macrophage",
@@ -2938,7 +2954,7 @@ const antibodies=[
     "marker": "CD19",
     "antibody": "Hu CD19 BUV737 SJ25C1 100Tst",
     "catNo": "612756",
-    "clone": "",
+    "clone": "SJ25C1",
     "conjugation": "BUV737",
     "laser": "355-UV14",
     "role": "B cell",
@@ -2970,7 +2986,7 @@ const antibodies=[
     "marker": "CD3",
     "antibody": "Hu CD3 BUV805 SK7 100Tst",
     "catNo": "612893",
-    "clone": "",
+    "clone": "SK7",
     "conjugation": "BUV805",
     "laser": "355-UV16",
     "role": "T cell",
@@ -3002,7 +3018,7 @@ const antibodies=[
     "marker": "CD31",
     "antibody": "Human CD31/PECAM-1 Antibody",
     "catNo": "BBA7",
-    "clone": "",
+    "clone": "9G11",
     "conjugation": "Purified",
     "laser": "",
     "role": "PECAM, mature EC",
@@ -3018,7 +3034,7 @@ const antibodies=[
     "marker": "CD33",
     "antibody": "Hu CD33 BV510 WM53 50Tst",
     "catNo": "563257",
-    "clone": "",
+    "clone": "WM53",
     "conjugation": "BV510",
     "laser": "405-V7",
     "role": "Myeloid",
@@ -3034,7 +3050,7 @@ const antibodies=[
     "marker": "CD34",
     "antibody": "Hu CD34 BUV395 8G12 50ug",
     "catNo": "745727",
-    "clone": "",
+    "clone": "8G12",
     "conjugation": "BUV395",
     "laser": "355-UV2",
     "role": "Progenitor, hemangioblast",
@@ -3050,7 +3066,7 @@ const antibodies=[
     "marker": "CD45",
     "antibody": "Hu CD45 BUV395 HI30 25Tst",
     "catNo": "563791",
-    "clone": "",
+    "clone": "HI30",
     "conjugation": "BUV395",
     "laser": "355-UV2",
     "role": "Pan-leukocyte",
@@ -3066,7 +3082,7 @@ const antibodies=[
     "marker": "CD45R",
     "antibody": "Hu CD45RA RB780 HI100 100Tst",
     "catNo": "569081",
-    "clone": "",
+    "clone": "HI100",
     "conjugation": "RB780",
     "laser": "488-B13",
     "role": "Pan-leukocyte",
@@ -3082,7 +3098,7 @@ const antibodies=[
     "marker": "CD45R",
     "antibody": "Hu CD45RO BV711 UCHL1 100Tst",
     "catNo": "563722",
-    "clone": "",
+    "clone": "UCHL1",
     "conjugation": "BV711",
     "laser": "405-V13",
     "role": "Pan-leukocyte",
@@ -3098,7 +3114,7 @@ const antibodies=[
     "marker": "CD56",
     "antibody": "Hu CD56 (NCAM-1) RB670 B159 100Tst",
     "catNo": "571925",
-    "clone": "",
+    "clone": "B159",
     "conjugation": "RB670",
     "laser": "488-B7",
     "role": "NK cell, NCAM",
@@ -3114,7 +3130,7 @@ const antibodies=[
     "marker": "CD68",
     "antibody": "Hu CD68 RB705 Y1/82A 25Tst",
     "catNo": "570732",
-    "clone": "",
+    "clone": "Y1/82A",
     "conjugation": "RB705",
     "laser": "488-B9",
     "role": "Macrophage",
@@ -3144,7 +3160,7 @@ const antibodies=[
   {
     "id": "AB187",
     "marker": "CYCLIN D1",
-    "antibody": "Cyclin D1 Monoclonal Antibody (2G3G5), Cardinal Red™",
+    "antibody": "Cyclin D1 Monoclonal Antibody (2G3G5), Cardinal Red\u2122",
     "catNo": "CR-60186",
     "clone": "2G3G5",
     "conjugation": "Cardinal Red",
@@ -3176,9 +3192,9 @@ const antibodies=[
   {
     "id": "AB189",
     "marker": "GFP",
-    "antibody": "turboGFP Polyclonal Antibody, TrueMAB™",
+    "antibody": "turboGFP Polyclonal Antibody, TrueMAB\u2122",
     "catNo": "TA150075",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Green fluorescent protein tag",
@@ -3194,7 +3210,7 @@ const antibodies=[
     "marker": "GFP",
     "antibody": "turboGFP Polyclonal Antibody",
     "catNo": "TA150071",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "Green fluorescent protein tag",
@@ -3210,7 +3226,7 @@ const antibodies=[
     "marker": "KMT2D",
     "antibody": "KMT2D Polyclonal Antibody",
     "catNo": "PA5-115579",
-    "clone": "",
+    "clone": "Polyclonal",
     "conjugation": "Purified",
     "laser": "",
     "role": "KMT2D histone methyltransferase (MLL4, Kabuki syndrome)",
@@ -3258,7 +3274,7 @@ const antibodies=[
     "marker": "SOX9",
     "antibody": "Sox9-PE",
     "catNo": "ab224019",
-    "clone": "",
+    "clone": "EPR14335-78",
     "conjugation": "PE",
     "laser": "561-YG1",
     "role": "Glial/neural crest/chondrogenic transcription factor",
@@ -3272,7 +3288,7 @@ const antibodies=[
   {
     "id": "AB195",
     "marker": "TBR1",
-    "antibody": "CoraLite®594-conjugated TBR1 Monoclonal antibody",
+    "antibody": "CoraLite\u00ae594-conjugated TBR1 Monoclonal antibody",
     "catNo": "CL594-66564",
     "clone": "",
     "conjugation": "CoraLite 594",
@@ -3304,9 +3320,9 @@ const antibodies=[
   {
     "id": "AB197",
     "marker": "Chondroitin Sulfate/NG2",
-    "antibody": "BD Pharmingen™ Alexa Fluor® 488 Mouse Anti-Chondroitin Sulfate",
+    "antibody": "BD Pharmingen\u2122 Alexa Fluor\u00ae 488 Mouse Anti-Chondroitin Sulfate",
     "catNo": "562413",
-    "clone": "",
+    "clone": "9.2.27",
     "conjugation": "Alexa Fluor 488",
     "laser": "488-B2",
     "role": "CSPG4, pericyte",
@@ -3336,9 +3352,9 @@ const antibodies=[
   {
     "id": "AB199",
     "marker": "NG2",
-    "antibody": "Human NG2/MCSP Alexa Fluor® 700-conjugated Antibody",
+    "antibody": "Human NG2/MCSP Alexa Fluor\u00ae 700-conjugated Antibody",
     "catNo": "FAB2585N",
-    "clone": "",
+    "clone": "LHM-2",
     "conjugation": "Alexa Fluor 700",
     "laser": "640-R4",
     "role": "CSPG4, pericyte",
@@ -3354,7 +3370,7 @@ const antibodies=[
     "marker": "NG2",
     "antibody": "Hu NG2 BUV395 7.1 50ug",
     "catNo": "756710",
-    "clone": "",
+    "clone": "7.1",
     "conjugation": "BUV395",
     "laser": "355-UV2",
     "role": "CSPG4, pericyte",
@@ -3370,7 +3386,7 @@ const antibodies=[
     "marker": "OCT4",
     "antibody": "Oct4 647-conjugate",
     "catNo": "560329",
-    "clone": "",
+    "clone": "40/Oct-3",
     "conjugation": "Alexa Fluor 647",
     "laser": "640-R2",
     "role": "OCT4, pluripotency",
@@ -3416,9 +3432,9 @@ const antibodies=[
   {
     "id": "AB204",
     "marker": "Tubulin",
-    "antibody": "Neuron-specific beta -III Tubulin Alexa Fluor® 488-conjugated Antibody",
+    "antibody": "Neuron-specific beta -III Tubulin Alexa Fluor\u00ae 488-conjugated Antibody",
     "catNo": "IC1195G-100",
-    "clone": "",
+    "clone": "TUJ-1",
     "conjugation": "Alexa Fluor 488",
     "laser": "488-B2",
     "role": "Cytoskeleton",
@@ -3448,7 +3464,7 @@ const antibodies=[
   {
     "id": "AB206",
     "marker": "DNA content",
-    "antibody": "FxCycle™ Violet Ready Flow™ Reagent",
+    "antibody": "FxCycle\u2122 Violet Ready Flow\u2122 Reagent",
     "catNo": "R37166",
     "clone": "NA",
     "conjugation": "FxCycle Violet",
@@ -3464,7 +3480,7 @@ const antibodies=[
   {
     "id": "AB207",
     "marker": "Viability",
-    "antibody": "Zombie NIR™ Fixable Viability Kit",
+    "antibody": "Zombie NIR\u2122 Fixable Viability Kit",
     "catNo": "50-604-714",
     "clone": "NA",
     "conjugation": "Zombie NIR",
@@ -3479,7 +3495,7 @@ const antibodies=[
   },
   {
     "marker": "Viability (Lime)",
-    "antibody": "LIVE/DEAD™ Fixable Lime (506) Viability Kit",
+    "antibody": "LIVE/DEAD\u2122 Fixable Lime (506) Viability Kit",
     "catNo": "L34989",
     "clone": "NA",
     "conjugation": "Fixable Lime 506",
@@ -3495,7 +3511,7 @@ const antibodies=[
   },
   {
     "marker": "Viability (Violet)",
-    "antibody": "LIVE/DEAD™ Fixable Violet Dead Cell Stain Kit",
+    "antibody": "LIVE/DEAD\u2122 Fixable Violet Dead Cell Stain Kit",
     "catNo": "L34955",
     "clone": "NA",
     "conjugation": "Fixable Violet",
@@ -3511,7 +3527,7 @@ const antibodies=[
   },
   {
     "marker": "Viability (FVS780)",
-    "antibody": "BD Horizon™ Fixable Viability Stain 780",
+    "antibody": "BD Horizon\u2122 Fixable Viability Stain 780",
     "catNo": "565388",
     "clone": "NA",
     "conjugation": "FVS780",
@@ -5329,17 +5345,88 @@ function checkConflicts(sel){
   if(!sel.length){box.innerHTML='<span style="font-size:.78rem;color:#94a3b8">Select markers to see conflicts</span>';return}
   const byDet={},byFluor={},byLaser={};
   sel.forEach(ab=>{const info=getInfo(ab);const lk=info.laser||"?";byLaser[lk]=(byLaser[lk]||0)+1;if(info.detector)(byDet[info.detector]||=[]).push(ab);if(info.fluorKey)(byFluor[info.fluorKey]||=[]).push(ab)});
-  const msgs=[];
-  Object.entries(byDet).forEach(([d,arr])=>{if(arr.length>1)msgs.push("Detector overlap \""+d+"\": "+arr.map(x=>x.marker).join(", "))});
-  Object.entries(byFluor).forEach(([k,arr])=>{if(arr.length>1)msgs.push("Fluor reuse \""+k+"\": "+arr.map(x=>x.marker).join(", "))});
-  if(msgs.length)msgs.forEach(m=>{const p=document.createElement("p");p.className="warn";p.textContent=m;box.appendChild(p)});
-  else{const p=document.createElement("p");p.className="ok-msg";p.textContent="No conflicts detected.";box.appendChild(p)}
+  const msgs=[],conflictedIds=new Set();
+  Object.entries(byDet).forEach(([d,arr])=>{if(arr.length>1){msgs.push({text:"Detector overlap \""+d+"\": "+arr.map(x=>x.marker).join(", "),abs:arr});arr.forEach(a=>conflictedIds.add(a.id))}});
+  Object.entries(byFluor).forEach(([k,arr])=>{if(arr.length>1){msgs.push({text:"Fluor reuse \""+k+"\": "+arr.map(x=>x.marker).join(", "),abs:arr});arr.forEach(a=>conflictedIds.add(a.id))}});
+  if(msgs.length){
+    msgs.forEach(m=>{const p=document.createElement("p");p.className="warn";p.textContent=m.text;box.appendChild(p)});
+    /* Render alternative-conjugate suggestions for each conflicted antibody */
+    const seenMarkers=new Set();
+    msgs.forEach(m=>{m.abs.forEach(ab=>{
+      if(seenMarkers.has(ab.id))return;seenMarkers.add(ab.id);
+      const alts=findAlternatives(ab,sel);
+      const block=document.createElement("div");block.className="alt-block";
+      const hdr=document.createElement("div");hdr.className="alt-header";
+      hdr.innerHTML='Swap <span class="alt-marker">'+ab.marker+' ['+(ab.conjugation||"Purified")+']</span> for:';
+      block.appendChild(hdr);
+      if(!alts.length){
+        const e=document.createElement("span");e.className="alt-empty";e.textContent="No alternative conjugates available in inventory.";block.appendChild(e);
+      }else{
+        const row=document.createElement("div");row.className="alt-row";
+        alts.forEach(alt=>{
+          const chip=document.createElement("span");
+          chip.className="alt-chip "+(alt.clean?"alt-clean":"alt-conflict");
+          const li=laserLabel(alt.info.laser);
+          let html='<span class="alt-conj">'+(alt.ab.conjugation||"Purified")+'</span>';
+          if(li.b)html+=' <span class="lbadge '+li.c+'">'+li.b+'</span>';
+          if(alt.clean)html+=' <span class="alt-status">✓ no conflict</span>';
+          else html+=' <span class="alt-status">⚠ '+alt.reason+'</span>';
+          chip.innerHTML=html;
+          chip.title="Click to swap "+ab.marker+" ["+ab.conjugation+"] with this conjugate ("+(alt.ab.vendor||"")+", "+(alt.ab.catNo||"")+")"+(alt.ab.clone?" - Clone "+alt.ab.clone:"");
+          chip.onclick=()=>swapAntibody(ab.id,alt.ab.id);
+          row.appendChild(chip);
+        });
+        block.appendChild(row);
+      }
+      box.appendChild(block);
+    })});
+  }else{const p=document.createElement("p");p.className="ok-msg";p.textContent="No conflicts detected.";box.appendChild(p)}
   const sum=document.createElement("p");sum.style.cssText="font-size:.72rem;margin-top:.15rem;color:#475569";
   sum.textContent="Lasers: "+Object.entries(byLaser).map(([l,c])=>laserLabel(l).b+": "+c).join(" | ");box.appendChild(sum);
   const load={};sel.forEach(ab=>{const k=getFluorKey(ab);if(!k)return;const s=FluorSpectra[k];if(!s||!s.channels)return;Object.entries(s.channels).forEach(([ch,v])=>{load[ch]=(load[ch]||0)+v})});
   const overloads=Object.entries(load).filter(([,v])=>v>1.5);
   if(overloads.length){const p=document.createElement("p");p.className="warn";p.textContent="Spectral overload: "+overloads.map(([c,v])=>c+" ("+v.toFixed(1)+")").join(", ");box.appendChild(p)}
   if(Object.keys(load).length){const hm=document.createElement("div");hm.className="spec-hm";const mx=Math.max(...Object.values(load));Object.entries(load).sort((a,b)=>b[1]-a[1]).slice(0,12).forEach(([ch,v])=>{const c=document.createElement("span");c.className="spec-cell";c.style.backgroundColor="rgba(37,99,235,"+(0.12+0.65*(mx?v/mx:0)).toFixed(2)+")";c.textContent=ch+" "+v.toFixed(1);hm.appendChild(c)});box.appendChild(hm)}
+}
+
+/* ═══ Alternative-conjugate suggestions ═══ */
+/* For a conflicted antibody, find other inventory entries with the same marker
+   but a different conjugate. Prefer those that would NOT introduce new conflicts
+   with the rest of the selected panel. */
+function findAlternatives(ab,sel){
+  const others=sel.filter(s=>s.id!==ab.id);
+  const otherDets=new Set(),otherFluors=new Set();
+  others.forEach(s=>{const i=getInfo(s);if(i.detector)otherDets.add(i.detector);if(i.fluorKey)otherFluors.add(i.fluorKey)});
+  /* Same marker, different conjugation, not the same id, not already in panel */
+  const cands=antibodies.filter(a=>a.marker===ab.marker&&a.id!==ab.id&&a.conjugation!==ab.conjugation&&!selectedIds.has(a.id));
+  const scored=cands.map(alt=>{
+    const info=getInfo(alt);
+    const detClash=info.detector&&otherDets.has(info.detector);
+    const fluorClash=info.fluorKey&&otherFluors.has(info.fluorKey);
+    const unconj=isUnconj(alt);
+    let reason="";
+    if(detClash)reason="hits "+info.detector;
+    else if(fluorClash)reason="reuses "+info.fluorKey;
+    else if(unconj)reason="unconjugated";
+    return{ab:alt,info,clean:!detClash&&!fluorClash&&!unconj,reason,unconj};
+  });
+  /* Sort: clean first, then conjugated (over purified), then by laser balance */
+  scored.sort((a,b)=>{
+    if(a.clean!==b.clean)return a.clean?-1:1;
+    if(a.unconj!==b.unconj)return a.unconj?1:-1;
+    return 0;
+  });
+  return scored.slice(0,8); /* cap at 8 alternatives per marker */
+}
+
+function swapAntibody(oldId,newId){
+  const oldAb=antibodies.find(a=>a.id===oldId);
+  const newAb=antibodies.find(a=>a.id===newId);
+  if(!oldAb||!newAb)return;
+  selectedIds.delete(oldId);
+  selectedIds.add(newId);
+  renderGrid();renderPanel();
+  toast("Swapped "+oldAb.marker+" ["+oldAb.conjugation+"] → ["+newAb.conjugation+"]");
 }
 
 /* ═══ Copy / CSV ═══ */
