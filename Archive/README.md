@@ -4,8 +4,6 @@ A single-page web application for designing spectrally aware flow cytometry pane
 
 **[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** *(update URL after deployment)*
 
-**Version 1.2 · May 2026.** This release integrates the Round-3 clone-ID verification by Sandeep Sreerama (manual clone lookups, BD/BioLegend spot-checks, and verified conjugation and catalog-number corrections), raising clone coverage to 205/221 (93%), unifies the NG2 and Nestin marker labels so the alternative-conjugate suggestions resolve them, and adds a spectral-compatibility disclaimer to the tool footer.
-
 ---
 
 ## What it does
@@ -16,12 +14,11 @@ The tool is organized around the **Core EpiFlow panel** — an 11-marker configu
 
 ### Key capabilities
 
-- **Search and filter** 221 reagents by marker, antibody name, catalog number, conjugation, module, or role.
+- **Search and filter** 210 reagents by marker, antibody name, catalog number, conjugation, module, or role.
 - **Module filtering** with count badges showing how many conjugated reagents each module contains (Core EpiFlow, Cerebral/Neural, Pericyte, Endothelial, PBMC/Immune, NOTCH, Cardiac, Pluripotent, and more).
 - **One-click Core Panel loading** pre-selects the canonical 11-marker EpiFlow panel: FxCycle Violet (DNA), Zombie NIR (viability), total H3-AF700, H3K27me3-Pacific Blue, H3K4me3-AF647, H3K27ac-PE-Cy7, H3K9ac-Pacific Blue, H3K4me1-PE, H3K4me2-PE, phH3-AF532, Active Caspase-3-BV650.
 - **Dual instrument support** for Cytek Aurora 5L (64 channels) and BD FACSDiscover S8 (78 channels), with per-instrument fluorochrome-to-channel mapping derived from official Thermo Fisher selection guides.
 - **Conflict detection**: primary detector overlap, fluorochrome reuse, and heuristic spectral load per Aurora/S8 channel.
-- **Alternative-conjugate suggestions**: when a panel has a detector overlap or fluorochrome-reuse conflict, the tool surfaces other inventory entries for the same marker on different fluorochromes, marks which alternatives would resolve the conflict cleanly, and offers a one-click swap (feature suggested by Sandeep Sreerama).
 - **Laser balance visualization** showing the proportional distribution of selected markers across UV, Violet, Blue, YG, and Red lasers.
 - **Spectral fingerprint strips** on card hover, showing the heuristic emission profile of each fluorochrome across the instrument's detector array.
 - **Export** your panel as clipboard text or CSV for lab notes and ordering.
@@ -57,7 +54,7 @@ GitHub Pages deployment enables `localStorage` for persistent panel saves across
 
 ## Reagent inventory
 
-The 221-entry inventory was compiled from Serrano Lab purchase orders spanning 2022–2026 and includes reagents from Cell Signaling Technology, BD Biosciences, BioLegend, R&D Systems, Miltenyi Biotec, Abcam, Thermo Fisher/Invitrogen, Novus Biologicals, Proteintech, and other vendors.
+The 210-entry inventory was compiled from Serrano Lab purchase orders spanning 2022–2026 and includes reagents from Cell Signaling Technology, BD Biosciences, BioLegend, R&D Systems, Miltenyi Biotec, Abcam, Thermo Fisher/Invitrogen, Novus Biologicals, Proteintech, and other vendors.
 
 ### Modules
 
@@ -119,15 +116,6 @@ The panel builder checks three levels of compatibility:
 
 The **laser balance bar** provides a visual summary of how many conjugated markers are assigned to each laser. An imbalanced panel (e.g., 8 markers on YG but 0 on UV) is harder to unmix and more prone to spreading error.
 
-### Resolving conflicts with alternative conjugates
-
-When a detector overlap or fluorochrome-reuse conflict appears, the tool lists the other inventory entries for the same marker that use a different fluorochrome. Each alternative is shown as a chip with the candidate conjugate and laser badge:
-
-- **Green chips** indicate alternatives that would resolve the conflict without introducing a new detector or fluor clash with the rest of the selected panel.
-- **Yellow chips** indicate alternatives that would still conflict with another existing panel member (the chip explains which detector or fluor is at issue).
-
-Clicking any alternative chip swaps the conflicted antibody for that conjugate in a single action. If no different-conjugate inventory exists for a given marker, the tool says so explicitly rather than silently suggesting nothing.
-
 ---
 
 ## Saving and sharing panels
@@ -175,8 +163,6 @@ If the conjugation is a fluorochrome, also add an entry to `CONJ_MAP` mapping th
 2. Add its primary detector channel to `FluorPeakByInstrument` for each instrument.
 3. Add a heuristic spectral spread to `FluorSpectra` with brightness tier (1=Low, 2=Medium, 3=High).
 
-For a conjugate that is spectrally near-identical to one already in the reference set, you can skip steps 2–3 and instead alias it in `CONJ_MAP` to the existing fluorochrome key (e.g., `"VioBlue":"PACIFIC BLUE"`). The card still displays the true conjugate name from the `conjugation` field, while detector placement and conflict logic borrow the analog's channel and spectrum. This is an approximation — note it in the provenance and verify in dedicated spectral software.
-
 ### Adding new instruments
 
 Add a new instrument object to `Instruments` with its channel array, then add a corresponding fluorochrome-to-channel map in `FluorPeakByInstrument`. Add the instrument as an `<option>` in the HTML `<select>` dropdown.
@@ -186,12 +172,6 @@ Add a new instrument object to `Instruments` with its channel array, then add a 
 ## Data provenance
 
 The antibody inventory was compiled through a systematic audit of all Serrano Lab purchase orders from 2022 through 2026, cross-referenced against vendor catalogs to verify catalog numbers, conjugation assignments, clone identities, and fluorochrome-to-detector mappings. The audit identified and corrected 50+ conjugation field errors, filled 65 missing marker names, removed 25 duplicate entries, and added 5 viability reagents that were ordered but missing from the original dataset.
-
-A subsequent clone-ID audit (May 2026) extracted clone names embedded in product names but missing from the dedicated `clone` field for 41 entries, including all BD-format catalog listings (e.g., `Hu CD3 BUV805 SK7 100Tst` → clone `SK7`), parenthetical clone codes (e.g., `Pax6 Antibody (PAX6/1166)` → clone `PAX6/1166`), Abcam recombinant identifiers (e.g., `[EPR2673]`), and explicit polyclonal labels. The audit also corrected the H3K9ac PE-conjugate clone assignment (`C5B11`, not `C4B11`, per CST cat 28036) and a mislabel of EpCAM as `CD325` (the correct CD designation is `CD326`; CD325 is N-cadherin/CDH2). A full fixes log accompanies the inventory.
-
-A Round-3 verification (Sandeep Sreerama, May 2026) closed out the remaining gaps: manual clone lookups for the vendor entries that could not be resolved from product names (Miltenyi REAfinity, Thermo/Invitrogen secondaries, Proteintech, Sigma, GeneTex), spot-checks of the BD/BioLegend clones whose provenance had not been fully captured, and verified corrections to several conjugation and catalog-number fields where the dataset disagreed with the vendor product page. Notable fixes include six Miltenyi entries mislabeled as `Purified` that are in fact conjugated (e.g., CD31 VioBlue, EPHB4 PE-Vio 770, CD34 APC-Vio 770), a CD36 clone that belonged to a different (FITC) product (`FA6-152`, not `CLB-IVC7`), a secondary mislabeled as Alexa Fluor 647 that is Alexa Fluor Plus 405, and three corrected Miltenyi/BioLegend catalog numbers. The NG2 and Nestin marker labels were unified so the alternative-conjugate feature, which matches on exact marker name, surfaces cross-conjugate suggestions across those families. Clone coverage now stands at **205/221 (93%)**; the 16 remaining blanks are isotype controls, streptavidin conjugates, and one recombinant FLAG ELISA peptide, none of which carry an antibody clone. The full per-field fixes log (`fixes_log.json`, 168 entries across three rounds) and the consolidated review (`CLONE_REVIEW.md`) accompany the inventory.
-
-**Disclaimer — guidance only.** Detector assignments and conflict flags in this tool are spectral heuristics based on emission-peak channels, not measured spillover or a full spectral similarity/complexity analysis. Three conjugates added in this release that are not in the tool's reference fluorochrome set (VioBlue, CoraLite Plus 488, Alexa Fluor Plus 405) are mapped to their nearest spectral analog (Pacific Blue, AF488, AF405 respectively) for channel placement. Users are responsible for confirming spectral compatibility and final panel performance in dedicated spectral panel-design software (e.g., Cytek Full Spectrum Viewer, BD Spectrum Viewer / FACSDiscover software) and with single-stained controls on the target instrument before running samples.
 
 Spectral conflict heuristics and the overall panel-builder architecture are inspired by the [PanelBuildeR](https://github.com/exaexa/panelbuilder) tool by Mirek Kratochvíl (Apache-2.0). The implementation and spectral model here are independent and simplified.
 
@@ -205,10 +185,8 @@ Spectral conflict heuristics and the overall panel-builder architecture are insp
 | `LICENSE` | BSD 2-Clause license |
 | `README.md` | This file |
 | `IMPLEMENTATION_GUIDE.md` | Guide for adapting the tool to other core facilities |
-| `clean_antibodies.json` | Machine-readable antibody inventory (221 entries; 205 with verified clone) |
+| `clean_antibodies.json` | Machine-readable antibody inventory (221 entries) |
 | `instruments.json` | Instrument channel definitions and fluorochrome peak maps |
-| `fixes_log.json` | Per-field correction log (168 entries across three audit rounds) |
-| `CLONE_REVIEW.md` | Consolidated clone-ID review and verification record |
 
 ---
 
@@ -216,9 +194,7 @@ Spectral conflict heuristics and the overall panel-builder architecture are insp
 
 The EpiFlow Panel Builder was conceived, directed, and scientifically validated by **M.A. Serrano** (Serrano Lab, CReM, Boston University), who designed the original tool architecture, compiled the antibody inventory from four years of lab purchase orders (2022–2026), defined the Core EpiFlow panel composition and biological module organization, provided domain expertise for all antibody and conjugation corrections, and guided every UX and scientific decision throughout development.
 
-User testing and feature suggestions were provided by **Sandeep Sreerama** (Serrano Lab), whose feedback during in-lab use of the tool surfaced the alternative-conjugate suggestion feature: when a panel has a detector overlap or fluorochrome-reuse conflict, the tool now lists the other inventory entries for the same marker on different fluorochromes and offers a one-click swap. Sandeep also led the Round-3 clone-ID verification (May 2026): manual clone lookups against vendor product pages for the entries that could not be resolved from product names, spot-checks of the BD/BioLegend clones, and verified corrections to conjugation and catalog-number fields, raising clone coverage to 205/221.
-
-Development assistance was provided by **Claude** (Anthropic; Claude Opus 4.7 for the original build, Claude Opus 4.8 for the v1.2 verification-integration pass), an AI assistant that contributed to: programmatic parsing and cross-referencing of 500+ purchase order line items against the builder inventory; identification of conjugation errors, missing markers, duplicate entries, and clone-ID gaps; construction of the BD FACSDiscover S8 instrument model and fluorochrome-to-detector mappings from manufacturer selection guides; fluorescent protein spectral profile research; integration of the Round-3 verification into the inventory and the fluorochrome map; front-end implementation (HTML/CSS/JS) including the alternative-conjugate suggestion feature; and drafting of documentation including this README and the Implementation Guide. All AI-generated content was reviewed, corrected, and validated by M.A. Serrano — notably, several critical data errors (e.g., CoraLite Plus 647 vs. Alexa Fluor 647 distinction, FLAG clone conjugation status, AQP4 mislabeled as isotype control) were caught by human review after the automated audit, underscoring that domain expertise remains essential when working with AI-assisted workflows.
+Development assistance was provided by **Claude** (Anthropic, claude-opus-4-6), an AI assistant that contributed to: programmatic parsing and cross-referencing of 500+ purchase order line items against the builder inventory; identification of conjugation errors, missing markers, and duplicate entries; construction of the BD FACSDiscover S8 instrument model and fluorochrome-to-detector mappings from manufacturer selection guides; fluorescent protein spectral profile research; front-end implementation (HTML/CSS/JS); and drafting of documentation including this README and the Implementation Guide. All AI-generated content was reviewed, corrected, and validated by M.A. Serrano — notably, several critical data errors (e.g., CoraLite Plus 647 vs. Alexa Fluor 647 distinction, FLAG clone conjugation status, AQP4 mislabeled as isotype control) were caught by human review after the automated audit, underscoring that domain expertise remains essential when working with AI-assisted workflows.
 
 Spectral conflict heuristics and the overall panel-builder concept are inspired by [PanelBuildeR](https://github.com/exaexa/panelbuilder) by Mirek Kratochvíl (Apache-2.0). The implementation is independent.
 

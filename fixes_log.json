@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "AB004",
+    "marker": "GFAP",
+    "field": "clone",
+    "old": "",
+    "new": "1B4",
+    "reason": "BD cat 561470 GFAP AF647 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB007",
+    "marker": "OLIG2",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB009",
+    "marker": "IgG",
+    "field": "clone",
+    "old": "",
+    "new": "RbNP15",
+    "reason": "Clone embedded in product name: \"Rabbit IgG Isotype Control (RbNP15)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB010",
+    "marker": "IgG",
+    "field": "clone",
+    "old": "",
+    "new": "P3.6.2.8.1",
+    "reason": "Clone embedded in product name: \"Mouse IgG1 kappa Isotype Control (P3.6.2.8.1)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB014",
+    "marker": "IgG",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB022",
+    "marker": "IgG",
+    "field": "clone",
+    "old": "",
+    "new": "eBM2a",
+    "reason": "Clone embedded in product name: \"Mouse IgG2a kappa Isotype Control (eBM2a)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB023",
+    "marker": "IgG",
+    "field": "clone",
+    "old": "",
+    "new": "eBMG2b",
+    "reason": "Clone embedded in product name: \"Mouse IgG2b kappa Isotype Control (eBMG2b)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB032",
+    "marker": "H3K9ac",
+    "field": "clone",
+    "old": "C4B11",
+    "new": "C5B11",
+    "reason": "CST cat 28036 H3K9ac PE conjugate is clone C5B11, not C4B11 (verified at cellsignal.com)",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB062",
+    "marker": "Brachyury/T",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "R&D Systems IC2085A: Goat Anti-Human/Mouse Brachyury polyclonal antibody (rndsystems.com)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB063",
+    "marker": "Brachyury/T",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "R&D Systems IC2085P: Goat Anti-Human/Mouse Brachyury polyclonal antibody (rndsystems.com)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB064",
+    "marker": "HuC/HuD",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB065",
+    "marker": "NESTIN",
+    "field": "clone",
+    "old": "",
+    "new": "196908",
+    "reason": "R&D Systems IC1259T: URL slug includes clone 196908 (rndsystems.com/products/human-nestin-alexa-fluor-594-conjugated-antibody-196908_ic1259t)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB069",
+    "marker": "PAX6",
+    "field": "clone",
+    "old": "",
+    "new": "O18-1330",
+    "reason": "BD cat 561552 PAX6 PE — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB070",
+    "marker": "PAX6",
+    "field": "clone",
+    "old": "",
+    "new": "PAX6/1166",
+    "reason": "Clone embedded in product name: \"Pax6 Antibody (PAX6/1166)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB071",
+    "marker": "SOX10",
+    "field": "clone",
+    "old": "",
+    "new": "SP267",
+    "reason": "Abcam ab270151: Alexa Fluor 647 Anti-SOX10 [SP267] (abcam.com)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB073",
+    "marker": "SOX10",
+    "field": "clone",
+    "old": "",
+    "new": "SOX10/991",
+    "reason": "Clone embedded in product name: \"SOX10 Antibody (SOX10/991)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB074",
+    "marker": "SOX10",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "R&D Systems AF2864: Goat Anti-Human SOX10 polyclonal antibody (rndsystems.com); AF prefix = polyclonal",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB076",
+    "marker": "NR2F2/COUP-TFII",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB077",
+    "marker": "alpha-SMA/ACTA2",
+    "field": "clone",
+    "old": "",
+    "new": "1A4",
+    "reason": "R&D Systems IC1420C: alpha-Smooth Muscle Actin PerCP, clone 1A4 (Mouse IgG2A) - same clone across the IC1420 family",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB078",
+    "marker": "p53K372me",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB079",
+    "marker": "p53",
+    "field": "clone",
+    "old": "",
+    "new": "DO-7",
+    "reason": "Clone embedded in product name: \"p53 Monoclonal antibody (Do-7)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB081",
+    "marker": "TUJ1/TUBB3",
+    "field": "clone",
+    "old": "",
+    "new": "TUJ1",
+    "reason": "BioLegend cat 801213 — clone is TUJ1 (the eponymous β-tubulin III clone)",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB083",
+    "marker": "AQP4",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB084",
+    "marker": "ABCC9/SUR2",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB089",
+    "marker": "FOXF2",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB092",
+    "marker": "Acetylated Tubulin",
+    "field": "antibody",
+    "old": "Anti-acetylated Tublin antibody, Mouse Monoclonal",
+    "new": "Anti-acetylated Tubulin antibody, Mouse Monoclonal",
+    "reason": "Spelling: Tublin -> Tubulin",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB094",
+    "marker": "Active Caspase-3",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB097",
+    "marker": "CD144/VE-Cadherin",
+    "field": "antibody",
+    "old": "Anti-CD144 PE conjudated CLon REA199",
+    "new": "Anti-CD144 PE conjugated Clone REA199",
+    "reason": "Spelling: conjudated -> conjugated; CLon -> Clone",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB098",
+    "marker": "EOMES/TBR2",
+    "field": "clone",
+    "old": "",
+    "new": "X4-83",
+    "reason": "BD cat 567171 EOMES BUV395 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB103",
+    "marker": "CD326/EpCAM",
+    "field": "clone",
+    "old": "",
+    "new": "9C4",
+    "reason": "BD cat 566842 CD326/EpCAM APC — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB103",
+    "marker": "CD326/EpCAM",
+    "field": "antibody",
+    "old": "APC Mouse Anti-Human CD325 (EpCAM)",
+    "new": "APC Mouse Anti-Human CD326 (EpCAM)",
+    "reason": "CD325 is N-Cadherin/CDH2; CD326 is EpCAM (typo in product name)",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB110",
+    "marker": "CD271/NGFR",
+    "field": "clone",
+    "old": "",
+    "new": "C40-1457",
+    "reason": "BD cat 567393 CD271 AF488 — verified at fishersci.com / BD",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB111",
+    "marker": "CD36",
+    "field": "clone",
+    "old": "",
+    "new": "CLB-IVC7",
+    "reason": "BD cat 756799 CD36 BUV496 — verified at fishersci.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB113",
+    "marker": "HK1",
+    "field": "clone",
+    "old": "",
+    "new": "EPR10134(B)",
+    "reason": "BD cat 570557 HK1 BUV661 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB114",
+    "marker": "CD140a/PDGFRa",
+    "field": "clone",
+    "old": "",
+    "new": "αR1",
+    "reason": "BD cat 748620 CD140a BUV805 — αR1 is BD standard human CD140a clone (all formats)",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB115",
+    "marker": "CD13",
+    "field": "clone",
+    "old": "",
+    "new": "WM15",
+    "reason": "BioLegend product page 301716 CD13 BV421 (anti-CD13, biolegend.com); also matches PE/AF488/PerCP family clones",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB116",
+    "marker": "CD13",
+    "field": "clone",
+    "old": "",
+    "new": "WM15",
+    "reason": "BD cat 740967 CD13 BV786 — WM15 is BD standard human CD13 clone (all formats)",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB119",
+    "marker": "NR2F2/COUP-TFII",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB120",
+    "marker": "CD57",
+    "field": "clone",
+    "old": "",
+    "new": "NK-1",
+    "reason": "BD cat 560844 CD57 PE — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB121",
+    "marker": "CD140b/PDGFRb",
+    "field": "clone",
+    "old": "",
+    "new": "28D4",
+    "reason": "BD cat 558821 CD140b PE — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB122",
+    "marker": "CD56/NCAM1",
+    "field": "clone",
+    "old": "",
+    "new": "B159",
+    "reason": "BD cat 561903 CD56 PE — verified at fishersci.com / BD",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB122",
+    "marker": "CD56/NCAM1",
+    "field": "antibody",
+    "old": "PE Mouse Anti-Human CD56 (NCAM1-1)",
+    "new": "PE Mouse Anti-Human CD56 (NCAM-1)",
+    "reason": "Cosmetic typo: BD product is \"(NCAM-1)\" not \"(NCAM1-1)\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB124",
+    "marker": "CD57",
+    "field": "clone",
+    "old": "",
+    "new": "HNK-1",
+    "reason": "BioLegend product page 359612 CD57 PE (biolegend.com)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB126",
+    "marker": "CD140a/PDGFRa",
+    "field": "clone",
+    "old": "",
+    "new": "αR1",
+    "reason": "BD cat 556002 CD140a PE — αR1 BD standard",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB130",
+    "marker": "TBR1",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB137",
+    "marker": "CD184/CXCR4",
+    "field": "clone",
+    "old": "",
+    "new": "12G5",
+    "reason": "BD cat 741862 CD184/CXCR4 BUV737 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB139",
+    "marker": "DLL4",
+    "field": "clone",
+    "old": "",
+    "new": "MHD4-46",
+    "reason": "BD cat 748346 DLL4 BUV563 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB140",
+    "marker": "HER4/ErbB4",
+    "field": "clone",
+    "old": "",
+    "new": "P6-1",
+    "reason": "BD cat 756650 HER4/ErbB4 BV711 — verified at bdbiosciences.com (note: P6-1, not H4.77.16 which is Invitrogen)",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB143",
+    "marker": "CD140b/PDGFRb",
+    "field": "clone",
+    "old": "",
+    "new": "28D4",
+    "reason": "BD cat 558820 CD140b Purified — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB144",
+    "marker": "CD13",
+    "field": "clone",
+    "old": "",
+    "new": "WM15",
+    "reason": "BD cat 555393 CD13 Purified — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB145",
+    "marker": "NOTCH3",
+    "field": "clone",
+    "old": "",
+    "new": "MHN3-21",
+    "reason": "BD cat 745463 NOTCH3 BV711 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB149",
+    "marker": "Ki67",
+    "field": "clone",
+    "old": "",
+    "new": "B56",
+    "reason": "BD cat 564071 Ki-67 BUV395 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB158",
+    "marker": "Nestin",
+    "field": "clone",
+    "old": "",
+    "new": "10C2",
+    "reason": "BioLegend Nestin product family (656801/656802 Purified, 12741 PE all clone 10C2); 656808 is BV421 in same family",
+    "confidence": "medium",
+    "round": 2
+  },
+  {
+    "id": "AB160",
+    "marker": "NG2/CSPG4",
+    "field": "clone",
+    "old": "",
+    "new": "EPR22410-145",
+    "reason": "Abcam ab255811: Recombinant Anti-NG2 antibody [EPR22410-145] (abcam.com)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB161",
+    "marker": "OLIG2",
+    "field": "clone",
+    "old": "",
+    "new": "EPR2673",
+    "reason": "Clone embedded in product name: \"Recombinant Anti-Olig2 antibody [EPR2673]\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB163",
+    "marker": "Pro-Caspase-3",
+    "field": "clone",
+    "old": "",
+    "new": "E61",
+    "reason": "Clone embedded in product name: \"Anti-pro Caspase antibody [E61]\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB164",
+    "marker": "PCNA",
+    "field": "antibody",
+    "old": "Monoclonal Anti-proliferating cell nuclear antigen antibody prodcued in mouse",
+    "new": "Monoclonal Anti-proliferating cell nuclear antigen antibody produced in mouse",
+    "reason": "Spelling: prodcued -> produced",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB171",
+    "marker": "CD11b",
+    "field": "clone",
+    "old": "",
+    "new": "D12",
+    "reason": "BD listing format clone code: \"Hu CD11b RY703 D12 50ug\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB172",
+    "marker": "CD146",
+    "field": "clone",
+    "old": "",
+    "new": "P1H12",
+    "reason": "BD listing format clone code: \"Hu CD146 BUV737 P1H12 50ug\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB173",
+    "marker": "CD163",
+    "field": "clone",
+    "old": "",
+    "new": "GHI/61",
+    "reason": "BD listing format clone code: \"Hu CD163 BUV737 GHI/61 50ug\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB174",
+    "marker": "CD19",
+    "field": "clone",
+    "old": "",
+    "new": "SJ25C1",
+    "reason": "BD listing format clone code: \"Hu CD19 BUV737 SJ25C1 100Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB176",
+    "marker": "CD3",
+    "field": "clone",
+    "old": "",
+    "new": "SK7",
+    "reason": "BD listing format clone code: \"Hu CD3 BUV805 SK7 100Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB178",
+    "marker": "CD31",
+    "field": "clone",
+    "old": "",
+    "new": "9G11",
+    "reason": "R&D Systems BBA7: CD31/PECAM-1 monoclonal, clone 9G11 (Fisher Scientific listing + R&D URL slug)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB179",
+    "marker": "CD33",
+    "field": "clone",
+    "old": "",
+    "new": "WM53",
+    "reason": "BD listing format clone code: \"Hu CD33 BV510 WM53 50Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB180",
+    "marker": "CD34",
+    "field": "clone",
+    "old": "",
+    "new": "8G12",
+    "reason": "BD listing format clone code: \"Hu CD34 BUV395 8G12 50ug\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB181",
+    "marker": "CD45",
+    "field": "clone",
+    "old": "",
+    "new": "HI30",
+    "reason": "BD listing format clone code: \"Hu CD45 BUV395 HI30 25Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB182",
+    "marker": "CD45R",
+    "field": "clone",
+    "old": "",
+    "new": "HI100",
+    "reason": "BD listing format clone code: \"Hu CD45RA RB780 HI100 100Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB183",
+    "marker": "CD45R",
+    "field": "clone",
+    "old": "",
+    "new": "UCHL1",
+    "reason": "BD listing format clone code: \"Hu CD45RO BV711 UCHL1 100Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB184",
+    "marker": "CD56",
+    "field": "clone",
+    "old": "",
+    "new": "B159",
+    "reason": "BD listing format clone code: \"Hu CD56 (NCAM-1) RB670 B159 100Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB185",
+    "marker": "CD68",
+    "field": "clone",
+    "old": "",
+    "new": "Y1/82A",
+    "reason": "BD listing format clone code: \"Hu CD68 RB705 Y1/82A 25Tst\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB189",
+    "marker": "GFP",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB190",
+    "marker": "GFP",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB191",
+    "marker": "KMT2D",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal",
+    "reason": "Antibody explicitly labeled polyclonal",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB194",
+    "marker": "SOX9",
+    "field": "clone",
+    "old": "",
+    "new": "EPR14335-78",
+    "reason": "Abcam ab224019: SOX9 PE conjugate uses clone EPR14335-78 (cross-referenced via Abcam product family ab196184/ab207677)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB197",
+    "marker": "Chondroitin Sulfate/NG2",
+    "field": "clone",
+    "old": "",
+    "new": "9.2.27",
+    "reason": "BD cat 562413 Chondroitin Sulfate/NG2 AF488 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB199",
+    "marker": "NG2",
+    "field": "clone",
+    "old": "",
+    "new": "LHM-2",
+    "reason": "R&D Systems FAB2585N: NG2/MCSP AF700 - clone LHM-2 (consistent across FAB2585A/P/C/N family per rndsystems.com URL slugs)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB200",
+    "marker": "NG2",
+    "field": "clone",
+    "old": "",
+    "new": "7.1",
+    "reason": "BD listing format clone code: \"Hu NG2 BUV395 7.1 50ug\"",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB201",
+    "marker": "OCT4",
+    "field": "clone",
+    "old": "",
+    "new": "40/Oct-3",
+    "reason": "BD cat 560329 Oct3/4 AF647 — verified at bdbiosciences.com",
+    "confidence": "high",
+    "round": 1
+  },
+  {
+    "id": "AB204",
+    "marker": "Tubulin",
+    "field": "clone",
+    "old": "",
+    "new": "TUJ-1",
+    "reason": "R&D Systems IC1195G: Neuron-specific beta-III Tubulin AF488, clone TUJ-1 (rndsystems.com URL slug)",
+    "confidence": "high",
+    "round": 2
+  },
+  {
+    "id": "AB032",
+    "marker": "H3K9ac",
+    "field": "antibody",
+    "old": "Acetyl-histone H3 (Lys9) (C4B11) Rabbit mAb (PE conjugate",
+    "new": "Acetyl-histone H3 (Lys9) (C5B11) Rabbit mAb (PE conjugate)",
+    "reason": "Product-name embedded clone corrected to C5B11 and closing paren added (CST cat 28036 H3K9ac PE is clone C5B11); clone field already C5B11",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB111",
+    "marker": "CD36",
+    "field": "clone",
+    "old": "CLB-IVC7",
+    "new": "FA6-152",
+    "reason": "Spot-check (Sandeep): prior clone CLB-IVC7 belongs to a different CD36 product (FITC). BD BUV496 cat 756799 anti-human CD36 is clone FA6-152",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB197",
+    "marker": "NG2/CSPG4",
+    "field": "marker",
+    "old": "Chondroitin Sulfate/NG2",
+    "new": "NG2/CSPG4",
+    "reason": "Marker-name consolidation: unify NG2 family on \"NG2/CSPG4\" so alternative-conjugate suggestions resolve by exact marker match",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB198",
+    "marker": "NG2/CSPG4",
+    "field": "marker",
+    "old": "NG2",
+    "new": "NG2/CSPG4",
+    "reason": "Marker-name consolidation: unify NG2 family on \"NG2/CSPG4\" so alternative-conjugate suggestions resolve by exact marker match",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB199",
+    "marker": "NG2/CSPG4",
+    "field": "marker",
+    "old": "NG2",
+    "new": "NG2/CSPG4",
+    "reason": "Marker-name consolidation: unify NG2 family on \"NG2/CSPG4\" so alternative-conjugate suggestions resolve by exact marker match",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB200",
+    "marker": "NG2/CSPG4",
+    "field": "marker",
+    "old": "NG2",
+    "new": "NG2/CSPG4",
+    "reason": "Marker-name consolidation: unify NG2 family on \"NG2/CSPG4\" so alternative-conjugate suggestions resolve by exact marker match",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB065",
+    "marker": "Nestin",
+    "field": "marker",
+    "old": "NESTIN",
+    "new": "Nestin",
+    "reason": "Marker-name consolidation: unify with AB131/AB158 (\"Nestin\")",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB080",
+    "marker": "O4",
+    "field": "vendor",
+    "old": "R&D but bought from Fisher",
+    "new": "R&D Systems",
+    "reason": "Vendor disambiguation: R&D Systems is manufacturer (was \"R&D but bought from Fisher\"); clone is O4",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB203",
+    "marker": "SOX2",
+    "field": "zebrafish",
+    "old": "",
+    "new": "X",
+    "reason": "Sandeep note: SOX2 GeneTex GTX124477 has documented zebrafish reactivity",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB133",
+    "marker": "CD31/PECAM-1",
+    "field": "conjugation",
+    "old": "Purified",
+    "new": "VioBlue",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB133",
+    "marker": "CD31/PECAM-1",
+    "field": "laser",
+    "old": "",
+    "new": "405-V3",
+    "reason": "Detector channel for VioBlue (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB134",
+    "marker": "DLL4",
+    "field": "conjugation",
+    "old": "Purified",
+    "new": "PE-Vio 615",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB134",
+    "marker": "DLL4",
+    "field": "laser",
+    "old": "",
+    "new": "561-YG3",
+    "reason": "Detector channel for PE-Vio 615 (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB135",
+    "marker": "EPHB4",
+    "field": "conjugation",
+    "old": "Purified",
+    "new": "PE-Vio 770",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB135",
+    "marker": "EPHB4",
+    "field": "laser",
+    "old": "",
+    "new": "561-YG9",
+    "reason": "Detector channel for PE-Vio 770 (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB136",
+    "marker": "CD34",
+    "field": "conjugation",
+    "old": "Purified",
+    "new": "APC-Vio 770",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB136",
+    "marker": "CD34",
+    "field": "laser",
+    "old": "",
+    "new": "640-R7",
+    "reason": "Detector channel for APC-Vio 770 (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB138",
+    "marker": "CD140a/PDGFRa",
+    "field": "conjugation",
+    "old": "Purified",
+    "new": "APC-Vio 770",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB138",
+    "marker": "CD140a/PDGFRa",
+    "field": "laser",
+    "old": "",
+    "new": "640-R7",
+    "reason": "Detector channel for APC-Vio 770 (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB142",
+    "marker": "CD166/ALCAM",
+    "field": "conjugation",
+    "old": "Purified",
+    "new": "PE-Vio 615",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB142",
+    "marker": "CD166/ALCAM",
+    "field": "laser",
+    "old": "",
+    "new": "561-YG3",
+    "reason": "Detector channel for PE-Vio 615 (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB005",
+    "marker": "OLIG2",
+    "field": "conjugation",
+    "old": "Purified",
+    "new": "CoraLite Plus 488",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB005",
+    "marker": "OLIG2",
+    "field": "laser",
+    "old": "",
+    "new": "488-B2",
+    "reason": "Detector channel for CoraLite Plus 488 (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB152",
+    "marker": "Mouse IgM (secondary)",
+    "field": "conjugation",
+    "old": "FITC",
+    "new": "Alexa Fluor 488",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB165",
+    "marker": "Rabbit IgG (secondary)",
+    "field": "conjugation",
+    "old": "Alexa Fluor 647",
+    "new": "Alexa Fluor Plus 405",
+    "reason": "Sandeep verified conjugation correction (vendor product page)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB165",
+    "marker": "Rabbit IgG (secondary)",
+    "field": "laser",
+    "old": "640-R2",
+    "new": "405-V2",
+    "reason": "Detector channel for Alexa Fluor Plus 405 (recomputed from corrected conjugation)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB097",
+    "marker": "CD144/VE-Cadherin",
+    "field": "catNo",
+    "old": "120-118-495",
+    "new": "130-118-495",
+    "reason": "Sandeep: corrected Miltenyi catalog number (was 120-118-495)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB151",
+    "marker": "CD140a/PDGFRa",
+    "field": "catNo",
+    "old": "130-125-521",
+    "new": "130-126-625",
+    "reason": "Sandeep: corrected Miltenyi catalog number (was 130-125-521)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB123",
+    "marker": "CD57",
+    "field": "catNo",
+    "old": "35911",
+    "new": "359611",
+    "reason": "Sandeep: corrected BioLegend catalog number (was 35911)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB101",
+    "marker": "GFP",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Chicken IgY)",
+    "reason": "Sandeep Round-3 lookup: Aves Lab GFP-1010 polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB075",
+    "marker": "NR2F2/COUP-TFII",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit)",
+    "reason": "Sandeep Round-3 lookup: Aviva ARP39466 polyclonal (rabbit)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB198",
+    "marker": "NG2/CSPG4",
+    "field": "clone",
+    "old": "",
+    "new": "LHM-2",
+    "reason": "Sandeep Round-3 lookup: Bio-Techne/R&D FAB2585A NG2/MCSP APC",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB085",
+    "marker": "beta-Actin",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit)",
+    "reason": "Sandeep Round-3 lookup: CST 4967S beta-Actin polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB096",
+    "marker": "Biotin (detection)",
+    "field": "clone",
+    "old": "",
+    "new": "Not Stated (Goat)",
+    "reason": "Sandeep Round-3 lookup: CST 7075S anti-Biotin HRP (goat)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB153",
+    "marker": "Mouse IgG2a (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Goat)",
+    "reason": "Sandeep Round-3 lookup: Thermo A-21134 goat anti-Ms IgG2a",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB155",
+    "marker": "Mouse IgG2a (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Goat)",
+    "reason": "Sandeep Round-3 lookup: Thermo A-21241 goat anti-Ms IgG2a",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB192",
+    "marker": "KMT2D",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit)",
+    "reason": "Sandeep Round-3 lookup: Fisher 50-173-5625 KMT2D polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB003",
+    "marker": "Ki67",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit IgG)",
+    "reason": "Sandeep Round-3 lookup: GeneTex GTX20833 Ki67 polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB087",
+    "marker": "mCherry",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit IgG)",
+    "reason": "Sandeep Round-3 lookup: GeneTex GTX128508 mCherry polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB203",
+    "marker": "SOX2",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit IgG)",
+    "reason": "Sandeep Round-3 lookup: GeneTex GTX124477 SOX2 polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB057",
+    "marker": "FLAG/DYKDDDDK",
+    "field": "clone",
+    "old": "",
+    "new": "M2",
+    "reason": "Sandeep Round-3 lookup: MilliporeSigma F3165 ANTI-FLAG M2",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB097",
+    "marker": "CD144/VE-Cadherin",
+    "field": "clone",
+    "old": "",
+    "new": "REA199 | 55-7H1",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-118-495 CD144 PE",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB106",
+    "marker": "CD309/VEGFR-2",
+    "field": "clone",
+    "old": "",
+    "new": "REA1046 | ES8-20E6",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-117-914 CD309 REAfinity",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB107",
+    "marker": "CD309/VEGFR-2",
+    "field": "clone",
+    "old": "",
+    "new": "ES8-20E6",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-120-478 CD309 APC",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB108",
+    "marker": "CD309/VEGFR-2",
+    "field": "clone",
+    "old": "",
+    "new": "REA1046 | ES8-20E6",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-117-984 CD309 REAfinity",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB117",
+    "marker": "DLL4",
+    "field": "clone",
+    "old": "",
+    "new": "REA1065 | MHD4-46",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-118-234 DLL4 Biotin",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB118",
+    "marker": "NOTCH1",
+    "field": "clone",
+    "old": "",
+    "new": "REA849 | MHN1-519",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-112-523 NOTCH1 Biotin",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB125",
+    "marker": "CD144/VE-Cadherin",
+    "field": "clone",
+    "old": "",
+    "new": "REA199 | 55-7H1",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-118-495 CD144 PE",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB127",
+    "marker": "DLL4",
+    "field": "clone",
+    "old": "",
+    "new": "REA1065 | MHD4-46",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-118-229 DLL4 PE-Vio 615",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB128",
+    "marker": "CD309/VEGFR-2",
+    "field": "clone",
+    "old": "",
+    "new": "REA1046 | ES8-20E6",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-117-985 CD309 PE-Vio 615",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB132",
+    "marker": "PAX3",
+    "field": "clone",
+    "old": "",
+    "new": "REA719 | 274212",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-131-114 PAX3 Vio B515",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB133",
+    "marker": "CD31/PECAM-1",
+    "field": "clone",
+    "old": "",
+    "new": "REA730 | WM-59",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-110-812 CD31 (VioBlue)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB134",
+    "marker": "DLL4",
+    "field": "clone",
+    "old": "",
+    "new": "REA1065 | MHD4-46",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-118-383 DLL4 (PE-Vio 615)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB135",
+    "marker": "EPHB4",
+    "field": "clone",
+    "old": "",
+    "new": "REA923 | 395810",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-115-598 EPHB4 (PE-Vio 770)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB136",
+    "marker": "CD34",
+    "field": "clone",
+    "old": "",
+    "new": "REA1164 | AC136",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-124-457 CD34 (APC-Vio 770)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB138",
+    "marker": "CD140a/PDGFRa",
+    "field": "clone",
+    "old": "",
+    "new": "REA911 | aR1",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-115-241 CD140a (APC-Vio 770)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB141",
+    "marker": "cTnT",
+    "field": "clone",
+    "old": "",
+    "new": "REA400 | 1C11",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-129-225 cTnT Vio B515",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB142",
+    "marker": "CD166/ALCAM",
+    "field": "clone",
+    "old": "",
+    "new": "REA442 | 3A6",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-132-832 CD166 (PE-Vio 615)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB147",
+    "marker": "CD309/VEGFR-2",
+    "field": "clone",
+    "old": "",
+    "new": "REA1046 | ES8-20E6",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-128-286 CD309 Vio Bright V423",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB148",
+    "marker": "NOTCH1",
+    "field": "clone",
+    "old": "",
+    "new": "REA849 | MHN1-519",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-128-652 NOTCH1 Vio Bright V423",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB151",
+    "marker": "CD140a/PDGFRa",
+    "field": "clone",
+    "old": "",
+    "new": "APA5",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-126-625 anti-mouse CD140a APC-Vio 770",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB205",
+    "marker": "CD31/PECAM-1",
+    "field": "clone",
+    "old": "",
+    "new": "AC128",
+    "reason": "Sandeep Round-3 lookup: Miltenyi 130-119-976 CD31 APC",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB066",
+    "marker": "NEUN",
+    "field": "clone",
+    "old": "",
+    "new": "1B7",
+    "reason": "Sandeep Round-3 lookup: Novus NBP1-92693AF647 NeuN AF647",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB005",
+    "marker": "OLIG2",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit IgG)",
+    "reason": "Sandeep Round-3 lookup: Proteintech CL488-13999 OLIG2 polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB054",
+    "marker": "FLAG/DYKDDDDK",
+    "field": "clone",
+    "old": "",
+    "new": "8H6A10",
+    "reason": "Sandeep Round-3 lookup: Proteintech CL647-66008 FLAG",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB195",
+    "marker": "TBR1",
+    "field": "clone",
+    "old": "",
+    "new": "5C3A5",
+    "reason": "Sandeep Round-3 lookup: Proteintech CL594-66564 TBR1",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB196",
+    "marker": "TBR1",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit IgG)",
+    "reason": "Sandeep Round-3 lookup: Proteintech 20932-1-AP TBR1 polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB080",
+    "marker": "O4",
+    "field": "clone",
+    "old": "",
+    "new": "O4",
+    "reason": "Sandeep Round-3 lookup: R&D MAB1326SP oligodendrocyte O4 (clone O4)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB150",
+    "marker": "KMT2D",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rabbit)",
+    "reason": "Sandeep Round-3 lookup: Sigma HPA035977 KMT2D polyclonal",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB157",
+    "marker": "MBP",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Chicken IgY)",
+    "reason": "Sandeep Round-3 lookup: Sigma AB9348 MBP polyclonal (chicken)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB006",
+    "marker": "OLIG2",
+    "field": "clone",
+    "old": "",
+    "new": "1G11",
+    "reason": "Sandeep Round-3 lookup: Thermo MA5-15810 OLIG2",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB086",
+    "marker": "GAPDH",
+    "field": "clone",
+    "old": "",
+    "new": "6C5",
+    "reason": "Sandeep Round-3 lookup: Thermo AM4300 GAPDH",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB168",
+    "marker": "Rabbit IgG (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Goat IgG)",
+    "reason": "Sandeep Round-3 lookup: Thermo 656120 goat anti-Rabbit HRP",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB025",
+    "marker": "AQP4",
+    "field": "clone",
+    "old": "",
+    "new": "C9",
+    "reason": "Sandeep Round-3 lookup: Thermo PIMA541556 AQP4 (Ms IgG2k string was isotype, not clone)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB099",
+    "marker": "Goat IgG (Donkey secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Donkey IgG)",
+    "reason": "Sandeep Round-3 lookup: Thermo A-11055 donkey anti-Goat AF488",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB100",
+    "marker": "Goat IgG (Donkey secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Donkey IgG)",
+    "reason": "Sandeep Round-3 lookup: Thermo A-11057 donkey anti-Goat AF568",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB109",
+    "marker": "CD14",
+    "field": "clone",
+    "old": "",
+    "new": "63D3",
+    "reason": "Sandeep Round-3 lookup: BioLegend (via Fisher 50-207-8325) CD14 APC-Fire 810",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB123",
+    "marker": "CD57",
+    "field": "clone",
+    "old": "",
+    "new": "HNK-1",
+    "reason": "Sandeep Round-3 lookup: BioLegend 359611 CD57 PE",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB129",
+    "marker": "CD69",
+    "field": "clone",
+    "old": "",
+    "new": "FN50",
+    "reason": "Sandeep Round-3 lookup: BioLegend (via Fisher 50-207-3478) CD69 PE-Fire 640",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB152",
+    "marker": "Mouse IgM (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Goat IgG)",
+    "reason": "Sandeep Round-3 lookup: Thermo A-21042 goat anti-Ms IgM AF488",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB154",
+    "marker": "Mouse IgM (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Goat IgG)",
+    "reason": "Sandeep Round-3 lookup: Thermo A-21238 goat anti-Ms IgM AF647",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB156",
+    "marker": "Mouse IgG (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Goat IgG)",
+    "reason": "Sandeep Round-3 lookup: Thermo 31430 goat anti-Ms IgG HRP",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB162",
+    "marker": "PAX6",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Rat - Poly19013)",
+    "reason": "Sandeep Round-3 lookup: Thermo/BioLegend 901301 anti-PAX6 (rat polyclonal)",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB165",
+    "marker": "Rabbit IgG (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Goat)",
+    "reason": "Sandeep Round-3 lookup: Thermo PIA48254 goat anti-Rabbit AF Plus 405",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB166",
+    "marker": "Rabbit IgG (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Donkey IgG)",
+    "reason": "Sandeep Round-3 lookup: Thermo A-31573 donkey anti-Rabbit AF647",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB167",
+    "marker": "Rabbit IgG (secondary)",
+    "field": "clone",
+    "old": "",
+    "new": "Polyclonal (Donkey)",
+    "reason": "Sandeep Round-3 lookup: Thermo 10543623 donkey anti-Rabbit AF647",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB202",
+    "marker": "SOX2",
+    "field": "clone",
+    "old": "",
+    "new": "245610",
+    "reason": "Sandeep Round-3 lookup: Thermo IC2018A SOX2 APC",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB092",
+    "marker": "Acetylated Tubulin",
+    "field": "clone",
+    "old": "",
+    "new": "6-11B-1",
+    "reason": "Sandeep Round-3 lookup: Sigma T7451 acetylated tubulin",
+    "confidence": "high",
+    "round": 3
+  },
+  {
+    "id": "AB164",
+    "marker": "PCNA",
+    "field": "clone",
+    "old": "",
+    "new": "PC 10",
+    "reason": "Sandeep Round-3 lookup: Sigma P8825 PCNA",
+    "confidence": "high",
+    "round": 3
+  }
+]
