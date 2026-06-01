@@ -2,7 +2,7 @@
 
 A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 221 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
 
-**[Live tool →](https://serranolab.github.io/EpiFlow_Builder/)** *(update URL after deployment)*
+**[Live tool](https://serranolab.github.io/EpiFlow_Builder/)** 
 
 **Version 1.2 · May 2026.** This release integrates the Round-3 clone-ID verification by Sandeep Sreerama (manual clone lookups, BD/BioLegend spot-checks, and verified conjugation and catalog-number corrections), raising clone coverage to 205/221 (93%), unifies the NG2 and Nestin marker labels so the alternative-conjugate suggestions resolve them, and adds a spectral-compatibility disclaimer to the tool footer.
 
