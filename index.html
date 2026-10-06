@@ -133,6 +133,7 @@ body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;f
 .bio-tag{display:inline-block;font-size:.62rem;color:#92400e;background:#fef3c7;border-radius:3px;padding:0 .3rem;margin-left:.25rem}
 .sa-select{font-size:.7rem;margin-left:.4rem;padding:1px 2px;border:1px solid var(--gray-light);border-radius:3px;background:#fff;color:#1e293b;max-width:12rem}
 .warn-box p.note{color:#92400e;margin:.15rem 0;font-size:.74rem}
+.sim-box{display:none;margin:.5rem 0;font-size:.74rem;color:#334155}.sim-box.show{display:block}.sim-box h4{font-size:.78rem;margin:.2rem 0 .35rem;color:#1e293b;font-weight:600}.sim-meta{color:#64748b;margin-bottom:.4rem;line-height:1.6}.sim-table{border-collapse:collapse;font-size:.66rem}.sim-table th,.sim-table td{padding:2px 5px;text-align:center;border:1px solid #e2e8f0;min-width:2.4rem}.sim-table th{background:#f8fafc;font-weight:600;color:#475569;white-space:nowrap}.sim-table th.row{text-align:left}.sim-table td.hi{background:#fde68a}.sim-table td.crit{background:#fca5a5;font-weight:700}.sim-table td.diag{background:#f1f5f9;color:#94a3b8}.sim-pairs{margin-top:.4rem;line-height:1.6}
 .file-note{font-size:.7rem;color:#d97706;padding:.25rem .35rem;background:#fef3c7;border-radius:3px;margin-bottom:.35rem}
 
 .toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:#334155;color:#fff;padding:.45rem .9rem;border-radius:4px;box-shadow:0 2px 6px var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s;font-size:.82rem;z-index:9999}.toast.show{opacity:1}
@@ -152,6 +153,7 @@ body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;f
     <div class="top-row">
       <label>Search <input type="text" id="searchInput" placeholder="Marker, Cat#, conjugation…"/></label>
       <label>Instrument <select id="instrumentSelect"><option value="Cytek_Aurora_5L">Cytek Aurora 5L (5L spectral)</option><option value="BD_S8">BD FACSDiscover S8 (5L sorter)</option></select></label>
+      <button class="btn btn-s" id="importSpecBtn" title="Import measured reference spectra (SpectroFlo / FACSDiscover CSV export) for the selected instrument">Import spectra</button>
       <button class="core-btn" id="loadCoreBtn" title="Pre-select the 9-marker Core EpiFlow panel (same-detector alternates are offered as swaps)">Load Core Panel</button>
     </div>
     <div class="filter-row">
@@ -168,6 +170,7 @@ body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;f
     <div class="laser-bar" id="laserBar"></div>
     <div class="warn-box" id="warnBox"></div>
     <div class="core-note" id="coreNote"></div>
+    <div class="sim-box" id="simBox"></div>
     <div class="sel-list" id="selList"></div>
     <div class="btn-row"><button class="btn btn-p" id="copyBtn">Copy to Clipboard</button><button class="btn btn-p" id="csvBtn">Save as CSV</button></div>
     <div class="saved-section"><h4>Saved Panel Configurations</h4>
@@ -6028,6 +6031,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("hideIsotype").addEventListener("change",renderGrid);
   document.getElementById("instrumentSelect").addEventListener("change",e=>{activeInstrument=e.target.value;renderGrid();renderPanel()});
   document.getElementById("loadCoreBtn").addEventListener("click",()=>{CORE_PANEL_IDS.forEach(id=>selectedIds.add(id));renderGrid();renderPanel();toast("Core EpiFlow panel loaded (9 markers); same-detector alternates listed in the panel")});
+  document.getElementById("importSpecBtn").addEventListener("click",importSpectra);
   document.getElementById("clearBtn").addEventListener("click",()=>{selectedIds.clear();biotinPairs={};renderGrid();renderPanel()});
   document.getElementById("copyBtn").addEventListener("click",copyPanel);
   document.getElementById("csvBtn").addEventListener("click",saveCSV);
@@ -6109,6 +6113,82 @@ function renderGrid(){
 }
 
 /* ═══ Selected Panel ═══ */
+/* ═══ Spectral similarity ═══
+   Full-array spectral vectors per fluorochrome. Measured reference spectra (imported from a SpectroFlo /
+   FACSDiscover export) take precedence; otherwise the heuristic FluorSpectra spread is used. */
+function refSpectra(){return Store.get("refspec_"+activeInstrument)}
+function specVector(key){
+  const inst=Instruments[activeInstrument];if(!inst||!key)return null;
+  const chans=inst.channels.map(c=>c.id);
+  const ref=refSpectra()[key];
+  let src=null,measured=false;
+  if(ref&&typeof ref==="object"){src=ref;measured=true}
+  else if(FluorSpectra[key]&&FluorSpectra[key].channels)src=FluorSpectra[key].channels;
+  if(!src)return null;
+  const v=chans.map(c=>+src[c]||0);const n=Math.hypot(...v);if(!n)return null;
+  return{v:v.map(x=>x/n),measured};
+}
+function cosine(a,b){let s=0;for(let i=0;i<a.length;i++)s+=a[i]*b[i];return s}
+/* Condition number of the spectral signature matrix = sqrt(λmax/λmin) of the Gram matrix (Jacobi eigenvalues). Large values mean unmixing amplifies noise. */
+function conditionNumber(vs){
+  const n=vs.length;if(n<2)return 1;
+  const A=vs.map(a=>vs.map(b=>cosine(a.v,b.v)));
+  for(let sweep=0;sweep<60;sweep++){
+    let off=0;for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)off+=A[i][j]*A[i][j];
+    if(off<1e-12)break;
+    for(let p=0;p<n;p++)for(let q=p+1;q<n;q++){
+      if(Math.abs(A[p][q])<1e-14)continue;
+      const th=0.5*Math.atan2(2*A[p][q],A[q][q]-A[p][p]),c=Math.cos(th),s=Math.sin(th);
+      for(let k=0;k<n;k++){const akp=A[k][p],akq=A[k][q];A[k][p]=c*akp-s*akq;A[k][q]=s*akp+c*akq}
+      for(let k=0;k<n;k++){const apk=A[p][k],aqk=A[q][k];A[p][k]=c*apk-s*aqk;A[q][k]=s*apk+c*aqk}
+    }
+  }
+  const ev=A.map((r,i)=>r[i]);const mx=Math.max(...ev),mn=Math.max(1e-9,Math.min(...ev));
+  return Math.sqrt(mx/mn);
+}
+function renderSimilarity(sel){
+  const box=document.getElementById("simBox");if(!box)return;
+  const items=[];const seen=new Set();
+  sel.forEach(ab=>{const info=getInfo(ab);if(!info.fluorKey||seen.has(info.fluorKey))return;seen.add(info.fluorKey);const sv=specVector(info.fluorKey);if(sv)items.push({key:info.fluorKey,label:ab.marker,sv})});
+  if(items.length<2){box.className="sim-box";box.innerHTML="";return}
+  const nMeas=items.filter(i=>i.sv.measured).length;
+  if(!nMeas){box.className="sim-box show";box.innerHTML='<h4>Spectral similarity</h4><div class="sim-meta">No measured reference spectra for this instrument yet. Use <strong>Import spectra</strong> with a reference-spectra export (SpectroFlo or FACSDiscover, one row per fluorochrome, one column per detector) to compute the full-array similarity matrix and the unmixing condition number for this panel. Conflict detection above is based on peak detectors only.</div>';return}
+  let html='<h4>Spectral similarity</h4><div class="sim-meta">'+(nMeas===items.length?'Measured reference spectra for all '+items.length+' fluorochromes.':'Measured spectra for '+nMeas+' of '+items.length+' fluorochromes; rows marked ~ use the heuristic spread and are indicative only.')+'</div>';
+  let crit=[],hi=[];
+  html+='<table class="sim-table"><tr><th></th>'+items.map(i=>'<th title="'+i.key+'">'+i.label+'</th>').join('')+'</tr>';
+  items.forEach((a,i)=>{html+='<tr><th class="row" title="'+a.key+'">'+(a.sv.measured?'':'~ ')+a.label+' <span style="font-weight:400;color:#94a3b8">'+a.key+'</span></th>';
+    items.forEach((b,j)=>{if(i===j){html+='<td class="diag">·</td>';return}const s=cosine(a.sv.v,b.sv.v);const cls=s>=0.98?"crit":s>=0.90?"hi":"";html+='<td class="'+cls+'">'+s.toFixed(2)+'</td>';if(i<j){if(s>=0.98)crit.push([a,b,s]);else if(s>=0.90)hi.push([a,b,s])}});html+='</tr>'});
+  html+='</table>';
+  const cn=conditionNumber(items.map(i=>i.sv));
+  html+='<div class="sim-pairs"><strong>Unmixing condition number:</strong> '+cn.toFixed(1)+' <span style="color:#64748b">(1 = orthogonal signatures; grows as fluorochromes overlap)</span>';
+  if(crit.length)html+='<br><strong style="color:var(--danger)">Similarity ≥ 0.98:</strong> '+crit.map(([a,b,s])=>a.label+' / '+b.label+' ('+s.toFixed(2)+')').join('; ');
+  if(hi.length)html+='<br><strong style="color:#b45309">Similarity 0.90–0.98:</strong> '+hi.map(([a,b,s])=>a.label+' / '+b.label+' ('+s.toFixed(2)+')').join('; ');
+  html+='</div>';
+  box.className="sim-box show";box.innerHTML=html;
+}
+/* Import measured spectra: CSV/TSV with a fluorochrome-name column and one column per detector (UV1…, V1…, B1…, YG1…, R1…). Rows are peak-normalized. */
+function importSpectra(){
+  const input=document.createElement("input");input.type="file";input.accept=".csv,.tsv,.txt";
+  input.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{
+    try{
+      const lines=ev.target.result.split(/\r?\n/).filter(l=>l.trim());const sep=lines[0].includes("\t")?"\t":",";
+      const hdr=lines[0].split(sep).map(s=>s.trim().replace(/^"|"$/g,""));
+      const chanIds=new Set(Instruments[activeInstrument].channels.map(c=>c.id));
+      const colIdx=hdr.map((hname,i)=>({id:hname.toUpperCase().replace(/[^A-Z0-9]/g,""),i})).filter(c=>chanIds.has(c.id));
+      if(colIdx.length<8)throw new Error("No detector columns found for "+activeInstrument);
+      const nameIdx=hdr.findIndex((x,i)=>!colIdx.some(c=>c.i===i));
+      const normKey=s=>s.toUpperCase().replace(/[^A-Z0-9]/g,"");
+      const keyByNorm={};Object.values(CONJ_MAP).forEach(k=>keyByNorm[normKey(k)]=k);Object.entries(CONJ_MAP).forEach(([c,k])=>keyByNorm[normKey(c)]=k);
+      const out=refSpectra();let n=0,skipped=[];
+      lines.slice(1).forEach(l=>{const cells=l.split(sep).map(s=>s.trim().replace(/^"|"$/g,""));const name=cells[nameIdx];if(!name)return;const key=keyByNorm[normKey(name)];if(!key){skipped.push(name);return}
+        const vals={};let mx=0;colIdx.forEach(c=>{const v=parseFloat(cells[c.i]);if(isFinite(v)){vals[c.id]=v;if(v>mx)mx=v}});if(mx<=0)return;
+        Object.keys(vals).forEach(k=>vals[k]=vals[k]/mx);out[key]=vals;n++});
+      Store.set("refspec_"+activeInstrument,out);renderPanel();
+      toast("Imported "+n+" measured spectra"+(skipped.length?" ("+skipped.length+" unmatched names)":""));
+      if(skipped.length)console.warn("Unmatched fluorochrome names:",skipped);
+    }catch(err){toast("Import failed: "+err.message)}
+  };r.readAsText(f)};input.click();
+}
 function renderPanel(){
   const list=document.getElementById("selList");list.innerHTML="";
   const sel=antibodies.filter(a=>selectedIds.has(a.id));
@@ -6128,7 +6208,7 @@ function renderPanel(){
     rm.onclick=()=>{selectedIds.delete(ab.id);delete biotinPairs[ab.id];renderGrid();renderPanel()};
     item.appendChild(rm);list.appendChild(item);
   });
-  renderLaserBar(sel);checkConflicts(sel);renderCoreNote();
+  renderLaserBar(sel);checkConflicts(sel);renderCoreNote();renderSimilarity(sel);
 }
 function renderCoreNote(){
   const el=document.getElementById("coreNote");if(!el)return;
