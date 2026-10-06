@@ -148,11 +148,11 @@ Safari and some browsers block `localStorage` for `file://` URLs. The tool detec
 
 ### Adding new antibodies
 
-Add entries to the `antibodies` array in the `<script>` block. Each entry needs:
+Add entries to `clean_antibodies.json` (the single source of truth), then run `python3 tools/build.py` to embed them in `index.html` and `python3 tools/validate.py` to check the result. Each entry needs:
 
 ```json
 {
-  "id": "AB211",
+  "id": "AB269",
   "marker": "Your Marker",
   "antibody": "Full antibody product name",
   "catNo": "Catalog number",
@@ -165,9 +165,16 @@ Add entries to the `antibodies` array in the `<script>` block. Each entry needs:
   "vendor": "Vendor Name",
   "alternatives": "",
   "zebrafish": "",
-  "link": ""
+  "link": "",
+  "species": "human, mouse",
+  "dilution": "",
+  "epiflowValidated": "",
+  "lastOrdered": "",
+  "timesOrdered": 0
 }
 ```
+
+`species` (stated reactivity), `dilution` (titrated working dilution for the EpiFlow protocol) and `epiflowValidated` (any non-empty value shows an EpiFlow-validated badge) are shown on the card when filled. `lastOrdered` and `timesOrdered` are filled by `tools/reconcile_orders.py` from the lab ordering sheets. IDs are never reused: a retired entry leaves a gap so saved panels and shared links stay valid.
 
 If the conjugation is a fluorochrome, also add an entry to `CONJ_MAP` mapping the conjugation string to its `FluorPeakByInstrument` key.
 
@@ -182,6 +189,16 @@ For a conjugate that is spectrally near-identical to one already in the referenc
 ### Adding new instruments
 
 Add a new instrument object to `Instruments` with its channel array, then add a corresponding fluorochrome-to-channel map in `FluorPeakByInstrument`. Add the instrument as an `<option>` in the HTML `<select>` dropdown.
+
+---
+
+## Tooling
+
+| Script | Purpose |
+|---|---|
+| `tools/validate.py` | Integrity checks (inline data equals JSON, ids and catalogs unique, every conjugation resolves, fluor maps complete on both instruments, modules known, core preset conflict-free). Runs in CI on every push via `.github/workflows/validate.yml`. |
+| `tools/build.py` | Rebuilds the inline inventory and banner in `index.html` from `clean_antibodies.json`; resyncs `instruments.json`. |
+| `tools/reconcile_orders.py` | Two-way match of inventory catalog numbers against the yearly ordering workbooks; writes a Markdown review list of purchased reagents missing from the inventory and inventory entries with no purchase record. |
 
 ---
 
