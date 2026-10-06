@@ -2,7 +2,7 @@
 
 A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 267 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
 
-**[Live tool](https://serranolab.github.io/EpiFlow_Builder/)** 
+**[Live tool](https://serranolab.github.io/EpiFlow_Builder/)** · [![validate-data](https://github.com/SerranoLab/EpiFlow_Builder/actions/workflows/validate.yml/badge.svg)](https://github.com/SerranoLab/EpiFlow_Builder/actions/workflows/validate.yml) · Zenodo DOI badge: add once the concept DOI is minted 
 
 **Version 1.3 · October 2026.** This release reconciles the inventory against the complete lab ordering sheets (2022–2026) and grows it from 221 to 267 entries. γH2AX (H2AX pS139, Miltenyi REAfinity clone REA502, Vio B515; purchased May 2026 for the replication-stress gate in the KMT2D S-phase experiments) is entry AB222. The reconciliation surfaced 46 purchased reagents that had never been entered: a Pacific Blue total-H3 (CST 12167), H3K9ac SignalFlex AF700 (CST 58010), H3K23ac AF488 (Abcam ab318548), DAPI and Hoechst 33342, the Click-iT EdU AF647 flow kit, AF647 phalloidin, the whole NOTCH working set (Jagged1 AF488 and purified, Notch1 D6F11, cleaved Notch1 Val1744, R&D DLL4, RBPJ), CXCR4-PE REAfinity, HIF-1α AF488, IL-6 RB780, RealBlue 613 streptavidin, PDGFRα-APC, O4-PE, MAP2-PE, Pax-6 PerCP-Cy5.5, β-catenin (FITC and purified), the CUT&RUN antibodies (EpiCypher H3K4me3 and H3K27me3, two SOX2), FKBP12 (dTAG validation), HSP90, and seventeen Alexa Fluor goat secondaries from the 2022 start-up order. Three corrections came from the purchase orders: BioLegend as the vendor of the CD57-PE pair, the duplicate CD144-PE entry merged (AB125 retired, ID not reused so saved panels stay valid), and size-variant catalog numbers recorded on the CD144, EPHB4, Notch1, CD31-APC, LIVE/DEAD Violet and anti-mouse CD140a entries rather than as duplicate cards (Sandeep's May 2026 clone review was re-checked line by line against this release; it is fully applied). The Core Panel preset is now a runnable 9-marker panel: the two same-detector alternates (H3K4me2-PE for H3K4me1-PE on YG1; H3K9ac-Pacific Blue for H3K27me3-Pacific Blue on V3) are offered as one-click swaps under the conflict box instead of being co-loaded. Smaller fixes: HOXC12 moved from the orphan `Developmental` label into Pericyte, two anti-mouse IgM secondaries given roles, the Aves anti-GFP catalog field cleaned, and five fluorochromes added to the spectral maps (RB613, DAPI, Hoechst 33342, BV570 on both instruments, PE-CF594 on the S8), with `instruments.json` resynchronized to `index.html`. Clone coverage is 243/267 (91%); the 24 blanks are dyes, fluorescent proteins, streptavidins, isotype controls, and seven antibodies whose clone the ordering sheet did not record (listed for verification in `CLONE_REVIEW.md`). Per-field changes are logged as round 4 in `fixes_log.json`.
 
@@ -248,6 +248,12 @@ Spectral conflict heuristics and the overall panel-builder concept are inspired 
 BSD 2-Clause License. Copyright © 2024–2026 M.A. Serrano, Center for Regenerative Medicine (CReM), Chobanian & Avedisian School of Medicine, Boston University.
 
 See [LICENSE](LICENSE) for the full text.
+
+---
+
+## How to cite
+
+A `CITATION.cff` file is included; GitHub shows a "Cite this repository" button from it. Please cite the Zenodo deposit (concept DOI, which always resolves to the latest version) and the EpiFlow method paper (Golden et al., 2025, *Epigenetics Reports*).
 
 ---
 

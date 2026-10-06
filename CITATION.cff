@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use the EpiFlow Panel Builder, please cite it as below."
+title: "Serrano Lab EpiFlow Panel Builder"
+type: software
+version: "1.4"
+date-released: "2026-10-06"
+license: BSD-2-Clause
+repository-code: "https://github.com/SerranoLab/EpiFlow_Builder"
+url: "https://serranolab.github.io/EpiFlow_Builder/"
+abstract: >-
+  A single-page web application for designing spectrally aware flow cytometry
+  panels from the Serrano Lab reagent inventory, with dual-instrument detector
+  mapping (Cytek Aurora 5L, BD FACSDiscover S8), conflict detection,
+  alternative-conjugate suggestions, biotin/streptavidin pairing and a
+  measured-spectra similarity matrix. Built around the EpiFlow histone
+  post-translational-modification profiling platform.
+authors:
+  - family-names: Sreerama
+    given-names: Sandeep
+    affiliation: "Center for Regenerative Medicine, Boston University Chobanian & Avedisian School of Medicine"
+  - family-names: Serrano
+    given-names: Maria A.
+    email: maserr@bu.edu
+    affiliation: "Center for Regenerative Medicine, Boston University Chobanian & Avedisian School of Medicine"
+keywords:
+  - spectral flow cytometry
+  - panel design
+  - histone post-translational modifications
+  - EpiFlow
+  - antibody inventory
+# doi: 10.5281/zenodo.XXXXXXX   <- add the Zenodo Concept DOI once the deposit is live
+references:
+  - type: article
+    title: "EpiFlow: whole-cell high-throughput spectral flow cytometry profiling of histone post-translational modifications"
+    authors:
+      - family-names: Golden
+        given-names: Carly
+      - family-names: Serrano
+        given-names: Maria A.
+    journal: "Epigenetics Reports"
+    year: 2025
