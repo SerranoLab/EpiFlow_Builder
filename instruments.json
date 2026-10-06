@@ -1092,6 +1092,10 @@
       "SUPER BRIGHT 780": "V15",
       "BV786": "V15",
       "BV510": "V7",
+      "BV570": "V8",
+      "RB613": "B6",
+      "DAPI": "UV5",
+      "HOECHST 33342": "UV5",
       "VIO BRIGHT V423": "V2",
       "AF405": "V2",
       "NOVAFLUOR BLUE 510": "B1",
@@ -1157,7 +1161,8 @@
       "TDTOMATO": "YG1",
       "MORANGE2": "YG1",
       "DSRED": "YG1",
-      "MKATE2": "YG4"
+      "MKATE2": "YG4",
+      "TAGRFP": "YG1"
     },
     "BD_S8": {
       "BUV395": "UV3",
@@ -1189,6 +1194,11 @@
       "SUPER BRIGHT 780": "V18",
       "BV786": "V18",
       "BV510": "V6",
+      "BV570": "V9",
+      "RB613": "B7",
+      "DAPI": "UV5",
+      "HOECHST 33342": "UV5",
+      "PE-CF594": "YG3",
       "VIO BRIGHT V423": "V2",
       "AF405": "V2",
       "NOVAFLUOR BLUE 510": "B2",
@@ -1252,7 +1262,8 @@
       "TDTOMATO": "YG1",
       "MORANGE2": "YG1",
       "DSRED": "YG1",
-      "MKATE2": "YG5"
+      "MKATE2": "YG5",
+      "TAGRFP": "YG1"
     }
   }
 }

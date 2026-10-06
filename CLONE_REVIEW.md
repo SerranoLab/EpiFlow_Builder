@@ -227,3 +227,21 @@ Grouped by vendor. The Miltenyi REAfinity cluster is the largest — each produc
 
 **AB025 (AQP4).** The string `Ms IgG2k` in the antibody field is the host/isotype, not a clone. Thermo catalog should give the actual clone.
 
+
+---
+
+## Round 4 (October 2026) — entries added from the ordering-sheet reconciliation that still need a clone
+
+These seven reagents were purchased (confirmed order tabs, 2022–2026) but the ordering sheet does not record a clone. Verify against the vial or vendor page and fill the `clone` field.
+
+| ID | Marker | Vendor | Catalog | Conjugation | Note |
+|----|--------|--------|---------|-------------|------|
+| AB234 | DLL4 | R&D Systems | MAB1506 | Purified | Rat monoclonal; ordered 3× in 2026 |
+| AB235 | RBPJ | Santa Cruz | sc-271128 | Purified | "IP-verified monoclonal" on the 2023 order |
+| AB240 | CD140a/PDGFRα | Thermo Fisher | MA1-10097 | APC | 2024 order; mouse monoclonal |
+| AB242 | MAP2 | Sigma-Aldrich | FCMAB318PE | PE | Milli-Mark conjugate, 2024 |
+| AB247 | SOX2 | Antibodies Inc | SOX2-0020 | Purified | CUT&RUN, 2026 |
+| AB248 | H3K4me3 | EpiCypher | 13-0060 | Purified | SNAP-Certified CUT&RUN; EpiCypher lists a clone on the datasheet |
+| AB249 | H3K27me3 | EpiCypher | 13-0055 | Purified | SNAP-Certified CUT&RUN; EpiCypher lists a clone on the datasheet |
+
+Also flagged, not changed: **AB045** (Histone H3 D1H2 purified, CST 4499) appears in no ordering sheet 2022–2026; confirm it is in the freezer or retire it. **AB058** (Biomatik FLAG-tag ELISA kit) is not a flow reagent and remains pending a decision.

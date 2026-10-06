@@ -1678,5 +1678,645 @@
     "reason": "Sandeep Round-3 lookup: Sigma P8825 PCNA",
     "confidence": "high",
     "round": 3
+  },
+  {
+    "id": "AB222",
+    "marker": "γH2AX",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Miltenyi 130-130-936, REA502, Vio B515",
+    "reason": "Purchase order 2026-05-12 (Sandeep, EpiFlow Panel); replication-stress gate planned in R01 Exp. 1B",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB097",
+    "marker": "CD144/VE-Cadherin",
+    "field": "antibody",
+    "old": "Anti-CD144 PE conjugated Clone REA199",
+    "new": "CD144 (VE-Cadherin) Antibody, anti-human, PE, REAfinity™",
+    "reason": "Merged duplicate AB125 (same catalog 130-118-495, clone REA199); kept cleaner product name",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB097",
+    "marker": "CD144/VE-Cadherin",
+    "field": "role",
+    "old": "VE-Cadherin, EC junction",
+    "new": "VE-Cadherin, endothelial adherens junction",
+    "reason": "Merged duplicate AB125 role text",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB125",
+    "marker": "CD144/VE-Cadherin",
+    "field": "(removed)",
+    "old": "130-118-495 PE REA199",
+    "new": "",
+    "reason": "Exact duplicate of AB097 (same catalog number and clone). ID AB125 retired, not reused, so saved panels keep stable IDs",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB088",
+    "marker": "HOXC12",
+    "field": "module",
+    "old": "Developmental",
+    "new": "Pericyte",
+    "reason": "'Developmental' is not one of the 14 module categories (fell into the removed Other bucket); posterior HOX positional identity belongs with the mesoderm/pericyte module alongside HOXC11 in the original schema",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB088",
+    "marker": "HOXC12",
+    "field": "role",
+    "old": "Developmental homeobox transcription factor",
+    "new": "Posterior HOX positional identity (mesoderm / pericyte lineage); homeobox transcription factor",
+    "reason": "Role aligned with module",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB152",
+    "marker": "Mouse IgM (secondary)",
+    "field": "role",
+    "old": "",
+    "new": "Secondary antibody (anti-mouse IgM), AF488",
+    "reason": "Empty role; matched convention of AB099/AB153",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB154",
+    "marker": "Mouse IgM (secondary)",
+    "field": "role",
+    "old": "",
+    "new": "Secondary antibody (anti-mouse IgM), AF647",
+    "reason": "Empty role; matched convention of AB099/AB155",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB102",
+    "marker": "GFP",
+    "field": "catNo",
+    "old": "NC9510598 (Aves Labs - GFP 1020)",
+    "new": "GFP-1020",
+    "reason": "Catalog field contained vendor text; Aves Labs catalog is GFP-1020 (Fisher NC9510598 kept in product name)",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB102",
+    "marker": "GFP",
+    "field": "antibody",
+    "old": "Aves Labs, Inc Anti-Green Fluorescent Protein (GFP) Antibody",
+    "new": "Anti-GFP Antibody, chicken polyclonal (Aves Labs GFP-1020; Fisher NC9510598)",
+    "reason": "Moved Fisher reseller number out of catalog field",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB102",
+    "marker": "GFP",
+    "field": "vendor",
+    "old": "Aves Lab",
+    "new": "Aves Labs",
+    "reason": "Vendor name normalized",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB123",
+    "marker": "CD57",
+    "field": "vendor",
+    "old": "Thermo Fisher",
+    "new": "BioLegend",
+    "reason": "PO 2023-08-25 ordered from BioLegend (catalog recorded as 35911, a typo of 359611)",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB097",
+    "marker": "CD144/VE-Cadherin",
+    "field": "antibody",
+    "old": "CD144 (VE-Cadherin) Antibody, anti-human, PE, REAfinity™",
+    "new": "CD144 (VE-Cadherin) Antibody, anti-human, PE, REAfinity™ (also ordered as 130-118-358, 30-test size, 2026)",
+    "reason": "Both catalog sizes purchased (130-118-495 in 2023/2024; 130-118-358 in 2026)",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB135",
+    "marker": "EPHB4",
+    "field": "antibody",
+    "old": "EPHB4 Antibody, anti-human, REAfinity",
+    "new": "EPHB4 Antibody, anti-human, PE-Vio® 770, REAfinity™ (also ordered as 130-115-501, 30-test size, 2026)",
+    "reason": "Both catalog sizes purchased (130-115-598 in 2024/2025; 130-115-501 in 2026)",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB148",
+    "marker": "NOTCH1",
+    "field": "antibody",
+    "old": "Notch1 Antibody, anti-human, REAfinity  Vio® Bright V423",
+    "new": "Notch1 Antibody, anti-human, Vio® Bright V423, REAfinity™ (also ordered as 130-128-532, 30-test size, 2026)",
+    "reason": "Both catalog sizes purchased (130-128-652 in 2024/2025; 130-128-532 in 2026)",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB205",
+    "marker": "CD31/PECAM-1",
+    "field": "antibody",
+    "old": "Anti-CD31 APC conjugated Clon- AC128",
+    "new": "CD31 Antibody, anti-human, APC, REAfinity™ (AC128) (also ordered as 130-119-891, 30-test size, 2026)",
+    "reason": "Both catalog sizes purchased (130-119-976 in 2023–2026; 130-119-891 in 2026)",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB209",
+    "marker": "Viability (Violet)",
+    "field": "antibody",
+    "old": "LIVE/DEAD™ Fixable Violet Dead Cell Stain Kit",
+    "new": "LIVE/DEAD™ Fixable Violet Dead Cell Stain Kit (also ordered as L34963, 200-assay kit, 2023)",
+    "reason": "L34963 purchased twice in 2023; L34955 in 2025",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB223",
+    "marker": "H3",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 12167 Pacific Blue",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB224",
+    "marker": "H3K9ac",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 58010 Alexa Fluor 700",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB225",
+    "marker": "H3K23ac",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Abcam ab318548 Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB226",
+    "marker": "DNA content",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher 62248 DAPI",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB227",
+    "marker": "DNA content",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher 62249 Hoechst 33342",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB228",
+    "marker": "EdU (S-phase)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher C10634 Alexa Fluor 647",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB229",
+    "marker": "F-actin",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 8940S Alexa Fluor 647",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB230",
+    "marker": "JAG1",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 67301S Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB231",
+    "marker": "JAG1",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 70109T Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB232",
+    "marker": "NOTCH1",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 4380T Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB233",
+    "marker": "Cleaved NOTCH1 (NICD)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 4147S Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB234",
+    "marker": "DLL4",
+    "field": "(new entry)",
+    "old": "",
+    "new": "R&D Systems MAB1506 Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB235",
+    "marker": "RBPJ",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Santa Cruz sc-271128 Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB236",
+    "marker": "CD184/CXCR4",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Miltenyi Biotec 130-117-354 PE",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB237",
+    "marker": "HIF-1α",
+    "field": "(new entry)",
+    "old": "",
+    "new": "BD Biosciences 569562 Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB238",
+    "marker": "IL-6",
+    "field": "(new entry)",
+    "old": "",
+    "new": "BD Biosciences 570067 RB780",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB239",
+    "marker": "Streptavidin",
+    "field": "(new entry)",
+    "old": "",
+    "new": "BD Biosciences 571111 RB613",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB240",
+    "marker": "CD140a/PDGFRa",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher MA1-10097 APC",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB241",
+    "marker": "O4",
+    "field": "(new entry)",
+    "old": "",
+    "new": "R&D Systems FAB1326P PE",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB242",
+    "marker": "MAP2",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Sigma-Aldrich FCMAB318PE PE",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB243",
+    "marker": "PAX6",
+    "field": "(new entry)",
+    "old": "",
+    "new": "BD Biosciences 562388 PerCP-Cy5.5",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB244",
+    "marker": "β-Catenin",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Sigma-Aldrich C7207 FITC",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB245",
+    "marker": "β-Catenin",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Santa Cruz sc-7963 Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB246",
+    "marker": "SOX2",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Active Motif 39844 Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB247",
+    "marker": "SOX2",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Antibodies Inc SOX2-0020 Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB248",
+    "marker": "H3K4me3",
+    "field": "(new entry)",
+    "old": "",
+    "new": "EpiCypher 13-0060 Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB249",
+    "marker": "H3K27me3",
+    "field": "(new entry)",
+    "old": "",
+    "new": "EpiCypher 13-0055 Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB250",
+    "marker": "FKBP12",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 94838S Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB251",
+    "marker": "HSP90",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Cell Signaling 4877T Purified",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB252",
+    "marker": "Mouse IgG2b (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21141 Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB253",
+    "marker": "Mouse IgG2b (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21144 Alexa Fluor 568",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB254",
+    "marker": "Mouse IgG2b (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21242 Alexa Fluor 647",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB255",
+    "marker": "Mouse IgG1 (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21121 Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB256",
+    "marker": "Mouse IgG1 (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21124 Alexa Fluor 568",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB257",
+    "marker": "Mouse IgG1 (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21240 Alexa Fluor 647",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB258",
+    "marker": "Mouse IgG2a (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21131 Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB259",
+    "marker": "Rabbit IgG Fc (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A78953 Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB260",
+    "marker": "Rabbit IgG Fc (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A78955 Alexa Fluor 568",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB261",
+    "marker": "Rabbit IgG Fc (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A78957 Alexa Fluor 647",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB262",
+    "marker": "Rabbit IgG (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A32731 Alexa Fluor Plus 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB263",
+    "marker": "Rat IgG (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-11006 Alexa Fluor 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB264",
+    "marker": "Rat IgG (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-11077 Alexa Fluor 568",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB265",
+    "marker": "Rat IgG (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-21247 Alexa Fluor 647",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB266",
+    "marker": "Chicken IgY (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A32931 Alexa Fluor Plus 488",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB267",
+    "marker": "Chicken IgY (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A-11041 Alexa Fluor 568",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB268",
+    "marker": "Chicken IgY (secondary)",
+    "field": "(new entry)",
+    "old": "",
+    "new": "Thermo Fisher A32933 Alexa Fluor Plus 647",
+    "reason": "Purchased per lab ordering sheets 2022–2026; absent from inventory",
+    "confidence": "high",
+    "round": 4
+  },
+  {
+    "id": "AB151",
+    "marker": "CD140a/PDGFRa",
+    "field": "antibody",
+    "old": "CD140a Antibody, anti-mouse, APC-Vio® 770",
+    "new": "CD140a Antibody, anti-mouse, APC-Vio® 770 (ordered as 130-125-521 on 2024-04-19; 130-126-625 per Round-3 vial check)",
+    "reason": "Ordering sheet shows 130-125-521 (2024-04-19); Sandeep's Round-3 review deliberately corrected the catalog to 130-126-625. Kept the verified number, recorded the ordered one",
+    "confidence": "high",
+    "round": 4
   }
 ]

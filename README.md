@@ -1,8 +1,10 @@
 # Serrano Lab – EpiFlow Panel Builder
 
-A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 221 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
+A single-page web application for designing spectrally aware flow cytometry panels, built around a curated inventory of 267 reagents from the Serrano Lab at Boston University's Center for Regenerative Medicine (CReM).
 
 **[Live tool](https://serranolab.github.io/EpiFlow_Builder/)** 
+
+**Version 1.3 · October 2026.** This release reconciles the inventory against the complete lab ordering sheets (2022–2026) and grows it from 221 to 267 entries. γH2AX (H2AX pS139, Miltenyi REAfinity clone REA502, Vio B515; purchased May 2026 for the replication-stress gate in the KMT2D S-phase experiments) is entry AB222. The reconciliation surfaced 46 purchased reagents that had never been entered: a Pacific Blue total-H3 (CST 12167), H3K9ac SignalFlex AF700 (CST 58010), H3K23ac AF488 (Abcam ab318548), DAPI and Hoechst 33342, the Click-iT EdU AF647 flow kit, AF647 phalloidin, the whole NOTCH working set (Jagged1 AF488 and purified, Notch1 D6F11, cleaved Notch1 Val1744, R&D DLL4, RBPJ), CXCR4-PE REAfinity, HIF-1α AF488, IL-6 RB780, RealBlue 613 streptavidin, PDGFRα-APC, O4-PE, MAP2-PE, Pax-6 PerCP-Cy5.5, β-catenin (FITC and purified), the CUT&RUN antibodies (EpiCypher H3K4me3 and H3K27me3, two SOX2), FKBP12 (dTAG validation), HSP90, and seventeen Alexa Fluor goat secondaries from the 2022 start-up order. Three corrections came from the purchase orders: BioLegend as the vendor of the CD57-PE pair, the duplicate CD144-PE entry merged (AB125 retired, ID not reused so saved panels stay valid), and size-variant catalog numbers recorded on the CD144, EPHB4, Notch1, CD31-APC, LIVE/DEAD Violet and anti-mouse CD140a entries rather than as duplicate cards (Sandeep's May 2026 clone review was re-checked line by line against this release; it is fully applied). The Core Panel preset is now a runnable 9-marker panel: the two same-detector alternates (H3K4me2-PE for H3K4me1-PE on YG1; H3K9ac-Pacific Blue for H3K27me3-Pacific Blue on V3) are offered as one-click swaps under the conflict box instead of being co-loaded. Smaller fixes: HOXC12 moved from the orphan `Developmental` label into Pericyte, two anti-mouse IgM secondaries given roles, the Aves anti-GFP catalog field cleaned, and five fluorochromes added to the spectral maps (RB613, DAPI, Hoechst 33342, BV570 on both instruments, PE-CF594 on the S8), with `instruments.json` resynchronized to `index.html`. Clone coverage is 243/267 (91%); the 24 blanks are dyes, fluorescent proteins, streptavidins, isotype controls, and seven antibodies whose clone the ordering sheet did not record (listed for verification in `CLONE_REVIEW.md`). Per-field changes are logged as round 4 in `fixes_log.json`.
 
 **Version 1.2 · May 2026.** This release integrates the Round-3 clone-ID verification by Sandeep Sreerama (manual clone lookups, BD/BioLegend spot-checks, and verified conjugation and catalog-number corrections), raising clone coverage to 205/221 (93%), unifies the NG2 and Nestin marker labels so the alternative-conjugate suggestions resolve them, and adds a spectral-compatibility disclaimer to the tool footer.
 
@@ -12,13 +14,13 @@ A single-page web application for designing spectrally aware flow cytometry pane
 
 The EpiFlow Panel Builder helps you select antibodies and reagents for multi-parameter spectral flow cytometry panels. Unlike spectral viewers such as FluoroFinder, this tool operates one step earlier in the workflow: it helps you decide **which reagents to pull from the lab inventory** before you sit down at the instrument, catching detector conflicts and spectral overload before you waste cells and time.
 
-The tool is organized around the **Core EpiFlow panel** — an 11-marker configuration for multiparametric histone H3 post-translational modification (H3-PTM) profiling — with interchangeable biology modules (Neural, Pericyte, Endothelial, Cardiac, Immune, NOTCH, etc.) that can be layered on top.
+The tool is organized around the **Core EpiFlow panel** — a 9-marker configuration for multiparametric histone H3 post-translational modification (H3-PTM) profiling — with interchangeable biology modules (Neural, Pericyte, Endothelial, Cardiac, Immune, NOTCH, etc.) that can be layered on top.
 
 ### Key capabilities
 
-- **Search and filter** 221 reagents by marker, antibody name, catalog number, conjugation, module, or role.
+- **Search and filter** 267 reagents by marker, antibody name, catalog number, conjugation, module, or role.
 - **Module filtering** with count badges showing how many conjugated reagents each module contains (Core EpiFlow, Cerebral/Neural, Pericyte, Endothelial, PBMC/Immune, NOTCH, Cardiac, Pluripotent, and more).
-- **One-click Core Panel loading** pre-selects the canonical 11-marker EpiFlow panel: FxCycle Violet (DNA), Zombie NIR (viability), total H3-AF700, H3K27me3-Pacific Blue, H3K4me3-AF647, H3K27ac-PE-Cy7, H3K9ac-Pacific Blue, H3K4me1-PE, H3K4me2-PE, phH3-AF532, Active Caspase-3-BV650.
+- **One-click Core Panel loading** pre-selects a runnable 9-marker EpiFlow panel with no detector conflicts: FxCycle Violet (DNA), Zombie NIR (viability), total H3-AF700, H3K27me3-Pacific Blue, H3K4me3-AF647, H3K27ac-PE-Cy7, H3K4me1-PE, phH3-AF532, Active Caspase-3-BV650. The two same-detector alternates in the Core module (H3K4me2-PE, which shares YG1 with H3K4me1-PE, and H3K9ac-Pacific Blue, which shares V3 with H3K27me3-Pacific Blue) are listed under the conflict box as one-click swaps rather than co-loaded. γH2AX-Vio B515 (B2) can be added to this panel without a conflict.
 - **Dual instrument support** for Cytek Aurora 5L (64 channels) and BD FACSDiscover S8 (78 channels), with per-instrument fluorochrome-to-channel mapping derived from official Thermo Fisher selection guides.
 - **Conflict detection**: primary detector overlap, fluorochrome reuse, and heuristic spectral load per Aurora/S8 channel.
 - **Alternative-conjugate suggestions**: when a panel has a detector overlap or fluorochrome-reuse conflict, the tool surfaces other inventory entries for the same marker on different fluorochromes, marks which alternatives would resolve the conflict cleanly, and offers a one-click swap (feature suggested by Sandeep Sreerama).
@@ -45,7 +47,7 @@ GitHub Pages deployment enables `localStorage` for persistent panel saves across
 
 ### First use
 
-1. Click **Load Core Panel** to pre-select the 11-marker Core EpiFlow configuration.
+1. Click **Load Core Panel** to pre-select the 9-marker Core EpiFlow configuration; use the **Core alternates** chips to swap in H3K4me2-PE or H3K9ac-Pacific Blue.
 2. Use the **module buttons** to filter by biology (e.g., click "Neural" to see cerebral/neural reagents).
 3. Click **Add** on any card to include it in your panel. The conflict checker updates in real time.
 4. Check the **laser balance bar** — aim for reasonable distribution across all 5 lasers.
@@ -57,20 +59,20 @@ GitHub Pages deployment enables `localStorage` for persistent panel saves across
 
 ## Reagent inventory
 
-The 221-entry inventory was compiled from Serrano Lab purchase orders spanning 2022–2026 and includes reagents from Cell Signaling Technology, BD Biosciences, BioLegend, R&D Systems, Miltenyi Biotec, Abcam, Thermo Fisher/Invitrogen, Novus Biologicals, Proteintech, and other vendors.
+The 267-entry inventory was compiled from Serrano Lab purchase orders spanning 2022–2026 (fully reconciled against the ordering sheets in October 2026) and includes reagents from Cell Signaling Technology, BD Biosciences, BioLegend, R&D Systems, Miltenyi Biotec, Abcam, Thermo Fisher/Invitrogen, Novus Biologicals, Proteintech, and other vendors.
 
 ### Modules
 
 | Module | Description | Examples |
 |--------|-------------|----------|
 | **Core EpiFlow** | H3-PTM profiling, cell cycle, viability, apoptosis | H3K27me3, H3K4me3, H3K27ac, H3K9ac, H3K4me1/me2, phH3, FxCycle Violet, Zombie NIR, Active Caspase-3 |
-| **Cell Cycle** | Proliferation and cell cycle markers | Ki67, Cyclin D1, PCNA, p53 |
+| **Cell Cycle** | Proliferation, cell cycle, DNA content and DNA-damage markers | Ki67, Cyclin D1, PCNA, p53, γH2AX, EdU, DAPI, Hoechst 33342 |
 | **Epigenetic** | Chromatin writers/erasers (non-H3-PTM) | KMT2D, p53K372me |
 | **Neural** | Neuronal, glial, and neural progenitor markers | PAX6, NEUN, GFAP, OLIG2, SOX10, TBR1, Nestin, SOX2, MAP2, MBP, HuC/HuD |
 | **Pericyte** | Pericyte, mural cell, and mesoderm markers | NG2/CSPG4, CD140a/PDGFRa, CD140b/PDGFRb, CD13, RGS5, alpha-SMA, Brachyury/T, FOXF2 |
 | **Vascular** | Endothelial, angiogenesis, and vasculogenesis | CD31/PECAM-1, CD144/VE-Cadherin, CD309/VEGFR-2, CD34, EPHB4 |
 | **Immune** | PBMC and immune cell markers | CD45, CD3, CD19, CD33, CD56, CD57, CD68, CD14, CD11b |
-| **NOTCH** | Notch signaling pathway | NOTCH1, NOTCH3, DLL4, Jagged1, HER4/ErbB4, EPHB4 |
+| **NOTCH** | Notch signaling pathway | NOTCH1, cleaved NOTCH1 (NICD), NOTCH3, DLL4, Jagged1, RBPJ, HER4/ErbB4, EPHB4 |
 | **Cardiac** | Cardiomyocyte markers | HOPX, cTnT, NFATc1 |
 | **Pluripotent** | Stem cell markers | TRA-1-81, OCT4, SOX2 |
 | **Structural** | Cytoskeletal and housekeeping markers | TUJ1/TUBB3, Vimentin, Acetylated Tubulin, beta-Actin, GAPDH |
@@ -189,7 +191,7 @@ The antibody inventory was compiled through a systematic audit of all Serrano La
 
 A subsequent clone-ID audit (May 2026) extracted clone names embedded in product names but missing from the dedicated `clone` field for 41 entries, including all BD-format catalog listings (e.g., `Hu CD3 BUV805 SK7 100Tst` → clone `SK7`), parenthetical clone codes (e.g., `Pax6 Antibody (PAX6/1166)` → clone `PAX6/1166`), Abcam recombinant identifiers (e.g., `[EPR2673]`), and explicit polyclonal labels. The audit also corrected the H3K9ac PE-conjugate clone assignment (`C5B11`, not `C4B11`, per CST cat 28036) and a mislabel of EpCAM as `CD325` (the correct CD designation is `CD326`; CD325 is N-cadherin/CDH2). A full fixes log accompanies the inventory.
 
-A Round-3 verification (Sandeep Sreerama, May 2026) closed out the remaining gaps: manual clone lookups for the vendor entries that could not be resolved from product names (Miltenyi REAfinity, Thermo/Invitrogen secondaries, Proteintech, Sigma, GeneTex), spot-checks of the BD/BioLegend clones whose provenance had not been fully captured, and verified corrections to several conjugation and catalog-number fields where the dataset disagreed with the vendor product page. Notable fixes include six Miltenyi entries mislabeled as `Purified` that are in fact conjugated (e.g., CD31 VioBlue, EPHB4 PE-Vio 770, CD34 APC-Vio 770), a CD36 clone that belonged to a different (FITC) product (`FA6-152`, not `CLB-IVC7`), a secondary mislabeled as Alexa Fluor 647 that is Alexa Fluor Plus 405, and three corrected Miltenyi/BioLegend catalog numbers. The NG2 and Nestin marker labels were unified so the alternative-conjugate feature, which matches on exact marker name, surfaces cross-conjugate suggestions across those families. Clone coverage now stands at **205/221 (93%)**; the 16 remaining blanks are isotype controls, streptavidin conjugates, and one recombinant FLAG ELISA peptide, none of which carry an antibody clone. The full per-field fixes log (`fixes_log.json`, 168 entries across three rounds) and the consolidated review (`CLONE_REVIEW.md`) accompany the inventory.
+A Round-3 verification (Sandeep Sreerama, May 2026) closed out the remaining gaps: manual clone lookups for the vendor entries that could not be resolved from product names (Miltenyi REAfinity, Thermo/Invitrogen secondaries, Proteintech, Sigma, GeneTex), spot-checks of the BD/BioLegend clones whose provenance had not been fully captured, and verified corrections to several conjugation and catalog-number fields where the dataset disagreed with the vendor product page. Notable fixes include six Miltenyi entries mislabeled as `Purified` that are in fact conjugated (e.g., CD31 VioBlue, EPHB4 PE-Vio 770, CD34 APC-Vio 770), a CD36 clone that belonged to a different (FITC) product (`FA6-152`, not `CLB-IVC7`), a secondary mislabeled as Alexa Fluor 647 that is Alexa Fluor Plus 405, and three corrected Miltenyi/BioLegend catalog numbers. The NG2 and Nestin marker labels were unified so the alternative-conjugate feature, which matches on exact marker name, surfaces cross-conjugate suggestions across those families. Clone coverage now stands at **205/221 (93%)**; the 16 remaining blanks are isotype controls, streptavidin conjugates, and one recombinant FLAG ELISA peptide, none of which carry an antibody clone. The full per-field fixes log (`fixes_log.json`, 232 entries across four rounds) and the consolidated review (`CLONE_REVIEW.md`) accompany the inventory.
 
 **Disclaimer — guidance only.** Detector assignments and conflict flags in this tool are spectral heuristics based on emission-peak channels, not measured spillover or a full spectral similarity/complexity analysis. Three conjugates added in this release that are not in the tool's reference fluorochrome set (VioBlue, CoraLite Plus 488, Alexa Fluor Plus 405) are mapped to their nearest spectral analog (Pacific Blue, AF488, AF405 respectively) for channel placement. Users are responsible for confirming spectral compatibility and final panel performance in dedicated spectral panel-design software (e.g., Cytek Full Spectrum Viewer, BD Spectrum Viewer / FACSDiscover software) and with single-stained controls on the target instrument before running samples.
 
@@ -205,7 +207,7 @@ Spectral conflict heuristics and the overall panel-builder architecture are insp
 | `LICENSE` | BSD 2-Clause license |
 | `README.md` | This file |
 | `IMPLEMENTATION_GUIDE.md` | Guide for adapting the tool to other core facilities |
-| `clean_antibodies.json` | Machine-readable antibody inventory (221 entries; 205 with verified clone) |
+| `clean_antibodies.json` | Machine-readable antibody inventory (267 entries; 243 with clone) |
 | `instruments.json` | Instrument channel definitions and fluorochrome peak maps |
 | `fixes_log.json` | Per-field correction log (168 entries across three audit rounds) |
 | `CLONE_REVIEW.md` | Consolidated clone-ID review and verification record |
