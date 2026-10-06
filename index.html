@@ -130,6 +130,9 @@ body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;f
 .saved-item .sname{font-weight:500}.saved-item .scount{color:#64748b;font-size:.7rem}
 .saved-item .sdel{background:none;border:none;color:var(--danger);cursor:pointer;font-size:.72rem;padding:0 .2rem}
 .core-note{display:none;font-size:.72rem;color:#475569;padding:.35rem .45rem;background:#f8fafc;border:1px dashed var(--gray-light);border-radius:4px;margin-bottom:.4rem;line-height:1.7}.core-note.show{display:block}.core-note .alt-chip{margin-left:.3rem}
+.bio-tag{display:inline-block;font-size:.62rem;color:#92400e;background:#fef3c7;border-radius:3px;padding:0 .3rem;margin-left:.25rem}
+.sa-select{font-size:.7rem;margin-left:.4rem;padding:1px 2px;border:1px solid var(--gray-light);border-radius:3px;background:#fff;color:#1e293b;max-width:12rem}
+.warn-box p.note{color:#92400e;margin:.15rem 0;font-size:.74rem}
 .file-note{font-size:.7rem;color:#d97706;padding:.25rem .35rem;background:#fef3c7;border-radius:3px;margin-bottom:.35rem}
 
 .toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:#334155;color:#fff;padding:.45rem .9rem;border-radius:4px;box-shadow:0 2px 6px var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s;font-size:.82rem;z-index:9999}.toast.show{opacity:1}
@@ -5995,11 +5998,12 @@ const CONJ_MAP={
   "Alexa Fluor Plus 488":"AF488","Alexa Fluor Plus 647":"AF647","RB613":"RB613","DAPI":"DAPI","Hoechst 33342":"HOECHST 33342","Alexa Fluor Plus 405":"AF405"
 };
 function getFluorKey(ab){return CONJ_MAP[ab.conjugation]||null}
-function isUnconj(ab){return NON_FLUOR.has(ab.conjugation||"")&&!getFluorKey(ab)}
+function isUnconj(ab){if(isBiotin(ab))return false;return NON_FLUOR.has(ab.conjugation||"")&&!getFluorKey(ab)}
 function getModClass(m){m=(m||"").toLowerCase();if(m.includes("core epiflow"))return"mod-core";if(m.includes("cell cycle"))return"mod-cell-cycle";if(m.includes("epigenetic"))return"mod-epigenetic";if(m.includes("cerebral")||m.includes("neural"))return"mod-neural";if(m.includes("pericyte"))return"mod-pericyte";if(m.includes("vascular")||m.includes("endothelial")||m.includes("angiogenesis"))return"mod-vascular";if(m.includes("pbmc")||m.includes("immune"))return"mod-immune";if(m.includes("cardiac"))return"mod-cardiac";if(m.includes("pluripotent"))return"mod-pluripotent";if(m.includes("notch"))return"mod-notch";if(m.includes("phenotype"))return"mod-phenotype";if(m.includes("structural"))return"mod-structural";if(m.includes("detection"))return"mod-detection";if(m.includes("fluorescent protein"))return"mod-fp";if(m.includes("control"))return"mod-control";if(m.includes("developmental"))return"mod-other";return"mod-other"}
 
 let activeInstrument="Cytek_Aurora_5L";
 function getInfo(ab){
+  if(isBiotin(ab)){const sa=pairedSA(ab);if(sa){const i=getInfo(sa);i.via=sa;return i}return{fluorKey:null,laser:"",detector:"",brightness:2,biotinUnpaired:true}}
   const key=getFluorKey(ab),pm=FluorPeakByInstrument[activeInstrument]||{};
   if(key&&pm[key]){const det=pm[key],inst=Instruments[activeInstrument];let laser="";if(inst){const ch=inst.channels.find(c=>c.id===det);if(ch)laser=ch.laser}return{fluorKey:key,laser,detector:det,brightness:(FluorSpectra[key]||{}).brightness||2}}
   const raw=(ab.laser||"").toUpperCase().trim();let laser="",det="";
@@ -6010,6 +6014,11 @@ function laserLabel(n){n=String(n||"");if(n==="355"||n==="349")return{l:n+" nm (
 
 /* ═══ State ═══ */
 let selectedIds=new Set(),activeMod="All",searchQ="";
+/* Biotin reagents are detected through a streptavidin from the inventory; biotinPairs maps reagent id → streptavidin id */
+let biotinPairs={};
+function isBiotin(ab){return (ab.conjugation||"")==="Biotin"}
+function streptavidins(){return antibodies.filter(a=>a.marker==="Streptavidin"&&getFluorKey(a))}
+function pairedSA(ab){const id=biotinPairs[ab.id];return id?antibodies.find(a=>a.id===id):null}
 
 /* ═══ Init ═══ */
 document.addEventListener("DOMContentLoaded",()=>{
@@ -6019,7 +6028,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("hideIsotype").addEventListener("change",renderGrid);
   document.getElementById("instrumentSelect").addEventListener("change",e=>{activeInstrument=e.target.value;renderGrid();renderPanel()});
   document.getElementById("loadCoreBtn").addEventListener("click",()=>{CORE_PANEL_IDS.forEach(id=>selectedIds.add(id));renderGrid();renderPanel();toast("Core EpiFlow panel loaded (9 markers); same-detector alternates listed in the panel")});
-  document.getElementById("clearBtn").addEventListener("click",()=>{selectedIds.clear();renderGrid();renderPanel()});
+  document.getElementById("clearBtn").addEventListener("click",()=>{selectedIds.clear();biotinPairs={};renderGrid();renderPanel()});
   document.getElementById("copyBtn").addEventListener("click",copyPanel);
   document.getElementById("csvBtn").addEventListener("click",saveCSV);
   document.getElementById("saveBtn").addEventListener("click",saveCurrent);
@@ -6069,8 +6078,9 @@ function renderGrid(){
     h+='<div><strong>Clone:</strong> '+(ab.clone||"—")+'</div>';
     h+='<div><strong>Conjugation:</strong> '+(ab.conjugation||"Purified");
     if(li.b)h+=' <span class="lbadge '+li.c+'">'+li.b+'</span>';
+    if(isBiotin(ab))h+=info.via?' <span class="bio-tag">+ SA '+info.via.conjugation+'</span>':' <span class="bio-tag">pair with streptavidin</span>';
     h+='</div>';
-    h+='<div><strong>Detector:</strong> '+(info.detector||ab.laser||"—")+'</div>';
+    h+='<div><strong>Detector:</strong> '+(info.detector||ab.laser||(isBiotin(ab)?"via streptavidin":"—"))+'</div>';
     h+='<div><strong>Catalog:</strong> '+(ab.catNo||"—")+'</div>';
     h+='<div><em>'+(ab.role||"")+'</em></div></div>';
     body.innerHTML=h;
@@ -6107,8 +6117,15 @@ function renderPanel(){
     const item=document.createElement("div");item.className="sel-item";
     const info=getInfo(ab),li=laserLabel(info.laser);
     item.innerHTML='<span>'+ab.marker+' <strong>['+(ab.conjugation||"Purified")+']</strong>'+(li.b?' <span class="lbadge '+li.c+'">'+li.b+'</span>':'')+'</span>';
+    if(isBiotin(ab)){
+      const sel=document.createElement("select");sel.className="sa-select";sel.title="Streptavidin used to detect this biotinylated reagent";
+      const o0=document.createElement("option");o0.value="";o0.textContent="choose streptavidin…";sel.appendChild(o0);
+      streptavidins().forEach(sa=>{const o=document.createElement("option");o.value=sa.id;const si=getInfo(sa);o.textContent="SA "+sa.conjugation+" · "+(si.detector||"")+" ("+laserLabel(si.laser).b+")";if(biotinPairs[ab.id]===sa.id)o.selected=true;sel.appendChild(o)});
+      sel.onchange=()=>{if(sel.value)biotinPairs[ab.id]=sel.value;else delete biotinPairs[ab.id];renderGrid();renderPanel()};
+      item.querySelector("span").appendChild(sel);
+    }
     const rm=document.createElement("button");rm.className="rm-btn";rm.textContent="×";
-    rm.onclick=()=>{selectedIds.delete(ab.id);renderGrid();renderPanel()};
+    rm.onclick=()=>{selectedIds.delete(ab.id);delete biotinPairs[ab.id];renderGrid();renderPanel()};
     item.appendChild(rm);list.appendChild(item);
   });
   renderLaserBar(sel);checkConflicts(sel);renderCoreNote();
@@ -6128,7 +6145,7 @@ function renderCoreNote(){
 function renderLaserBar(sel){
   const bar=document.getElementById("laserBar");bar.innerHTML="";
   const lc={};let total=0;
-  sel.forEach(ab=>{if(isUnconj(ab))return;const info=getInfo(ab);const ln=info.laser||"?";lc[ln]=(lc[ln]||0)+1;total++});
+  sel.forEach(ab=>{const info=getInfo(ab);if(!info.laser)return;const ln=info.laser;lc[ln]=(lc[ln]||0)+1;total++});
   if(!total){bar.innerHTML='<div style="display:flex;align-items:center;justify-content:center;width:100%;font-size:.72rem;color:#94a3b8">No conjugated markers selected</div>';return}
   const order=activeInstrument==="BD_S8"?["349","405","488","561","637"]:["355","405","488","561","640"];
   const cls={"355":"uv","349":"uv","405":"vi","488":"bl","561":"yg","640":"rd","637":"rd"};
@@ -6142,8 +6159,14 @@ function checkConflicts(sel){
   const byDet={},byFluor={},byLaser={};
   sel.forEach(ab=>{const info=getInfo(ab);const lk=info.laser||"?";byLaser[lk]=(byLaser[lk]||0)+1;if(info.detector)(byDet[info.detector]||=[]).push(ab);if(info.fluorKey)(byFluor[info.fluorKey]||=[]).push(ab)});
   const msgs=[],conflictedIds=new Set();
+  /* Biotin layer: one streptavidin layer per panel; unpaired biotin reagents have no detector yet */
+  const bio=sel.filter(isBiotin);
+  if(bio.length>1)msgs.push({text:"Biotin layer shared: "+bio.map(x=>x.marker).join(", ")+" are all biotinylated and would be read by the same streptavidin; keep one biotinylated reagent per panel.",abs:bio});
+  const unpaired=bio.filter(x=>!pairedSA(x));
+  const notes=unpaired.map(x=>x.marker+" [Biotin] has no detector yet; choose a streptavidin in the panel list.");
   Object.entries(byDet).forEach(([d,arr])=>{if(arr.length>1){msgs.push({text:"Detector overlap \""+d+"\": "+arr.map(x=>x.marker).join(", "),abs:arr});arr.forEach(a=>conflictedIds.add(a.id))}});
   Object.entries(byFluor).forEach(([k,arr])=>{if(arr.length>1){msgs.push({text:"Fluor reuse \""+k+"\": "+arr.map(x=>x.marker).join(", "),abs:arr});arr.forEach(a=>conflictedIds.add(a.id))}});
+  notes.forEach(n=>{const p=document.createElement("p");p.className="note";p.textContent=n;box.appendChild(p)});
   if(msgs.length){
     msgs.forEach(m=>{const p=document.createElement("p");p.className="warn";p.textContent=m.text;box.appendChild(p)});
     /* Render alternative-conjugate suggestions for each conflicted antibody */
@@ -6199,12 +6222,13 @@ function findAlternatives(ab,sel){
     const info=getInfo(alt);
     const detClash=info.detector&&otherDets.has(info.detector);
     const fluorClash=info.fluorKey&&otherFluors.has(info.fluorKey);
-    const unconj=isUnconj(alt);
+    const unconj=isUnconj(alt),bioAlt=isBiotin(alt);
     let reason="";
     if(detClash)reason="hits "+info.detector;
     else if(fluorClash)reason="reuses "+info.fluorKey;
     else if(unconj)reason="unconjugated";
-    return{ab:alt,info,clean:!detClash&&!fluorClash&&!unconj,reason,unconj};
+    else if(bioAlt)reason="needs a streptavidin";
+    return{ab:alt,info,clean:!detClash&&!fluorClash&&!unconj&&!bioAlt,reason,unconj};
   });
   /* Sort: clean first, then conjugated (over purified), then by laser balance */
   scored.sort((a,b)=>{
@@ -6219,20 +6243,20 @@ function swapAntibody(oldId,newId){
   const oldAb=antibodies.find(a=>a.id===oldId);
   const newAb=antibodies.find(a=>a.id===newId);
   if(!oldAb||!newAb)return;
-  selectedIds.delete(oldId);
+  selectedIds.delete(oldId);delete biotinPairs[oldId];
   selectedIds.add(newId);
   renderGrid();renderPanel();
   toast("Swapped "+oldAb.marker+" ["+oldAb.conjugation+"] → ["+newAb.conjugation+"]");
 }
 
 /* ═══ Copy / CSV ═══ */
-function copyPanel(){const sel=antibodies.filter(a=>selectedIds.has(a.id));if(!sel.length)return;const il=Instruments[activeInstrument]?.label||activeInstrument;let t="Serrano Lab Panel ("+il+"):\n";sel.forEach(ab=>{const info=getInfo(ab),li=laserLabel(info.laser);t+="- "+ab.marker+" ["+(ab.conjugation||"Purified")+"], Laser: "+li.l+", Det: "+(info.detector||"—")+"\n"});navigator.clipboard.writeText(t).then(()=>toast("Copied!")).catch(e=>console.error(e))}
-function saveCSV(){const sel=antibodies.filter(a=>selectedIds.has(a.id));if(!sel.length)return;const h=["Marker","Antibody","Clone","Conjugation","Laser","Detector","Catalog","Role","Module"];const rows=[h.join(",")];sel.forEach(ab=>{const info=getInfo(ab),li=laserLabel(info.laser);const f=v=>{const s=String(v||"");return(s.includes(",")||s.includes('"'))?'"'+s.replace(/"/g,'""')+'"':s};rows.push([f(ab.marker),f(ab.antibody),f(ab.clone),f(ab.conjugation),f(li.l),f(info.detector||ab.laser),f(ab.catNo),f(ab.role),f(ab.module)].join(","))});const blob=new Blob([rows.join("\n")],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="serrano_panel.csv";document.body.appendChild(a);a.click();document.body.removeChild(a)}
+function copyPanel(){const sel=antibodies.filter(a=>selectedIds.has(a.id));if(!sel.length)return;const il=Instruments[activeInstrument]?.label||activeInstrument;let t="Serrano Lab Panel ("+il+"):\n";sel.forEach(ab=>{const info=getInfo(ab),li=laserLabel(info.laser);t+="- "+ab.marker+" ["+(ab.conjugation||"Purified")+(info.via?" + SA "+info.via.conjugation:"")+"], Laser: "+li.l+", Det: "+(info.detector||"—")+"\n"});navigator.clipboard.writeText(t).then(()=>toast("Copied!")).catch(e=>console.error(e))}
+function saveCSV(){const sel=antibodies.filter(a=>selectedIds.has(a.id));if(!sel.length)return;const h=["Marker","Antibody","Clone","Conjugation","Laser","Detector","Catalog","Role","Module"];const rows=[h.join(",")];sel.forEach(ab=>{const info=getInfo(ab),li=laserLabel(info.laser);const f=v=>{const s=String(v||"");return(s.includes(",")||s.includes('"'))?'"'+s.replace(/"/g,'""')+'"':s};rows.push([f(ab.marker),f(ab.antibody),f(ab.clone),f((ab.conjugation||"")+(info.via?" + SA "+info.via.conjugation+" ("+info.via.catNo+")":"")),f(li.l),f(info.detector||ab.laser),f(ab.catNo),f(ab.role),f(ab.module)].join(","))});const blob=new Blob([rows.join("\n")],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="serrano_panel.csv";document.body.appendChild(a);a.click();document.body.removeChild(a)}
 
 /* ═══ Storage ═══ */
 const Store=(()=>{let mem={},ok=false;try{localStorage.setItem("_t","1");localStorage.removeItem("_t");ok=true}catch{};return{get(k){if(ok)try{return JSON.parse(localStorage.getItem(k)||"{}")}catch{return{}}return mem[k]||{}},set(k,v){if(ok)localStorage.setItem(k,JSON.stringify(v));mem[k]=v},get persistent(){return ok}}})();
-function saveCurrent(){const name=document.getElementById("pnameInput").value.trim();if(!name){toast("Enter a name");return}if(!selectedIds.size){toast("No markers selected");return}const panels=Store.get("ep");panels[name]={ids:[...selectedIds],inst:activeInstrument,date:new Date().toISOString().slice(0,10)};Store.set("ep",panels);document.getElementById("pnameInput").value="";loadSaved();toast("Saved!"+(Store.persistent?"":" (session only)"))}
-function loadP(name){const p=Store.get("ep")[name];if(!p)return;selectedIds=new Set(p.ids);if(p.inst){activeInstrument=p.inst;document.getElementById("instrumentSelect").value=activeInstrument}renderGrid();renderPanel();toast('Loaded "'+name+'"')}
+function saveCurrent(){const name=document.getElementById("pnameInput").value.trim();if(!name){toast("Enter a name");return}if(!selectedIds.size){toast("No markers selected");return}const panels=Store.get("ep");panels[name]={ids:[...selectedIds],pairs:Object.fromEntries(Object.entries(biotinPairs).filter(([k])=>selectedIds.has(k))),inst:activeInstrument,date:new Date().toISOString().slice(0,10)};Store.set("ep",panels);document.getElementById("pnameInput").value="";loadSaved();toast("Saved!"+(Store.persistent?"":" (session only)"))}
+function loadP(name){const p=Store.get("ep")[name];if(!p)return;selectedIds=new Set(p.ids);biotinPairs=Object.assign({},p.pairs||{});if(p.inst){activeInstrument=p.inst;document.getElementById("instrumentSelect").value=activeInstrument}renderGrid();renderPanel();toast('Loaded "'+name+'"')}
 function delP(name){const p=Store.get("ep");delete p[name];Store.set("ep",p);loadSaved()}
 function exportJSON(){const p=Store.get("ep");if(!Object.keys(p).length){toast("No panels to export");return}const blob=new Blob([JSON.stringify(p,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="epiflow_panels.json";document.body.appendChild(a);a.click();document.body.removeChild(a);toast("Exported")}
 function importJSON(){const input=document.createElement("input");input.type="file";input.accept=".json";input.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const imp=JSON.parse(ev.target.result);const ex=Store.get("ep");Object.assign(ex,imp);Store.set("ep",ex);loadSaved();toast("Imported "+Object.keys(imp).length+" panel(s)")}catch{toast("Invalid JSON")}};r.readAsText(file)};input.click()}
