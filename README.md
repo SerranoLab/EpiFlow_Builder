@@ -109,6 +109,12 @@ Switching instruments via the dropdown remaps all fluorochrome-to-channel assign
 
 ---
 
+## Spectral similarity (measured)
+
+The tool ships with peak-normalized reference signatures for 18 fluorochromes measured on the lab's own Cytek Aurora (serial U1235) from the 18 June 2024 SSP bead library (`spectra/Cytek_Aurora_5L_beads_2024-06-18.json`, derived with `tools/signatures_from_fcs.py` as median(positive) − median(negative) per detector). For any panel whose fluorochromes have measured signatures, the panel area shows the full-array cosine similarity matrix (≥ 0.98 flagged red, 0.90–0.98 amber) and the condition number of the signature matrix. On the same panels, the bead-derived similarities reproduce SpectroFlo's similarity index to within 0.02 (mean difference 0.006 over 14 pairs); the condition number tracks the SpectroFlo Complexity Index (2.2 vs 2.4, 11.6 vs 14.6) without being identical to it. Fluorochromes without a measured signature are marked ~ in the matrix and use the heuristic spread. **Import spectra** accepts a CSV with one row per fluorochrome and one column per detector to add or override signatures for the selected instrument; imports are kept in the browser. Two peak detectors were corrected from the measurements: Vio B515 peaks in B1 (not B2) and mFluor Violet 500 in V7 (not V5) on the Aurora.
+
+---
+
 ## Conflict detection
 
 The panel builder checks three levels of compatibility:
