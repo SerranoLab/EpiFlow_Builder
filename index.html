@@ -133,7 +133,7 @@ body{background:var(--body-bg);color:var(--text);min-height:100vh;display:flex;f
 .bio-tag{display:inline-block;font-size:.62rem;color:#92400e;background:#fef3c7;border-radius:3px;padding:0 .3rem;margin-left:.25rem}
 .sa-select{font-size:.7rem;margin-left:.4rem;padding:1px 2px;border:1px solid var(--gray-light);border-radius:3px;background:#fff;color:#1e293b;max-width:12rem}
 .warn-box p.note{color:#92400e;margin:.15rem 0;font-size:.74rem}
-.sim-box{display:none;margin:.5rem 0;font-size:.74rem;color:#334155}.sim-box.show{display:block}.sim-box h4{font-size:.78rem;margin:.2rem 0 .35rem;color:#1e293b;font-weight:600}.sim-meta{color:#64748b;margin-bottom:.4rem;line-height:1.6}.sim-table{border-collapse:collapse;font-size:.66rem}.sim-table th,.sim-table td{padding:2px 5px;text-align:center;border:1px solid #e2e8f0;min-width:2.4rem}.sim-table th{background:#f8fafc;font-weight:600;color:#475569;white-space:nowrap}.sim-table th.row{text-align:left}.sim-table td.hi{background:#fde68a}.sim-table td.crit{background:#fca5a5;font-weight:700}.sim-table td.diag{background:#f1f5f9;color:#94a3b8}.sim-pairs{margin-top:.4rem;line-height:1.6}
+.sim-box{display:none;margin:.5rem 0;font-size:.74rem;color:#334155}.sim-box.show{display:block}.sim-box h4{font-size:.78rem;margin:.2rem 0 .35rem;color:#1e293b;font-weight:600}.sim-meta{color:#64748b;margin-bottom:.4rem;line-height:1.6}.sim-table{border-collapse:collapse;font-size:.66rem}.sim-table th,.sim-table td{padding:2px 5px;text-align:center;border:1px solid #e2e8f0;min-width:2.4rem}.sim-table th{background:#f8fafc;font-weight:600;color:#475569;white-space:nowrap}.sim-table th.row{text-align:left}.sim-heat td{border:1px solid #fff;min-width:2.6rem}.sim-heat td.blank{border:none;background:transparent}.sim-heat td.diag{background:#f1f5f9}.sim-heat td.hi{font-weight:700;box-shadow:inset 0 0 0 2px #b45309}.sim-heat td.crit{font-weight:700;box-shadow:inset 0 0 0 2px #7f1d1d}.sim-heat tr.heur td{opacity:.7}.sim-heat tr.heur th{color:#94a3b8}.sim-legend{display:flex;align-items:center;gap:.45rem;margin:.45rem 0 0;font-size:.66rem;color:#64748b;flex-wrap:wrap}.sim-key{margin-left:.9rem;display:inline-flex;align-items:center;gap:.3rem}.sim-key i{display:inline-block;width:.8rem;height:.8rem;border-radius:2px;background:#fff}.k-hi{box-shadow:inset 0 0 0 2px #b45309}.k-crit{box-shadow:inset 0 0 0 2px #7f1d1d}.sim-grad{display:inline-block;width:9rem;height:.6rem;border-radius:2px;background:linear-gradient(90deg,#fff,#f6c8a0 45%,#e07a2e 80%,#d55e00)}.sim-pairs{margin-top:.4rem;line-height:1.6}
 .preset-select{font-size:.78rem;padding:.3rem .4rem;border:1px solid var(--gray-light);border-radius:4px;background:#fff;color:#1e293b}
 .ab-meta{font-size:.66rem;color:#94a3b8}.ab-valid{display:inline-block;font-size:.62rem;color:#065f46;background:#d1fae5;border-radius:3px;padding:0 .3rem;margin:.1rem 0}
 .file-note{font-size:.7rem;color:#d97706;padding:.25rem .35rem;background:#fef3c7;border-radius:3px;margin-bottom:.35rem}
@@ -7496,16 +7496,24 @@ function conditionNumber(vs){
 function renderSimilarity(sel){
   const box=document.getElementById("simBox");if(!box)return;
   const items=[];const seen=new Set();
-  sel.forEach(ab=>{const info=getInfo(ab);if(!info.fluorKey||seen.has(info.fluorKey))return;seen.add(info.fluorKey);const sv=specVector(info.fluorKey);if(sv)items.push({key:info.fluorKey,label:ab.marker,sv})});
+  sel.forEach(ab=>{const info=getInfo(ab);if(!info.fluorKey)return;if(seen.has(info.fluorKey)){const it=items.find(x=>x.key===info.fluorKey);if(it)it.label+=" / "+ab.marker;return}seen.add(info.fluorKey);const sv=specVector(info.fluorKey);if(sv)items.push({key:info.fluorKey,label:ab.marker,sv})});
   if(items.length<2){box.className="sim-box";box.innerHTML="";return}
   const nMeas=items.filter(i=>i.sv.measured).length;
   if(!nMeas){box.className="sim-box show";box.innerHTML='<h4>Spectral similarity</h4><div class="sim-meta">No measured reference spectra for this instrument yet. Use <strong>Import spectra</strong> with a reference-spectra export (SpectroFlo or FACSDiscover, one row per fluorochrome, one column per detector) to compute the full-array similarity matrix and the unmixing condition number for this panel. Conflict detection above is based on peak detectors only.</div>';return}
   let html='<h4>Spectral similarity</h4><div class="sim-meta">'+(nMeas===items.length?'Measured reference spectra for all '+items.length+' fluorochromes.':'Measured spectra for '+nMeas+' of '+items.length+' fluorochromes; rows marked ~ use the heuristic spread and are indicative only.')+'</div>';
   let crit=[],hi=[];
-  html+='<table class="sim-table"><tr><th></th>'+items.map(i=>'<th title="'+i.key+'">'+i.label+'</th>').join('')+'</tr>';
-  items.forEach((a,i)=>{html+='<tr><th class="row" title="'+a.key+'">'+(a.sv.measured?'':'~ ')+a.label+' <span style="font-weight:400;color:#94a3b8">'+a.key+'</span></th>';
-    items.forEach((b,j)=>{if(i===j){html+='<td class="diag">·</td>';return}const s=cosine(a.sv.v,b.sv.v);const cls=s>=0.98?"crit":s>=0.90?"hi":"";html+='<td class="'+cls+'">'+s.toFixed(2)+'</td>';if(i<j){if(s>=0.98)crit.push([a,b,s]);else if(s>=0.90)hi.push([a,b,s])}});html+='</tr>'});
-  html+='</table>';
+  /* Heatmap: single-hue sequential scale (white → Okabe-Ito vermillion), lower triangle only; thresholds marked explicitly. */
+  const heat=s=>{const t=Math.pow(Math.max(0,Math.min(1,s)),0.65);const r=Math.round(255+(213-255)*t),g=Math.round(255+(94-255)*t),b=Math.round(255+(0-255)*t);return{bg:'rgb('+r+','+g+','+b+')',fg:t>0.55?'#fff':'#1e293b'}};
+  html+='<table class="sim-table sim-heat"><tr><th></th>'+items.slice(0,-1).map(i=>'<th title="'+i.key+'">'+i.label+'</th>').join('')+'</tr>';
+  items.forEach((a,i)=>{if(i===0)return;html+='<tr'+(a.sv.measured?'':' class="heur"')+'><th class="row" title="'+a.key+'">'+(a.sv.measured?'':'~ ')+a.label+' <span style="font-weight:400;color:#94a3b8">'+a.key+'</span></th>';
+    items.slice(0,-1).forEach((b,j)=>{
+      if(j>i){html+='<td class="blank"></td>';return}
+      if(i===j){html+='<td class="diag"></td>';return}
+      const s=cosine(a.sv.v,b.sv.v),c=heat(s);const cls=s>=0.98?"crit":s>=0.90?"hi":"";
+      html+='<td class="'+cls+'" style="background:'+c.bg+';color:'+c.fg+'" title="'+a.label+' ('+a.key+') vs '+b.label+' ('+b.key+'): '+s.toFixed(3)+'">'+s.toFixed(2)+'</td>';
+      if(s>=0.98)crit.push([a,b,s]);else if(s>=0.90)hi.push([a,b,s])});
+    html+='</tr>'});
+  html+='</table><div class="sim-legend"><span>0</span><span class="sim-grad"></span><span>1</span><span class="sim-key"><i class="k-hi"></i> ≥ 0.90 caution</span><span class="sim-key"><i class="k-crit"></i> ≥ 0.98 critical</span></div>';
   const cn=conditionNumber(items.map(i=>i.sv));
   html+='<div class="sim-pairs"><strong>Unmixing condition number:</strong> '+cn.toFixed(1)+' <span style="color:#64748b">(1 = orthogonal signatures; comparable to the SpectroFlo Complexity Index, which reads somewhat higher on the same panels)</span>';
   if(crit.length)html+='<br><strong style="color:var(--danger)">Similarity ≥ 0.98:</strong> '+crit.map(([a,b,s])=>a.label+' / '+b.label+' ('+s.toFixed(2)+')').join('; ');
